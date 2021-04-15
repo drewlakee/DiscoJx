@@ -1,2 +1,5 @@
 .gradle
 .idea
+
+# test scripts
+sh

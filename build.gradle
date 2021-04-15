@@ -11,10 +11,13 @@ repositories {
 
 ext {
     jacksonVersion = "2.12.3"
+    apacheHttpClientVersion = "4.5.13"
 }
 
 dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "$jacksonVersion"
+
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: "$apacheHttpClientVersion"
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
