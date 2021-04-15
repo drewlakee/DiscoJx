@@ -3,7 +3,10 @@ package discojx.discogs.api;
 public enum DiscogsEndpoints {
 
     ROOT ("https://api.discogs.com"),
-    USER_IDENTITY (ROOT.getEndpoint() + "/oauth/identity");
+
+    USER_IDENTITY (ROOT.endpoint + "/oauth/identity"),
+
+    PROFILE (ROOT.endpoint + "/users/{username}");
 
     private final String endpoint;
 
