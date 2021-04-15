@@ -9,11 +9,25 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    jacksonVersion = "2.12.3"
+}
+
 dependencies {
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-core', version: "$jacksonVersion"
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
+jar {
+    baseName("discojx")
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
 test {
     useJUnitPlatform()
+    maxParallelForks(Runtime.getRuntime().availableProcessors())
 }
