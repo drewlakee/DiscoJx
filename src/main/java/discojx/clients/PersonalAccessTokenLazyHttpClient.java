@@ -7,16 +7,16 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.concurrent.CompletionException;
 
 public class PersonalAccessTokenLazyHttpClient extends AbstractHttpClient<HttpEntity> {
 
-    private final byte[] tokenBytes;
+    private final String token;
 
     public PersonalAccessTokenLazyHttpClient(String token) {
-        this.tokenBytes = token.getBytes(StandardCharsets.UTF_8);
+        this.token = token;
     }
 
     private static class Holder {
@@ -24,17 +24,15 @@ public class PersonalAccessTokenLazyHttpClient extends AbstractHttpClient<HttpEn
     }
 
     @Override
-    protected Optional<HttpEntity> execute(HttpUriRequest request) {
-        request.addHeader("Authorization", "Discogs token=" + Arrays.toString(tokenBytes));
+    public Optional<HttpEntity> execute(HttpUriRequest request) {
+        request.addHeader("Authorization", "Discogs token=" + token);
 
         try {
             CloseableHttpResponse execute = Holder.client.execute(request);
             return Optional.of(execute.getEntity());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new CompletionException(e);
         }
-
-        return Optional.empty();
     }
 
     @Override
@@ -42,11 +40,11 @@ public class PersonalAccessTokenLazyHttpClient extends AbstractHttpClient<HttpEn
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         PersonalAccessTokenLazyHttpClient that = (PersonalAccessTokenLazyHttpClient) o;
-        return Arrays.equals(tokenBytes, that.tokenBytes);
+        return Objects.equals(token, that.token);
     }
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(tokenBytes);
+        return Objects.hash(token);
     }
 }

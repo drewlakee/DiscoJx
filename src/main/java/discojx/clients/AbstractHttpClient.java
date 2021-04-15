@@ -6,5 +6,5 @@ import java.util.Optional;
 
 public abstract class AbstractHttpClient<T> {
 
-    protected abstract Optional<T> execute(HttpUriRequest request);
+    public abstract Optional<T> execute(HttpUriRequest request);
 }
