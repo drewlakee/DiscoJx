@@ -8,6 +8,7 @@ import java.util.Objects;
 public class Profile {
 
     private long id;
+    @JsonProperty("resource_url")
     private String resourceUrl;
     private String uri;
     private String username;
@@ -17,29 +18,52 @@ public class Profile {
     private String profile;
     private Date registered;
     private int rank;
+    @JsonProperty("num_pending")
     private int numPending;
+    @JsonProperty("num_for_sale")
     private int numForSale;
+    @JsonProperty("num_lists")
     private int numLists;
+    @JsonProperty("releases_contributed")
     private int releasesContributed;
+    @JsonProperty("releases_rated")
     private int releasesRated;
+    @JsonProperty("rating_avg")
     private int ratingAvg;
+    @JsonProperty("inventory_url")
     private String inventoryUrl;
+    @JsonProperty("collection_folders_url")
     private String collectionFoldersUrl;
+    @JsonProperty("collection_fields_url")
     private String collectionFieldsUrl;
+    @JsonProperty("wantlist_url")
     private String wantlistUrl;
+    @JsonProperty("avatar_url")
     private String avatarUrl;
+    @JsonProperty("curr_abbr")
     private String currAbbr;
     private boolean activated;
+    @JsonProperty("marketplace_suspended")
     private boolean marketplaceSuspended;
+    @JsonProperty("banner_url")
     private String bannerUrl;
+    @JsonProperty("buyer_rating")
     private int buyerRating;
+    @JsonProperty("buyer_rating_stars")
     private int buyerRatingStars;
+    @JsonProperty("buyer_num_ratings")
     private int buyerNumRatings;
+    @JsonProperty("seller_rating")
     private int sellerRating;
+    @JsonProperty("seller_rating_stars")
     private int sellerRatingStars;
+    @JsonProperty("seller_num_ratings")
     private int sellerNumRatings;
+    @JsonProperty("is_staff")
     private boolean isStaff;
+    @JsonProperty("num_collection")
     private int numCollection;
+    @JsonProperty("num_wantlist")
     private int numWantlist;
 
     public long getId() {
@@ -50,7 +74,6 @@ public class Profile {
         this.id = id;
     }
 
-    @JsonProperty("resource_url")
     public String getResourceUrl() {
         return resourceUrl;
     }
@@ -123,7 +146,6 @@ public class Profile {
         this.rank = rank;
     }
 
-    @JsonProperty("num_pending")
     public int getNumPending() {
         return numPending;
     }
@@ -132,7 +154,6 @@ public class Profile {
         this.numPending = numPending;
     }
 
-    @JsonProperty("num_for_sale")
     public int getNumForSale() {
         return numForSale;
     }
@@ -141,7 +162,6 @@ public class Profile {
         this.numForSale = numForSale;
     }
 
-    @JsonProperty("num_lists")
     public int getNumLists() {
         return numLists;
     }
@@ -150,7 +170,6 @@ public class Profile {
         this.numLists = numLists;
     }
 
-    @JsonProperty("releases_contributed")
     public int getReleasesContributed() {
         return releasesContributed;
     }
@@ -159,7 +178,6 @@ public class Profile {
         this.releasesContributed = releasesContributed;
     }
 
-    @JsonProperty("releases_rated")
     public int getReleasesRated() {
         return releasesRated;
     }
@@ -168,7 +186,6 @@ public class Profile {
         this.releasesRated = releasesRated;
     }
 
-    @JsonProperty("rating_avg")
     public int getRatingAvg() {
         return ratingAvg;
     }
@@ -177,7 +194,6 @@ public class Profile {
         this.ratingAvg = ratingAvg;
     }
 
-    @JsonProperty("inventory_url")
     public String getInventoryUrl() {
         return inventoryUrl;
     }
@@ -186,7 +202,6 @@ public class Profile {
         this.inventoryUrl = inventoryUrl;
     }
 
-    @JsonProperty("collection_folders_url")
     public String getCollectionFoldersUrl() {
         return collectionFoldersUrl;
     }
@@ -195,7 +210,6 @@ public class Profile {
         this.collectionFoldersUrl = collectionFoldersUrl;
     }
 
-    @JsonProperty("collection_fields_url")
     public String getCollectionFieldsUrl() {
         return collectionFieldsUrl;
     }
@@ -204,7 +218,6 @@ public class Profile {
         this.collectionFieldsUrl = collectionFieldsUrl;
     }
 
-    @JsonProperty("wantlist_url")
     public String getWantlistUrl() {
         return wantlistUrl;
     }
@@ -213,7 +226,6 @@ public class Profile {
         this.wantlistUrl = wantlistUrl;
     }
 
-    @JsonProperty("avatar_url")
     public String getAvatarUrl() {
         return avatarUrl;
     }
@@ -222,7 +234,6 @@ public class Profile {
         this.avatarUrl = avatarUrl;
     }
 
-    @JsonProperty("curr_abbr")
     public String getCurrAbbr() {
         return currAbbr;
     }
@@ -239,7 +250,6 @@ public class Profile {
         this.activated = activated;
     }
 
-    @JsonProperty("marketplace_suspended")
     public boolean isMarketplaceSuspended() {
         return marketplaceSuspended;
     }
@@ -248,7 +258,6 @@ public class Profile {
         this.marketplaceSuspended = marketplaceSuspended;
     }
 
-    @JsonProperty("banner_url")
     public String getBannerUrl() {
         return bannerUrl;
     }
@@ -257,7 +266,6 @@ public class Profile {
         this.bannerUrl = bannerUrl;
     }
 
-    @JsonProperty("buyer_rating")
     public int getBuyerRating() {
         return buyerRating;
     }
@@ -266,7 +274,6 @@ public class Profile {
         this.buyerRating = buyerRating;
     }
 
-    @JsonProperty("buyer_rating_stars")
     public int getBuyerRatingStars() {
         return buyerRatingStars;
     }
@@ -275,7 +282,6 @@ public class Profile {
         this.buyerRatingStars = buyerRatingStars;
     }
 
-    @JsonProperty("buyer_num_ratings")
     public int getBuyerNumRatings() {
         return buyerNumRatings;
     }
@@ -284,7 +290,6 @@ public class Profile {
         this.buyerNumRatings = buyerNumRatings;
     }
 
-    @JsonProperty("seller_rating")
     public int getSellerRating() {
         return sellerRating;
     }
@@ -293,7 +298,6 @@ public class Profile {
         this.sellerRating = sellerRating;
     }
 
-    @JsonProperty("seller_rating_stars")
     public int getSellerRatingStars() {
         return sellerRatingStars;
     }
@@ -302,7 +306,6 @@ public class Profile {
         this.sellerRatingStars = sellerRatingStars;
     }
 
-    @JsonProperty("seller_num_ratings")
     public int getSellerNumRatings() {
         return sellerNumRatings;
     }
@@ -311,7 +314,6 @@ public class Profile {
         this.sellerNumRatings = sellerNumRatings;
     }
 
-    @JsonProperty("is_staff")
     public boolean isStaff() {
         return isStaff;
     }
@@ -320,7 +322,6 @@ public class Profile {
         isStaff = staff;
     }
 
-    @JsonProperty("num_collection")
     public int getNumCollection() {
         return numCollection;
     }
@@ -329,7 +330,6 @@ public class Profile {
         this.numCollection = numCollection;
     }
 
-    @JsonProperty("num_wantlist")
     public int getNumWantlist() {
         return numWantlist;
     }

@@ -7,6 +7,8 @@ import discojx.discogs.api.user.identity.requests.profile.AsyncProfileRequestBui
 import discojx.discogs.api.user.identity.requests.profile.DefaultAsyncProfileRequest;
 import discojx.discogs.api.user.identity.requests.profile.edit.AsyncProfileEditRequestBuilder;
 import discojx.discogs.api.user.identity.requests.profile.edit.DefaultAsyncProfileEditRequest;
+import discojx.discogs.api.user.identity.requests.submissions.AsyncUserSubmissionsRequestBuilder;
+import discojx.discogs.api.user.identity.requests.submissions.DefaultAsyncUserSubmissionsRequest;
 import org.apache.http.HttpEntity;
 
 import java.util.Objects;
@@ -32,6 +34,11 @@ public class DefaultAsyncIdentityApi implements AsyncIdentityApi {
     @Override
     public AsyncProfileEditRequestBuilder profileEdit() {
         return new DefaultAsyncProfileEditRequest.Builder(client);
+    }
+
+    @Override
+    public AsyncUserSubmissionsRequestBuilder submissions() {
+        return new DefaultAsyncUserSubmissionsRequest.Builder(client);
     }
 
     @Override

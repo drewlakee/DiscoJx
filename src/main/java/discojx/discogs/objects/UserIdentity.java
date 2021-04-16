@@ -8,7 +8,9 @@ public class UserIdentity {
 
     private long id;
     private String username;
+    @JsonProperty("resource_url")
     private String resourceUrl;
+    @JsonProperty("consumer_name")
     private String consumerName;
 
     public long getId() {
@@ -27,7 +29,6 @@ public class UserIdentity {
         this.username = username;
     }
 
-    @JsonProperty("resource_url")
     public String getResourceUrl() {
         return resourceUrl;
     }
@@ -36,7 +37,6 @@ public class UserIdentity {
         this.resourceUrl = resourceUrl;
     }
 
-    @JsonProperty("consumer_name")
     public String getConsumerName() {
         return consumerName;
     }

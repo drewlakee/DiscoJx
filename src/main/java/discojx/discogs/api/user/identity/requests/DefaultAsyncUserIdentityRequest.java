@@ -10,7 +10,6 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
