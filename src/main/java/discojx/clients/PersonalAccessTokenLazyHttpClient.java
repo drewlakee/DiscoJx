@@ -26,6 +26,7 @@ public class PersonalAccessTokenLazyHttpClient extends AbstractHttpClient<HttpEn
     @Override
     public Optional<HttpEntity> execute(HttpUriRequest request) {
         request.addHeader("Authorization", "Discogs token=" + token);
+        request.addHeader("User-Agent", "discojx/1.0.0 Asynchronous DiscogsAPI Client Library");
 
         try {
             CloseableHttpResponse response = Holder.client.execute(request);
