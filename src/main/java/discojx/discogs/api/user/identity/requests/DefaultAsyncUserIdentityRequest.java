@@ -33,16 +33,9 @@ public class DefaultAsyncUserIdentityRequest implements AsyncUserIdentityRequest
             Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.USER_IDENTITY.getEndpoint()));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
-            InputStream jsonResponse;
-            try {
-                jsonResponse = httpEntity.getContent();
-            } catch (IOException e) {
-                throw new CompletionException(e);
-            }
-
             UserIdentity userIdentity;
             try {
-                userIdentity = jsonMapper.readValue(jsonResponse, UserIdentity.class);
+                userIdentity = jsonMapper.readValue(httpEntity.getContent(), UserIdentity.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

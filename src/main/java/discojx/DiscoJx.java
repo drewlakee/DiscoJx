@@ -6,7 +6,7 @@ import discojx.discogs.api.DefaultAsyncDiscogsApi;
 
 public class DiscoJx {
 
-    public static AsyncDiscogsApi createDefaultApiWith(String personalAccessToken) {
+    public static AsyncDiscogsApi createDefaultApiWithToken(String personalAccessToken) {
         return new DefaultAsyncDiscogsApi(new PersonalAccessTokenLazyHttpClient(personalAccessToken));
     }
 }
