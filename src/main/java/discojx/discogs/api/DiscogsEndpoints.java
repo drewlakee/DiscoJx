@@ -6,7 +6,8 @@ public enum DiscogsEndpoints {
 
     USER_IDENTITY (ROOT.endpoint + "/oauth/identity"),
 
-    PROFILE (ROOT.endpoint + "/users/{username}");
+    PROFILE (ROOT.endpoint + "/users/{username}"),
+    PROFILE_EDIT (ROOT.endpoint + "/users/{username}");
 
     private final String endpoint;
 
