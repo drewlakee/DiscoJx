@@ -13,6 +13,7 @@ public class Profile {
     private String uri;
     private String username;
     private String name;
+    @JsonProperty("home_page")
     private String homePage;
     private String location;
     private String profile;
