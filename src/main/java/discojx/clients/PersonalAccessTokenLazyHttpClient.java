@@ -1,5 +1,6 @@
 package discojx.clients;
 
+import discojx.clients.authentication.PersonalAccessToken;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -13,9 +14,9 @@ import java.util.concurrent.CompletionException;
 
 public class PersonalAccessTokenLazyHttpClient extends AbstractHttpClient<HttpEntity> {
 
-    private final String token;
+    private final PersonalAccessToken token;
 
-    public PersonalAccessTokenLazyHttpClient(String token) {
+    public PersonalAccessTokenLazyHttpClient(PersonalAccessToken token) {
         this.token = token;
     }
 

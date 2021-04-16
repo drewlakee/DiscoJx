@@ -1,12 +1,13 @@
 package discojx;
 
-import discojx.clients.PersonalAccessTokenLazyHttpClient;
+import discojx.clients.authentication.PersonalAccessToken;
 import discojx.discogs.api.AsyncDiscogsApi;
-import discojx.discogs.api.DefaultAsyncDiscogsApi;
 
-public class DiscoJx {
+public interface DiscoJx {
 
-    public static AsyncDiscogsApi createDefaultApiWithToken(String personalAccessToken) {
-        return new DefaultAsyncDiscogsApi(new PersonalAccessTokenLazyHttpClient(personalAccessToken));
+    AsyncDiscogsApi create();
+
+    static AsyncDiscogsApi createDefaultApiWithToken(PersonalAccessToken token) {
+        return new DefaultPersonalAccessTokenDiscoJx(token).create();
     }
 }
