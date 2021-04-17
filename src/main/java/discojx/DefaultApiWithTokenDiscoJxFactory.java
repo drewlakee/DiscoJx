@@ -7,11 +7,11 @@ import discojx.discogs.api.DefaultAsyncDiscogsApi;
 
 import java.util.Objects;
 
-public class DefaultPersonalAccessTokenDiscoJx implements DiscoJx {
+public class DefaultApiWithTokenDiscoJxFactory implements DiscoJxFactory {
 
     private final PersonalAccessToken token;
 
-    public DefaultPersonalAccessTokenDiscoJx(PersonalAccessToken token) {
+    public DefaultApiWithTokenDiscoJxFactory(PersonalAccessToken token) {
         this.token = token;
     }
 
@@ -24,7 +24,7 @@ public class DefaultPersonalAccessTokenDiscoJx implements DiscoJx {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DefaultPersonalAccessTokenDiscoJx that = (DefaultPersonalAccessTokenDiscoJx) o;
+        DefaultApiWithTokenDiscoJxFactory that = (DefaultApiWithTokenDiscoJxFactory) o;
         return Objects.equals(token, that.token);
     }
 
