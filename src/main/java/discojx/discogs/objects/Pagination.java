@@ -10,6 +10,8 @@ public class Pagination {
     public static class Urls {
         private URL last;
         private URL next;
+        private URL first;
+        private URL prev;
 
         public URL getLast() {
             return last;
@@ -27,11 +29,29 @@ public class Pagination {
             this.next = next;
         }
 
+        public URL getFirst() {
+            return first;
+        }
+
+        public void setFirst(URL first) {
+            this.first = first;
+        }
+
+        public URL getPrev() {
+            return prev;
+        }
+
+        public void setPrev(URL prev) {
+            this.prev = prev;
+        }
+
         @Override
         public String toString() {
             return "Urls{" +
                     "last=" + last +
                     ", next=" + next +
+                    ", first=" + first +
+                    ", prev=" + prev +
                     '}';
         }
 
@@ -40,12 +60,12 @@ public class Pagination {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Urls urls = (Urls) o;
-            return Objects.equals(last, urls.last) && Objects.equals(next, urls.next);
+            return Objects.equals(last, urls.last) && Objects.equals(next, urls.next) && Objects.equals(first, urls.first) && Objects.equals(prev, urls.prev);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(last, next);
+            return Objects.hash(last, next, first, prev);
         }
     }
 

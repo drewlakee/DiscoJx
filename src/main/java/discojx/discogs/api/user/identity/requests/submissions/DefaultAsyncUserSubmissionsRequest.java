@@ -10,6 +10,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -24,9 +25,12 @@ public class DefaultAsyncUserSubmissionsRequest implements AsyncUserSubmissionsR
 
     private final String username;
 
+    private final String endpointParameters;
+
     public DefaultAsyncUserSubmissionsRequest(Builder builder) {
         this.client = builder.client;
         this.username = builder.username;
+        this.endpointParameters = builder.endpointParameters;
     }
 
     public static class Builder implements AsyncUserSubmissionsRequestBuilder {
@@ -34,6 +38,10 @@ public class DefaultAsyncUserSubmissionsRequest implements AsyncUserSubmissionsR
         private final AbstractHttpClient<HttpEntity> client;
 
         private String username;
+        private int page;
+        private int perPage;
+
+        private String endpointParameters;
 
         public Builder(AbstractHttpClient<HttpEntity> client) {
             this.client = client;
@@ -46,8 +54,44 @@ public class DefaultAsyncUserSubmissionsRequest implements AsyncUserSubmissionsR
         }
 
         @Override
+        public AsyncUserSubmissionsRequestBuilder page(int page) {
+            this.page = page;
+            return this;
+        }
+
+        @Override
+        public AsyncUserSubmissionsRequestBuilder perPage(int perPage) {
+            this.perPage = perPage;
+            return this;
+        }
+
+        @Override
         public AsyncUserSubmissionsRequest build() {
+            constructParameters();
             return new DefaultAsyncUserSubmissionsRequest(this);
+        }
+
+        private void constructParameters() {
+            ArrayList<String> parameters = new ArrayList<>();
+
+            if (page > 0) parameters.add("page=" + page);
+            if (perPage > 0) parameters.add("per_page=" + perPage);
+
+            if (parameters.size() > 0) {
+                this.endpointParameters = "?" + String.join("&", parameters);
+            } else {
+                this.endpointParameters = "";
+            }
+        }
+
+        @Override
+        public String toString() {
+            return "Builder{" +
+                    "client=" + client +
+                    ", username='" + username + '\'' +
+                    ", page=" + page +
+                    ", perPage=" + perPage +
+                    '}';
         }
 
         @Override
@@ -55,19 +99,19 @@ public class DefaultAsyncUserSubmissionsRequest implements AsyncUserSubmissionsR
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Builder builder = (Builder) o;
-            return Objects.equals(client, builder.client) && Objects.equals(username, builder.username);
+            return page == builder.page && perPage == builder.perPage && Objects.equals(client, builder.client) && Objects.equals(username, builder.username);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, username);
+            return Objects.hash(client, username, page, perPage);
         }
     }
 
     @Override
     public CompletableFuture<Submissions> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.USER_SUBMISSIONS.getEndpoint().replace("{username}", username)));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.USER_SUBMISSIONS.getEndpoint().replace("{username}", username) + endpointParameters));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             Submissions submissions;
@@ -86,6 +130,7 @@ public class DefaultAsyncUserSubmissionsRequest implements AsyncUserSubmissionsR
         return "DefaultAsyncUserSubmissionsRequest{" +
                 "client=" + client +
                 ", username='" + username + '\'' +
+                ", endpointParameters='" + endpointParameters + '\'' +
                 '}';
     }
 
@@ -94,11 +139,11 @@ public class DefaultAsyncUserSubmissionsRequest implements AsyncUserSubmissionsR
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultAsyncUserSubmissionsRequest that = (DefaultAsyncUserSubmissionsRequest) o;
-        return Objects.equals(client, that.client);
+        return Objects.equals(client, that.client) && Objects.equals(username, that.username) && Objects.equals(endpointParameters, that.endpointParameters);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client);
+        return Objects.hash(client, username, endpointParameters);
     }
 }
