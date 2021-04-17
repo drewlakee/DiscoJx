@@ -1,23 +1,50 @@
 package discojx;
 
-import discojx.clients.PersonalAccessTokenLazyHttpClient;
+import discojx.clients.DefaultLazyHttpClient;
 import discojx.clients.authentication.PersonalAccessToken;
 import discojx.discogs.api.AsyncDiscogsApi;
 import discojx.discogs.api.DefaultAsyncDiscogsApi;
+import org.apache.http.Header;
 
+import java.util.List;
 import java.util.Objects;
 
 public class DefaultApiWithTokenDiscoJxFactory implements DiscoJxFactory {
 
     private final PersonalAccessToken token;
 
+    private List<Header> defaultHttpClientHeaders;
+
     public DefaultApiWithTokenDiscoJxFactory(PersonalAccessToken token) {
         this.token = token;
     }
 
+    public DefaultApiWithTokenDiscoJxFactory setDefaultHttpClientHeaders(List<Header> defaultHeaders) {
+        this.defaultHttpClientHeaders = defaultHeaders;
+        return this;
+    }
+
+    public List<Header> getDefaultHttpClientHeaders() {
+        return defaultHttpClientHeaders;
+    }
+
     @Override
     public AsyncDiscogsApi create() {
-        return new DefaultAsyncDiscogsApi(new PersonalAccessTokenLazyHttpClient(token));
+        DefaultLazyHttpClient client = new DefaultLazyHttpClient(token);
+
+        if (defaultHttpClientHeaders != null) {
+            client.setHeaders(defaultHttpClientHeaders);
+        }
+
+        return new DefaultAsyncDiscogsApi(client);
+    }
+
+    @Override
+    public String toString() {
+        return "DefaultApiWithTokenDiscoJxFactory{" +
+                "token=" + token +
+                ", userAgent='" + defaultHttpClientHeaders + '\'' +
+                '}';
     }
 
     @Override
@@ -25,11 +52,11 @@ public class DefaultApiWithTokenDiscoJxFactory implements DiscoJxFactory {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultApiWithTokenDiscoJxFactory that = (DefaultApiWithTokenDiscoJxFactory) o;
-        return Objects.equals(token, that.token);
+        return Objects.equals(token, that.token) && Objects.equals(defaultHttpClientHeaders, that.defaultHttpClientHeaders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(token);
+        return Objects.hash(token, defaultHttpClientHeaders);
     }
 }

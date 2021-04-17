@@ -1,33 +1,60 @@
 package discojx.clients;
 
 import discojx.clients.authentication.PersonalAccessToken;
+import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpException;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.apache.http.message.BasicHeader;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletionException;
 
-public class PersonalAccessTokenLazyHttpClient extends AbstractHttpClient<HttpEntity> {
+public class DefaultLazyHttpClient extends AbstractHttpClient<HttpEntity> {
 
-    private final PersonalAccessToken token;
-
-    public PersonalAccessTokenLazyHttpClient(PersonalAccessToken token) {
-        this.token = token;
-    }
+    private PersonalAccessToken token;
+    private List<Header> headers;
 
     private static class Holder {
         public static final CloseableHttpClient client = HttpClients.createDefault();
     }
 
+    public DefaultLazyHttpClient() {
+        this.headers = List.of(
+                new BasicHeader("User-Agent", "discojx/1.0.0 An Asynchronous DiscogsAPI Client Library")
+        );
+    }
+
+    public DefaultLazyHttpClient(PersonalAccessToken token) {
+        this.token = token;
+        this.headers = List.of(
+                new BasicHeader("User-Agent", "discojx/1.0.0 An Asynchronous DiscogsAPI Client Library"),
+                new BasicHeader("Authorization", "Discogs token=" + token)
+        );
+    }
+
+    public DefaultLazyHttpClient setHeaders(List<Header> headers) {
+        if (headers != null) {
+            this.headers = headers;
+        }
+
+        return this;
+    }
+
+    public List<Header> getHeaders() {
+        return headers;
+    }
+
     @Override
     public Optional<HttpEntity> execute(HttpUriRequest request) {
-        request.addHeader("Authorization", "Discogs token=" + token);
-        request.addHeader("User-Agent", "discojx/1.0.0 An Asynchronous DiscogsAPI Client Library");
+        for (Header header : headers) {
+            request.addHeader(header);
+        }
 
         try {
             CloseableHttpResponse response = Holder.client.execute(request);
@@ -49,12 +76,12 @@ public class PersonalAccessTokenLazyHttpClient extends AbstractHttpClient<HttpEn
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        PersonalAccessTokenLazyHttpClient that = (PersonalAccessTokenLazyHttpClient) o;
-        return Objects.equals(token, that.token);
+        DefaultLazyHttpClient client = (DefaultLazyHttpClient) o;
+        return Objects.equals(token, client.token) && Objects.equals(headers, client.headers);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(token);
+        return Objects.hash(token, headers);
     }
 }
