@@ -1,22 +1,60 @@
 package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import discojx.utils.deserializers.UrlsArrayListDeserializer;
 
 import java.net.URL;
-import java.util.List;
 import java.util.Objects;
 
 public class Pagination {
+
+    public static class Urls {
+        private URL last;
+        private URL next;
+
+        public URL getLast() {
+            return last;
+        }
+
+        public void setLast(URL last) {
+            this.last = last;
+        }
+
+        public URL getNext() {
+            return next;
+        }
+
+        public void setNext(URL next) {
+            this.next = next;
+        }
+
+        @Override
+        public String toString() {
+            return "Urls{" +
+                    "last=" + last +
+                    ", next=" + next +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Urls urls = (Urls) o;
+            return Objects.equals(last, urls.last) && Objects.equals(next, urls.next);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(last, next);
+        }
+    }
 
     private int page;
     private int pages;
     @JsonProperty("per_page")
     private int perPage;
     private int items;
-    @JsonDeserialize(using = UrlsArrayListDeserializer.class)
-    private List<URL> urls;
+    private Urls urls;
 
     public int getPage() {
         return page;
@@ -50,11 +88,11 @@ public class Pagination {
         this.items = items;
     }
 
-    public List<URL> getUrls() {
+    public Urls getUrls() {
         return urls;
     }
 
-    public void setUrls(List<URL> urls) {
+    public void setUrls(Urls urls) {
         this.urls = urls;
     }
 

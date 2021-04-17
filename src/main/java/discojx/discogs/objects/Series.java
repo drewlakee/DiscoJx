@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.net.URL;
 import java.util.Objects;
 
-public class Label {
+public class Series {
 
     private String name;
     private String catno;
@@ -15,7 +15,7 @@ public class Label {
     private String entityTypeName;
     private long id;
     @JsonProperty("resource_url")
-    private URL resourceUrl;
+    private URL resource_url;
 
     public String getName() {
         return name;
@@ -57,23 +57,23 @@ public class Label {
         this.id = id;
     }
 
-    public URL getResourceUrl() {
-        return resourceUrl;
+    public URL getResource_url() {
+        return resource_url;
     }
 
-    public void setResourceUrl(URL resourceUrl) {
-        this.resourceUrl = resourceUrl;
+    public void setResource_url(URL resource_url) {
+        this.resource_url = resource_url;
     }
 
     @Override
     public String toString() {
-        return "Label{" +
+        return "Series{" +
                 "name='" + name + '\'' +
                 ", catno='" + catno + '\'' +
                 ", entityType='" + entityType + '\'' +
                 ", entityTypeName='" + entityTypeName + '\'' +
                 ", id=" + id +
-                ", resourceUrl='" + resourceUrl + '\'' +
+                ", resource_url=" + resource_url +
                 '}';
     }
 
@@ -81,12 +81,12 @@ public class Label {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Label label = (Label) o;
-        return id == label.id && Objects.equals(name, label.name) && Objects.equals(catno, label.catno) && Objects.equals(entityType, label.entityType) && Objects.equals(entityTypeName, label.entityTypeName) && Objects.equals(resourceUrl, label.resourceUrl);
+        Series series = (Series) o;
+        return id == series.id && Objects.equals(name, series.name) && Objects.equals(catno, series.catno) && Objects.equals(entityType, series.entityType) && Objects.equals(entityTypeName, series.entityTypeName) && Objects.equals(resource_url, series.resource_url);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, catno, entityType, entityTypeName, id, resourceUrl);
+        return Objects.hash(name, catno, entityType, entityTypeName, id, resource_url);
     }
 }
