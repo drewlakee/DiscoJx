@@ -39,7 +39,7 @@ public class Release {
     @JsonProperty("master_id")
     private long masterId;
     @JsonProperty("master_url")
-    private String masterUrl;
+    private URL masterUrl;
     private String title;
     private String country;
     private Date released;
@@ -54,6 +54,11 @@ public class Release {
     private int estimatedWeight;
     private String notes;
     private List<Series> series;
+    private String release;
+    @JsonProperty("extraartists")
+    private List<Artist.Short> extraArtists;
+    @JsonProperty("tracklist")
+    private List<Track> trackList;
 
     public long getId() {
         return id;
@@ -207,11 +212,11 @@ public class Release {
         this.masterId = masterId;
     }
 
-    public String getMasterUrl() {
+    public URL getMasterUrl() {
         return masterUrl;
     }
 
-    public void setMasterUrl(String masterUrl) {
+    public void setMasterUrl(URL masterUrl) {
         this.masterUrl = masterUrl;
     }
 
@@ -311,6 +316,30 @@ public class Release {
         this.series = series;
     }
 
+    public String getRelease() {
+        return release;
+    }
+
+    public void setRelease(String release) {
+        this.release = release;
+    }
+
+    public List<Artist.Short> getExtraArtists() {
+        return extraArtists;
+    }
+
+    public void setExtraArtists(List<Artist.Short> extraArtists) {
+        this.extraArtists = extraArtists;
+    }
+
+    public List<Track> getTrackList() {
+        return trackList;
+    }
+
+    public void setTrackList(List<Track> trackList) {
+        this.trackList = trackList;
+    }
+
     @Override
     public String toString() {
         return "Release{" +
@@ -346,6 +375,9 @@ public class Release {
                 ", estimatedWeight=" + estimatedWeight +
                 ", notes='" + notes + '\'' +
                 ", series=" + series +
+                ", release='" + release + '\'' +
+                ", extraArtists=" + extraArtists +
+                ", trackList=" + trackList +
                 '}';
     }
 
@@ -353,12 +385,12 @@ public class Release {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Release release = (Release) o;
-        return id == release.id && year == release.year && formatQuantity == release.formatQuantity && numForSale == release.numForSale && Double.compare(release.lowestPrice, lowestPrice) == 0 && masterId == release.masterId && estimatedWeight == release.estimatedWeight && Objects.equals(status, release.status) && Objects.equals(resourceUrl, release.resourceUrl) && Objects.equals(uri, release.uri) && Objects.equals(artists, release.artists) && Objects.equals(artistsSort, release.artistsSort) && Objects.equals(labels, release.labels) && Objects.equals(identifiers, release.identifiers) && Objects.equals(companies, release.companies) && Objects.equals(formats, release.formats) && Objects.equals(dataQuality, release.dataQuality) && Objects.equals(community, release.community) && Objects.equals(dateAdded, release.dateAdded) && Objects.equals(dateChanged, release.dateChanged) && Objects.equals(masterUrl, release.masterUrl) && Objects.equals(title, release.title) && Objects.equals(country, release.country) && Objects.equals(released, release.released) && Objects.equals(releasedFormatted, release.releasedFormatted) && Objects.equals(videos, release.videos) && Objects.equals(genres, release.genres) && Objects.equals(styles, release.styles) && Objects.equals(images, release.images) && Objects.equals(thumb, release.thumb) && Objects.equals(notes, release.notes) && Objects.equals(series, release.series);
+        Release release1 = (Release) o;
+        return id == release1.id && year == release1.year && formatQuantity == release1.formatQuantity && numForSale == release1.numForSale && Double.compare(release1.lowestPrice, lowestPrice) == 0 && masterId == release1.masterId && estimatedWeight == release1.estimatedWeight && Objects.equals(status, release1.status) && Objects.equals(resourceUrl, release1.resourceUrl) && Objects.equals(uri, release1.uri) && Objects.equals(artists, release1.artists) && Objects.equals(artistsSort, release1.artistsSort) && Objects.equals(labels, release1.labels) && Objects.equals(identifiers, release1.identifiers) && Objects.equals(companies, release1.companies) && Objects.equals(formats, release1.formats) && Objects.equals(dataQuality, release1.dataQuality) && Objects.equals(community, release1.community) && Objects.equals(dateAdded, release1.dateAdded) && Objects.equals(dateChanged, release1.dateChanged) && Objects.equals(masterUrl, release1.masterUrl) && Objects.equals(title, release1.title) && Objects.equals(country, release1.country) && Objects.equals(released, release1.released) && Objects.equals(releasedFormatted, release1.releasedFormatted) && Objects.equals(videos, release1.videos) && Objects.equals(genres, release1.genres) && Objects.equals(styles, release1.styles) && Objects.equals(images, release1.images) && Objects.equals(thumb, release1.thumb) && Objects.equals(notes, release1.notes) && Objects.equals(series, release1.series) && Objects.equals(release, release1.release) && Objects.equals(extraArtists, release1.extraArtists) && Objects.equals(trackList, release1.trackList);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, status, year, resourceUrl, uri, artists, artistsSort, labels, identifiers, companies, formats, dataQuality, community, formatQuantity, dateAdded, dateChanged, numForSale, lowestPrice, masterId, masterUrl, title, country, released, releasedFormatted, videos, genres, styles, images, thumb, estimatedWeight, notes, series);
+        return Objects.hash(id, status, year, resourceUrl, uri, artists, artistsSort, labels, identifiers, companies, formats, dataQuality, community, formatQuantity, dateAdded, dateChanged, numForSale, lowestPrice, masterId, masterUrl, title, country, released, releasedFormatted, videos, genres, styles, images, thumb, estimatedWeight, notes, series, release, extraArtists, trackList);
     }
 }
