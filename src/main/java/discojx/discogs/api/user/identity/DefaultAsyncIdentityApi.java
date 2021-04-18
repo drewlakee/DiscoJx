@@ -3,6 +3,8 @@ package discojx.discogs.api.user.identity;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.user.identity.requests.AsyncUserIdentityRequest;
 import discojx.discogs.api.user.identity.requests.DefaultAsyncUserIdentityRequest;
+import discojx.discogs.api.user.identity.requests.contributions.AsyncUserContributionsRequestBuilder;
+import discojx.discogs.api.user.identity.requests.contributions.DefaultAsyncUserContributionsRequest;
 import discojx.discogs.api.user.identity.requests.profile.AsyncProfileRequestBuilder;
 import discojx.discogs.api.user.identity.requests.profile.DefaultAsyncProfileRequest;
 import discojx.discogs.api.user.identity.requests.profile.edit.AsyncProfileEditRequestBuilder;
@@ -39,6 +41,11 @@ public class DefaultAsyncIdentityApi implements AsyncIdentityApi {
     @Override
     public AsyncUserSubmissionsRequestBuilder submissions() {
         return new DefaultAsyncUserSubmissionsRequest.Builder(client);
+    }
+
+    @Override
+    public AsyncUserContributionsRequestBuilder contributions() {
+        return new DefaultAsyncUserContributionsRequest.Builder(client);
     }
 
     @Override

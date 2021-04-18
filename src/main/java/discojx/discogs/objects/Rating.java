@@ -5,7 +5,7 @@ import java.util.Objects;
 public class Rating {
 
     private int count;
-    private int average;
+    private double average;
 
     public int getCount() {
         return count;
@@ -15,11 +15,11 @@ public class Rating {
         this.count = count;
     }
 
-    public int getAverage() {
+    public double getAverage() {
         return average;
     }
 
-    public void setAverage(int average) {
+    public void setAverage(double average) {
         this.average = average;
     }
 

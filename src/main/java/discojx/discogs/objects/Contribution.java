@@ -8,7 +8,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
-public class Release {
+public class Contribution {
 
     private long id;
     private String status;
@@ -313,7 +313,7 @@ public class Release {
 
     @Override
     public String toString() {
-        return "Release{" +
+        return "Contribution{" +
                 "id=" + id +
                 ", status='" + status + '\'' +
                 ", year=" + year +
@@ -353,8 +353,8 @@ public class Release {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Release release = (Release) o;
-        return id == release.id && year == release.year && formatQuantity == release.formatQuantity && numForSale == release.numForSale && Double.compare(release.lowestPrice, lowestPrice) == 0 && masterId == release.masterId && estimatedWeight == release.estimatedWeight && Objects.equals(status, release.status) && Objects.equals(resourceUrl, release.resourceUrl) && Objects.equals(uri, release.uri) && Objects.equals(artists, release.artists) && Objects.equals(artistsSort, release.artistsSort) && Objects.equals(labels, release.labels) && Objects.equals(identifiers, release.identifiers) && Objects.equals(companies, release.companies) && Objects.equals(formats, release.formats) && Objects.equals(dataQuality, release.dataQuality) && Objects.equals(community, release.community) && Objects.equals(dateAdded, release.dateAdded) && Objects.equals(dateChanged, release.dateChanged) && Objects.equals(masterUrl, release.masterUrl) && Objects.equals(title, release.title) && Objects.equals(country, release.country) && Objects.equals(released, release.released) && Objects.equals(releasedFormatted, release.releasedFormatted) && Objects.equals(videos, release.videos) && Objects.equals(genres, release.genres) && Objects.equals(styles, release.styles) && Objects.equals(images, release.images) && Objects.equals(thumb, release.thumb) && Objects.equals(notes, release.notes) && Objects.equals(series, release.series);
+        Contribution that = (Contribution) o;
+        return id == that.id && year == that.year && formatQuantity == that.formatQuantity && numForSale == that.numForSale && Double.compare(that.lowestPrice, lowestPrice) == 0 && masterId == that.masterId && estimatedWeight == that.estimatedWeight && Objects.equals(status, that.status) && Objects.equals(resourceUrl, that.resourceUrl) && Objects.equals(uri, that.uri) && Objects.equals(artists, that.artists) && Objects.equals(artistsSort, that.artistsSort) && Objects.equals(labels, that.labels) && Objects.equals(identifiers, that.identifiers) && Objects.equals(companies, that.companies) && Objects.equals(formats, that.formats) && Objects.equals(dataQuality, that.dataQuality) && Objects.equals(community, that.community) && Objects.equals(dateAdded, that.dateAdded) && Objects.equals(dateChanged, that.dateChanged) && Objects.equals(masterUrl, that.masterUrl) && Objects.equals(title, that.title) && Objects.equals(country, that.country) && Objects.equals(released, that.released) && Objects.equals(releasedFormatted, that.releasedFormatted) && Objects.equals(videos, that.videos) && Objects.equals(genres, that.genres) && Objects.equals(styles, that.styles) && Objects.equals(images, that.images) && Objects.equals(thumb, that.thumb) && Objects.equals(notes, that.notes) && Objects.equals(series, that.series);
     }
 
     @Override

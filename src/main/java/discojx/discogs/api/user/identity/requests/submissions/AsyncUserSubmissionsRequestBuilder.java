@@ -1,10 +1,10 @@
 package discojx.discogs.api.user.identity.requests.submissions;
 
-public interface AsyncUserSubmissionsRequestBuilder {
+import discojx.requests.PaginationableRequest;
+
+public interface AsyncUserSubmissionsRequestBuilder extends PaginationableRequest<AsyncUserSubmissionsRequestBuilder> {
 
     AsyncUserSubmissionsRequestBuilder username(String username);
-    AsyncUserSubmissionsRequestBuilder page(int page);
-    AsyncUserSubmissionsRequestBuilder perPage(int perPage);
 
     AsyncUserSubmissionsRequest build();
 }

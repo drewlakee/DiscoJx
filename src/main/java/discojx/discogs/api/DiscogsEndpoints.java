@@ -4,12 +4,12 @@ public enum DiscogsEndpoints {
 
     ROOT ("https://api.discogs.com"),
 
-    USER_IDENTITY (ROOT.endpoint + "/oauth/identity"),
-
     PROFILE (ROOT.endpoint + "/users/{username}"),
     PROFILE_EDIT (ROOT.endpoint + "/users/{username}"),
 
-    USER_SUBMISSIONS(ROOT.endpoint + "/users/{username}/submissions");
+    USER_IDENTITY (ROOT.endpoint + "/oauth/identity"),
+    USER_SUBMISSIONS (ROOT.endpoint + "/users/{username}/submissions"),
+    USER_CONTRIBUTIONS (ROOT.endpoint + "/users/{username}/contributions");
 
     private final String endpoint;
 
