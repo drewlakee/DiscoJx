@@ -5,6 +5,8 @@ import discojx.discogs.api.database.requests.release.AsyncReleaseRequestBuilder;
 import discojx.discogs.api.database.requests.release.DefaultAsyncReleaseRequest;
 import discojx.discogs.api.database.requests.release.rating.user.AsyncReleaseRatingByUserRequestBuilder;
 import discojx.discogs.api.database.requests.release.rating.user.DefaultAsyncReleaseRatingByUserRequest;
+import discojx.discogs.api.database.requests.release.rating.user.edit.AsyncReleaseRatingUpdateByUserRequestBuilder;
+import discojx.discogs.api.database.requests.release.rating.user.edit.DefaultAsyncReleaseRatingUpdateByUserRequest;
 import org.apache.http.HttpEntity;
 
 import java.util.Objects;
@@ -25,6 +27,11 @@ public class DefaultAsyncDatabaseApi implements AsyncDatabaseApi {
     @Override
     public AsyncReleaseRatingByUserRequestBuilder releaseRatingByUser() {
         return new DefaultAsyncReleaseRatingByUserRequest.Builder(client);
+    }
+
+    @Override
+    public AsyncReleaseRatingUpdateByUserRequestBuilder releaseRatingUpdateByUser() {
+        return new DefaultAsyncReleaseRatingUpdateByUserRequest.Builder(client);
     }
 
     @Override

@@ -9,7 +9,7 @@ public class ReleaseRating {
     private String username;
     @JsonProperty("release_id")
     private long releaseId;
-    private double rating;
+    private int rating;
 
     public String getUsername() {
         return username;
@@ -27,11 +27,11 @@ public class ReleaseRating {
         this.releaseId = releaseId;
     }
 
-    public double getRating() {
+    public int getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(int rating) {
         this.rating = rating;
     }
 
