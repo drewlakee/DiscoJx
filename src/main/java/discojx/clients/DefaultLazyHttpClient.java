@@ -1,5 +1,9 @@
 package discojx.clients;
 
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.authentication.PersonalAccessToken;
 import org.apache.http.Header;
 import org.apache.http.HttpEntity;
@@ -10,6 +14,7 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.message.BasicHeader;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -19,6 +24,9 @@ public class DefaultLazyHttpClient extends AbstractHttpClient<HttpEntity> {
 
     private PersonalAccessToken token;
     private List<Header> headers;
+
+    protected static final ObjectMapper jsonMapper = new JsonMapper()
+            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     private static class Holder {
         public static final CloseableHttpClient client = HttpClients.createDefault();
@@ -64,12 +72,19 @@ public class DefaultLazyHttpClient extends AbstractHttpClient<HttpEntity> {
         }
     }
 
-    public Optional<HttpEntity> validateAndGetOrThrowException(CloseableHttpResponse response) throws HttpException {
+    public Optional<HttpEntity> validateAndGetOrThrowException(CloseableHttpResponse response) throws HttpException, IOException {
         if (response.getStatusLine().getStatusCode() > 299) {
+            if (response.getEntity() != null && response.containsHeader("Content-Type")
+                                             && response.getHeaders("Content-Type")[0].getValue().equals("application/json")) {
+                JsonNode jsonNode = jsonMapper.readTree(response.getEntity().getContent());
+
+                throw new HttpException(response.getStatusLine().toString() + " " + jsonNode.toString());
+            }
+
             throw new HttpException(response.getStatusLine().toString());
         }
 
-        return Optional.of(response.getEntity());
+        return Optional.ofNullable(response.getEntity());
     }
 
     @Override
