@@ -3,6 +3,8 @@ package discojx.discogs.api.database;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.database.requests.release.AsyncReleaseRequestBuilder;
 import discojx.discogs.api.database.requests.release.DefaultAsyncReleaseRequest;
+import discojx.discogs.api.database.requests.release.rating.community.AsyncCommunityReleaseRatingRequestBuilder;
+import discojx.discogs.api.database.requests.release.rating.community.DefaultAsyncCommunityReleaseRatingRequest;
 import discojx.discogs.api.database.requests.release.rating.user.AsyncReleaseRatingByUserRequestBuilder;
 import discojx.discogs.api.database.requests.release.rating.user.DefaultAsyncReleaseRatingByUserRequest;
 import discojx.discogs.api.database.requests.release.rating.user.delete.AsyncReleaseRatingDeleteByUserRequestBuilder;
@@ -39,6 +41,11 @@ public class DefaultAsyncDatabaseApi implements AsyncDatabaseApi {
     @Override
     public AsyncReleaseRatingDeleteByUserRequestBuilder releaseRatingDeleteByUser() {
         return new DefaultAsyncReleaseRatingDeleteByUserRequest.Builder(client);
+    }
+
+    @Override
+    public AsyncCommunityReleaseRatingRequestBuilder communityReleaseRating() {
+        return new DefaultAsyncCommunityReleaseRatingRequest.Builder(client);
     }
 
     @Override

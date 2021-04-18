@@ -12,7 +12,8 @@ public enum DiscogsEndpoints {
     USER_CONTRIBUTIONS (ROOT.endpoint + "/users/{username}/contributions"),
 
     DATABASE_RELEASE (ROOT.endpoint + "/releases/{release_id}"),
-    DATABASE_RELEASE_RATING_BY_USER (ROOT.endpoint + "/releases/{release_id}/rating/{username}");
+    DATABASE_RELEASE_RATING_BY_USER (ROOT.endpoint + "/releases/{release_id}/rating/{username}"),
+    DATABASE_COMMUNITY_RELEASE_RATING (ROOT.endpoint + "/releases/{release_id}/rating");
 
     private final String endpoint;
 
