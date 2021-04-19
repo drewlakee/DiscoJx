@@ -5,7 +5,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsEndpoints;
-import discojx.discogs.objects.CommunityReleaseRating;
 import discojx.discogs.objects.ReleaseStats;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
