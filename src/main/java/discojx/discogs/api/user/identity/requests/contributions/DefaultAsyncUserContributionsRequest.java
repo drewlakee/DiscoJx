@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsEndpoints;
 import discojx.discogs.objects.Contributions;
+import discojx.requests.ParameterizedRequest;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
@@ -34,7 +35,7 @@ public class DefaultAsyncUserContributionsRequest implements AsyncUserContributi
         this.endpointParameters = builder.endpointParameters;
     }
 
-    public static class Builder implements AsyncUserContributionsRequestBuilder {
+    public static class Builder implements AsyncUserContributionsRequestBuilder, ParameterizedRequest<String> {
 
         private final AbstractHttpClient<HttpEntity> client;
 
@@ -82,11 +83,12 @@ public class DefaultAsyncUserContributionsRequest implements AsyncUserContributi
 
         @Override
         public AsyncUserContributionsRequest build() {
-            constructParameters();
+            this.endpointParameters = constructParameters();
             return new DefaultAsyncUserContributionsRequest(this);
         }
 
-        private void constructParameters() {
+        @Override
+        public String constructParameters() {
             List<String> parameters = new ArrayList<>();
 
             if (page > 0) parameters.add("page=" + page);
@@ -95,9 +97,9 @@ public class DefaultAsyncUserContributionsRequest implements AsyncUserContributi
             if (sortOrder != null) parameters.add("sort_order=" + sortOrder);
 
             if (parameters.isEmpty()) {
-                this.endpointParameters = "";
+                return "";
             } else {
-                this.endpointParameters = "?" + String.join("&", parameters);
+                return "?" + String.join("&", parameters);
             }
         }
 

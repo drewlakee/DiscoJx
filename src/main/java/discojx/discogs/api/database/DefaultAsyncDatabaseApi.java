@@ -5,6 +5,8 @@ import discojx.discogs.api.database.requests.release.AsyncReleaseRequestBuilder;
 import discojx.discogs.api.database.requests.release.DefaultAsyncReleaseRequest;
 import discojx.discogs.api.database.requests.release.master.AsyncMasterReleaseRequestBuilder;
 import discojx.discogs.api.database.requests.release.master.DefaultAsyncMasterReleaseRequest;
+import discojx.discogs.api.database.requests.release.master.versions.AsyncMasterReleaseVersionsRequestBuilder;
+import discojx.discogs.api.database.requests.release.master.versions.DefaultAsyncMasterReleaseVersionsRequest;
 import discojx.discogs.api.database.requests.release.rating.community.AsyncCommunityReleaseRatingRequestBuilder;
 import discojx.discogs.api.database.requests.release.rating.community.DefaultAsyncCommunityReleaseRatingRequest;
 import discojx.discogs.api.database.requests.release.rating.user.AsyncReleaseRatingByUserRequestBuilder;
@@ -60,6 +62,11 @@ public class DefaultAsyncDatabaseApi implements AsyncDatabaseApi {
     @Override
     public AsyncMasterReleaseRequestBuilder masterRelease() {
         return new DefaultAsyncMasterReleaseRequest.Builder(client);
+    }
+
+    @Override
+    public AsyncMasterReleaseVersionsRequestBuilder masterReleaseVersions() {
+        return new DefaultAsyncMasterReleaseVersionsRequest.Builder(client);
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsEndpoints;
 import discojx.discogs.objects.Submissions;
+import discojx.requests.ParameterizedRequest;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
@@ -33,7 +34,7 @@ public class DefaultAsyncUserSubmissionsRequest implements AsyncUserSubmissionsR
         this.endpointParameters = builder.endpointParameters;
     }
 
-    public static class Builder implements AsyncUserSubmissionsRequestBuilder {
+    public static class Builder implements AsyncUserSubmissionsRequestBuilder, ParameterizedRequest<String> {
 
         private final AbstractHttpClient<HttpEntity> client;
 
@@ -67,20 +68,21 @@ public class DefaultAsyncUserSubmissionsRequest implements AsyncUserSubmissionsR
 
         @Override
         public AsyncUserSubmissionsRequest build() {
-            constructParameters();
+            this.endpointParameters = constructParameters();
             return new DefaultAsyncUserSubmissionsRequest(this);
         }
 
-        private void constructParameters() {
+        @Override
+        public String constructParameters() {
             ArrayList<String> parameters = new ArrayList<>();
 
             if (page > 0) parameters.add("page=" + page);
             if (perPage > 0) parameters.add("per_page=" + perPage);
 
             if (parameters.size() > 0) {
-                this.endpointParameters = "?" + String.join("&", parameters);
+                return "?" + String.join("&", parameters);
             } else {
-                this.endpointParameters = "";
+                return "";
             }
         }
 
