@@ -10,6 +10,227 @@ import java.util.Objects;
 
 public class Release {
 
+    public static class ArtistRelease {
+
+        public static class Stats {
+
+            public static class Community {
+                @JsonProperty("in_wantlist")
+                private int inWantList;
+                @JsonProperty("in_collection")
+                private int inCollection;
+
+                public int getInWantList() {
+                    return inWantList;
+                }
+
+                public void setInWantList(int inWantList) {
+                    this.inWantList = inWantList;
+                }
+
+                public int getInCollection() {
+                    return inCollection;
+                }
+
+                public void setInCollection(int inCollection) {
+                    this.inCollection = inCollection;
+                }
+
+                @Override
+                public String toString() {
+                    return "Community{" +
+                            "inWantList=" + inWantList +
+                            ", inCollection=" + inCollection +
+                            '}';
+                }
+
+                @Override
+                public boolean equals(Object o) {
+                    if (this == o) return true;
+                    if (o == null || getClass() != o.getClass()) return false;
+                    Community community = (Community) o;
+                    return inWantList == community.inWantList && inCollection == community.inCollection;
+                }
+
+                @Override
+                public int hashCode() {
+                    return Objects.hash(inWantList, inCollection);
+                }
+            }
+
+            private Community community;
+
+            public Community getCommunity() {
+                return community;
+            }
+
+            public void setCommunity(Community community) {
+                this.community = community;
+            }
+
+            @Override
+            public String toString() {
+                return "Stats{" +
+                        "community=" + community +
+                        '}';
+            }
+
+            @Override
+            public boolean equals(Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+                Stats stats = (Stats) o;
+                return Objects.equals(community, stats.community);
+            }
+
+            @Override
+            public int hashCode() {
+                return Objects.hash(community);
+            }
+        }
+
+        private long id;
+        private String status;
+        private String type;
+        private String format;
+        private String label;
+        private String title;
+        @JsonProperty("resource_url")
+        private URL resourceUrl;
+        private String role;
+        private String artist;
+        private int year;
+        private URL thumb;
+        private Stats stats;
+
+        public long getId() {
+            return id;
+        }
+
+        public void setId(long id) {
+            this.id = id;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        public String getFormat() {
+            return format;
+        }
+
+        public void setFormat(String format) {
+            this.format = format;
+        }
+
+        public String getLabel() {
+            return label;
+        }
+
+        public void setLabel(String label) {
+            this.label = label;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public URL getResourceUrl() {
+            return resourceUrl;
+        }
+
+        public void setResourceUrl(URL resourceUrl) {
+            this.resourceUrl = resourceUrl;
+        }
+
+        public String getRole() {
+            return role;
+        }
+
+        public void setRole(String role) {
+            this.role = role;
+        }
+
+        public String getArtist() {
+            return artist;
+        }
+
+        public void setArtist(String artist) {
+            this.artist = artist;
+        }
+
+        public int getYear() {
+            return year;
+        }
+
+        public void setYear(int year) {
+            this.year = year;
+        }
+
+        public URL getThumb() {
+            return thumb;
+        }
+
+        public void setThumb(URL thumb) {
+            this.thumb = thumb;
+        }
+
+        public Stats getStats() {
+            return stats;
+        }
+
+        public void setStats(Stats stats) {
+            this.stats = stats;
+        }
+
+        @Override
+        public String toString() {
+            return "ArtistRelease{" +
+                    "id=" + id +
+                    ", status='" + status + '\'' +
+                    ", type='" + type + '\'' +
+                    ", format='" + format + '\'' +
+                    ", label='" + label + '\'' +
+                    ", title='" + title + '\'' +
+                    ", resourceUrl=" + resourceUrl +
+                    ", role='" + role + '\'' +
+                    ", artist='" + artist + '\'' +
+                    ", year=" + year +
+                    ", thumb=" + thumb +
+                    ", stats=" + stats +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            ArtistRelease that = (ArtistRelease) o;
+            return id == that.id && year == that.year && Objects.equals(status, that.status) && Objects.equals(type, that.type) && Objects.equals(format, that.format) && Objects.equals(label, that.label) && Objects.equals(title, that.title) && Objects.equals(resourceUrl, that.resourceUrl) && Objects.equals(role, that.role) && Objects.equals(artist, that.artist) && Objects.equals(thumb, that.thumb) && Objects.equals(stats, that.stats);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id, status, type, format, label, title, resourceUrl, role, artist, year, thumb, stats);
+        }
+    }
+
     private long id;
     private String status;
     private int year;

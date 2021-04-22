@@ -6,7 +6,6 @@ public enum DiscogsEndpoints {
 
     USER_PROFILE(ROOT.endpoint + "/users/{username}"),
     USER_PROFILE_EDIT(ROOT.endpoint + "/users/{username}"),
-
     USER_IDENTITY (ROOT.endpoint + "/oauth/identity"),
     USER_SUBMISSIONS (ROOT.endpoint + "/users/{username}/submissions"),
     USER_CONTRIBUTIONS (ROOT.endpoint + "/users/{username}/contributions"),
@@ -17,7 +16,8 @@ public enum DiscogsEndpoints {
     DATABASE_RELEASE_STATS (ROOT.endpoint + "/releases/{release_id}/stats"),
     DATABASE_MASTER_RELEASE (ROOT.endpoint + "/masters/{master_id}"),
     DATABASE_MASTER_RELEASE_VERSIONS (ROOT.endpoint + "/masters/{master_id}/versions"),
-    DATABASE_ARTIST (ROOT.endpoint + "/artists/{artist_id}");
+    DATABASE_ARTIST (ROOT.endpoint + "/artists/{artist_id}"),
+    DATABASER_ARTIST_RELEASES (ROOT.endpoint + "/artists/{artist_id}/releases");
 
     private final String endpoint;
 

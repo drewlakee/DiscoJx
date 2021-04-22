@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsEndpoints;
 import discojx.discogs.objects.Artist;
-import discojx.discogs.objects.Release;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
