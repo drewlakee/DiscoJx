@@ -7,6 +7,8 @@ import discojx.discogs.api.database.requests.artist.releases.AsyncArtistReleases
 import discojx.discogs.api.database.requests.artist.releases.DefaultAsyncArtistReleasesRequest;
 import discojx.discogs.api.database.requests.label.AsyncLabelRequestBuilder;
 import discojx.discogs.api.database.requests.label.DefaultAsyncLabelRequest;
+import discojx.discogs.api.database.requests.label.releases.AsyncLabelReleasesRequestBuilder;
+import discojx.discogs.api.database.requests.label.releases.DefaultAsyncLabelReleasesRequest;
 import discojx.discogs.api.database.requests.release.AsyncReleaseRequestBuilder;
 import discojx.discogs.api.database.requests.release.DefaultAsyncReleaseRequest;
 import discojx.discogs.api.database.requests.release.master.AsyncMasterReleaseRequestBuilder;
@@ -86,6 +88,11 @@ public class DefaultAsyncDatabaseApi implements AsyncDatabaseApi {
     @Override
     public AsyncLabelRequestBuilder label() {
         return new DefaultAsyncLabelRequest.Builder(client);
+    }
+
+    @Override
+    public AsyncLabelReleasesRequestBuilder labelReleases() {
+        return new DefaultAsyncLabelReleasesRequest.Builder(client);
     }
 
     @Override

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsEndpoints;
 import discojx.discogs.objects.Submissions;
-import discojx.requests.ParameterizedRequest;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
@@ -34,7 +33,7 @@ public class DefaultAsyncUserSubmissionsRequest implements AsyncUserSubmissionsR
         this.endpointParameters = builder.endpointParameters;
     }
 
-    public static class Builder implements AsyncUserSubmissionsRequestBuilder, ParameterizedRequest<String> {
+    public static class Builder implements AsyncUserSubmissionsRequestBuilder {
 
         private final AbstractHttpClient<HttpEntity> client;
 

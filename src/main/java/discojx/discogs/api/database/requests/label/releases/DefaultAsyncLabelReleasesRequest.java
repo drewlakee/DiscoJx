@@ -1,11 +1,11 @@
-package discojx.discogs.api.database.requests.artist.releases;
+package discojx.discogs.api.database.requests.label.releases;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsEndpoints;
-import discojx.discogs.objects.ArtistReleases;
+import discojx.discogs.objects.LabelReleases;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
@@ -17,24 +17,24 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultAsyncArtistReleasesRequest implements AsyncArtistReleasesRequest {
+public class DefaultAsyncLabelReleasesRequest implements AsyncLabelReleasesRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
 
     protected static final ObjectMapper jsonMapper = new JsonMapper()
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
-    private final long artistId;
+    private final long labelId;
 
     private final String endpointParameters;
 
-    public DefaultAsyncArtistReleasesRequest(Builder builder) {
+    public DefaultAsyncLabelReleasesRequest(Builder builder) {
         this.client = builder.client;
-        this.artistId = builder.artistId;
+        this.labelId = builder.labelId;
         this.endpointParameters = builder.endpointParameters;
     }
 
-    public static class Builder implements AsyncArtistReleasesRequestBuilder {
+    public static class Builder implements AsyncLabelReleasesRequestBuilder {
 
         private final AbstractHttpClient<HttpEntity> client;
 
@@ -42,7 +42,7 @@ public class DefaultAsyncArtistReleasesRequest implements AsyncArtistReleasesReq
         private int perPage;
         private String sort;
         private String sortOrder;
-        private long artistId;
+        private long labelId;
 
         private String endpointParameters;
 
@@ -51,39 +51,39 @@ public class DefaultAsyncArtistReleasesRequest implements AsyncArtistReleasesReq
         }
 
         @Override
-        public AsyncArtistReleasesRequestBuilder artistId(long artistId) {
-            this.artistId = artistId;
+        public AsyncLabelReleasesRequestBuilder labelId(long labelId) {
+            this.labelId = labelId;
             return this;
         }
 
         @Override
-        public AsyncArtistReleasesRequestBuilder page(int page) {
+        public AsyncLabelReleasesRequestBuilder page(int page) {
             this.page = page;
             return this;
         }
 
         @Override
-        public AsyncArtistReleasesRequestBuilder perPage(int perPage) {
+        public AsyncLabelReleasesRequestBuilder perPage(int perPage) {
             this.perPage = perPage;
             return this;
         }
 
         @Override
-        public AsyncArtistReleasesRequestBuilder sort(String attribute) {
+        public AsyncLabelReleasesRequestBuilder sort(String attribute) {
             this.sort = attribute;
             return this;
         }
 
         @Override
-        public AsyncArtistReleasesRequestBuilder sortOrder(String sortOrder) {
+        public AsyncLabelReleasesRequestBuilder sortOrder(String sortOrder) {
             this.sortOrder = sortOrder;
             return this;
         }
 
         @Override
-        public AsyncArtistReleasesRequest build() {
+        public AsyncLabelReleasesRequest build() {
             this.endpointParameters = constructParameters();
-            return new DefaultAsyncArtistReleasesRequest(this);
+            return new DefaultAsyncLabelReleasesRequest(this);
         }
 
         @Override
@@ -102,69 +102,45 @@ public class DefaultAsyncArtistReleasesRequest implements AsyncArtistReleasesReq
             }
         }
 
-        @Override
-        public String toString() {
-            return "Builder{" +
-                    "client=" + client +
-                    ", page=" + page +
-                    ", perPage=" + perPage +
-                    ", sort='" + sort + '\'' +
-                    ", sortOrder='" + sortOrder + '\'' +
-                    ", artistId=" + artistId +
-                    ", endpointParameters='" + endpointParameters + '\'' +
-                    '}';
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Builder builder = (Builder) o;
-            return page == builder.page && perPage == builder.perPage && artistId == builder.artistId && Objects.equals(client, builder.client) && Objects.equals(sort, builder.sort) && Objects.equals(sortOrder, builder.sortOrder) && Objects.equals(endpointParameters, builder.endpointParameters);
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(client, page, perPage, sort, sortOrder, artistId, endpointParameters);
-        }
     }
 
     @Override
-    public CompletableFuture<ArtistReleases> executeAsync() {
+    public CompletableFuture<LabelReleases> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.DATABASE_ARTIST_RELEASES.getEndpoint().replace("{artist_id}", String.valueOf(artistId)) + endpointParameters));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.DATABASE_LABEL_RELEASES.getEndpoint().replace("{label_id}", String.valueOf(labelId)) + endpointParameters));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
-            ArtistReleases artistReleases;
+            LabelReleases labelReleases;
             try {
-                artistReleases = jsonMapper.readValue(httpEntity.getContent(), ArtistReleases.class);
+                labelReleases = jsonMapper.readValue(httpEntity.getContent(), LabelReleases.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }
 
-            return artistReleases;
+            return labelReleases;
         });
     }
 
     @Override
     public String toString() {
-        return "DefaultAsyncArtistReleasesRequest{" +
+        return "DefaultAsyncLabelReleasesRequest{" +
                 "client=" + client +
-                ", artistId=" + artistId +
+                ", labelId=" + labelId +
                 ", endpointParameters='" + endpointParameters + '\'' +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DefaultAsyncArtistReleasesRequest that = (DefaultAsyncArtistReleasesRequest) o;
-        return artistId == that.artistId && Objects.equals(client, that.client) && Objects.equals(endpointParameters, that.endpointParameters);
+        DefaultAsyncLabelReleasesRequest that = (DefaultAsyncLabelReleasesRequest) o;
+        return labelId == that.labelId && Objects.equals(client, that.client) && Objects.equals(endpointParameters, that.endpointParameters);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, artistId, endpointParameters);
+        return Objects.hash(client, labelId, endpointParameters);
     }
 }

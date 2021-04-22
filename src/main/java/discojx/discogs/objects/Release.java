@@ -10,7 +10,7 @@ import java.util.Objects;
 
 public class Release {
 
-    public static class ArtistRelease {
+    public static class Artist {
 
         public static class Stats {
 
@@ -221,7 +221,7 @@ public class Release {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
-            ArtistRelease that = (ArtistRelease) o;
+            Artist that = (Artist) o;
             return id == that.id && year == that.year && Objects.equals(status, that.status) && Objects.equals(type, that.type) && Objects.equals(format, that.format) && Objects.equals(label, that.label) && Objects.equals(title, that.title) && Objects.equals(resourceUrl, that.resourceUrl) && Objects.equals(role, that.role) && Objects.equals(artist, that.artist) && Objects.equals(thumb, that.thumb) && Objects.equals(stats, that.stats);
         }
 
@@ -231,16 +231,130 @@ public class Release {
         }
     }
 
+    public static class Label {
+
+        private long id;
+        private String artist;
+        private String title;
+        private String status;
+        private String format;
+        private String catno;
+        private int year;
+        @JsonProperty("resource_url")
+        private URL resourceUrl;
+        private URL thumb;
+
+        public long getId() {
+            return id;
+        }
+
+        public void setId(long id) {
+            this.id = id;
+        }
+
+        public String getArtist() {
+            return artist;
+        }
+
+        public void setArtist(String artist) {
+            this.artist = artist;
+        }
+
+        public String getTitle() {
+            return title;
+        }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+        public String getStatus() {
+            return status;
+        }
+
+        public void setStatus(String status) {
+            this.status = status;
+        }
+
+        public String getFormat() {
+            return format;
+        }
+
+        public void setFormat(String format) {
+            this.format = format;
+        }
+
+        public String getCatno() {
+            return catno;
+        }
+
+        public void setCatno(String catno) {
+            this.catno = catno;
+        }
+
+        public int getYear() {
+            return year;
+        }
+
+        public void setYear(int year) {
+            this.year = year;
+        }
+
+        public URL getResourceUrl() {
+            return resourceUrl;
+        }
+
+        public void setResourceUrl(URL resourceUrl) {
+            this.resourceUrl = resourceUrl;
+        }
+
+        public URL getThumb() {
+            return thumb;
+        }
+
+        public void setThumb(URL thumb) {
+            this.thumb = thumb;
+        }
+
+        @Override
+        public String toString() {
+            return "LabelRelease{" +
+                    "id=" + id +
+                    ", artist='" + artist + '\'' +
+                    ", title='" + title + '\'' +
+                    ", status='" + status + '\'' +
+                    ", format='" + format + '\'' +
+                    ", catno='" + catno + '\'' +
+                    ", year=" + year +
+                    ", resourceUrl=" + resourceUrl +
+                    ", thumb=" + thumb +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Label that = (Label) o;
+            return id == that.id && year == that.year && Objects.equals(artist, that.artist) && Objects.equals(title, that.title) && Objects.equals(status, that.status) && Objects.equals(format, that.format) && Objects.equals(catno, that.catno) && Objects.equals(resourceUrl, that.resourceUrl) && Objects.equals(thumb, that.thumb);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id, artist, title, status, format, catno, year, resourceUrl, thumb);
+        }
+    }
+
     private long id;
     private String status;
     private int year;
     @JsonProperty("resource_url")
     private URL resourceUrl;
     private URI uri;
-    private List<Artist.Short> artists;
+    private List<discojx.discogs.objects.Artist.Short> artists;
     @JsonProperty("artists_sort")
     private String artistsSort;
-    private List<Label.Short> labels;
+    private List<discojx.discogs.objects.Label.Short> labels;
     private List<Identifier> identifiers;
     private List<Company> companies;
     private List<Format> formats;
@@ -277,7 +391,7 @@ public class Release {
     private List<Series> series;
     private String release;
     @JsonProperty("extraartists")
-    private List<Artist.Short> extraArtists;
+    private List<discojx.discogs.objects.Artist.Short> extraArtists;
     @JsonProperty("tracklist")
     private List<Track> trackList;
 
@@ -321,11 +435,11 @@ public class Release {
         this.uri = uri;
     }
 
-    public List<Artist.Short> getArtists() {
+    public List<discojx.discogs.objects.Artist.Short> getArtists() {
         return artists;
     }
 
-    public void setArtists(List<Artist.Short> artists) {
+    public void setArtists(List<discojx.discogs.objects.Artist.Short> artists) {
         this.artists = artists;
     }
 
@@ -337,11 +451,11 @@ public class Release {
         this.artistsSort = artistsSort;
     }
 
-    public List<Label.Short> getLabels() {
+    public List<discojx.discogs.objects.Label.Short> getLabels() {
         return labels;
     }
 
-    public void setLabels(List<Label.Short> labels) {
+    public void setLabels(List<discojx.discogs.objects.Label.Short> labels) {
         this.labels = labels;
     }
 
@@ -545,11 +659,11 @@ public class Release {
         this.release = release;
     }
 
-    public List<Artist.Short> getExtraArtists() {
+    public List<discojx.discogs.objects.Artist.Short> getExtraArtists() {
         return extraArtists;
     }
 
-    public void setExtraArtists(List<Artist.Short> extraArtists) {
+    public void setExtraArtists(List<discojx.discogs.objects.Artist.Short> extraArtists) {
         this.extraArtists = extraArtists;
     }
 

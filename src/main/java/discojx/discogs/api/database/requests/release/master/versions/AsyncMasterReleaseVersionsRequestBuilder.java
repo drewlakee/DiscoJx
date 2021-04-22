@@ -1,9 +1,13 @@
 package discojx.discogs.api.database.requests.release.master.versions;
 
 import discojx.requests.PaginationableRequest;
+import discojx.requests.ParameterizedRequest;
 import discojx.requests.SortableRequest;
 
-public interface AsyncMasterReleaseVersionsRequestBuilder extends PaginationableRequest<AsyncMasterReleaseVersionsRequestBuilder>, SortableRequest<AsyncMasterReleaseVersionsRequestBuilder> {
+public interface AsyncMasterReleaseVersionsRequestBuilder extends
+        PaginationableRequest<AsyncMasterReleaseVersionsRequestBuilder>,
+        SortableRequest<AsyncMasterReleaseVersionsRequestBuilder>,
+        ParameterizedRequest<String> {
 
     AsyncMasterReleaseVersionsRequestBuilder masterId(long masterId);
     AsyncMasterReleaseVersionsRequestBuilder format(String ... formats);

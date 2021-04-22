@@ -3,10 +3,10 @@ package discojx.discogs.objects;
 import java.util.List;
 import java.util.Objects;
 
-public class ArtistReleases {
+public class LabelReleases {
 
     private Pagination pagination;
-    private List<Release.Artist> releases;
+    private List<Release.Label> releases;
 
     public Pagination getPagination() {
         return pagination;
@@ -16,17 +16,17 @@ public class ArtistReleases {
         this.pagination = pagination;
     }
 
-    public List<Release.Artist> getReleases() {
+    public List<Release.Label> getReleases() {
         return releases;
     }
 
-    public void setReleases(List<Release.Artist> releases) {
+    public void setReleases(List<Release.Label> releases) {
         this.releases = releases;
     }
 
     @Override
     public String toString() {
-        return "ArtistReleases{" +
+        return "LabelReleases{" +
                 "pagination=" + pagination +
                 ", releases=" + releases +
                 '}';
@@ -34,10 +34,9 @@ public class ArtistReleases {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ArtistReleases that = (ArtistReleases) o;
+        LabelReleases that = (LabelReleases) o;
         return Objects.equals(pagination, that.pagination) && Objects.equals(releases, that.releases);
     }
 

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsEndpoints;
 import discojx.discogs.objects.MasterReleaseVersions;
-import discojx.requests.ParameterizedRequest;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
@@ -32,7 +31,7 @@ public class DefaultAsyncMasterReleaseVersionsRequest implements AsyncMasterRele
         this.endpointParameters = builder.endpointParameters;
     }
 
-    public static class Builder implements AsyncMasterReleaseVersionsRequestBuilder, ParameterizedRequest<String> {
+    public static class Builder implements AsyncMasterReleaseVersionsRequestBuilder {
 
         private final AbstractHttpClient<HttpEntity> client;
 

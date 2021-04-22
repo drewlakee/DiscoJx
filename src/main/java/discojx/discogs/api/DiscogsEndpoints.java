@@ -2,23 +2,24 @@ package discojx.discogs.api;
 
 public enum DiscogsEndpoints {
 
-    ROOT ("https://api.discogs.com"),
+    ROOT                                    ("https://api.discogs.com"),
 
-    USER_PROFILE(ROOT.endpoint + "/users/{username}"),
-    USER_PROFILE_EDIT(ROOT.endpoint + "/users/{username}"),
-    USER_IDENTITY (ROOT.endpoint + "/oauth/identity"),
-    USER_SUBMISSIONS (ROOT.endpoint + "/users/{username}/submissions"),
-    USER_CONTRIBUTIONS (ROOT.endpoint + "/users/{username}/contributions"),
+    USER_PROFILE                            (ROOT.endpoint + "/users/{username}"),
+    USER_PROFILE_EDIT                       (ROOT.endpoint + "/users/{username}"),
+    USER_IDENTITY                           (ROOT.endpoint + "/oauth/identity"),
+    USER_SUBMISSIONS                        (ROOT.endpoint + "/users/{username}/submissions"),
+    USER_CONTRIBUTIONS                      (ROOT.endpoint + "/users/{username}/contributions"),
 
-    DATABASE_RELEASE (ROOT.endpoint + "/releases/{release_id}"),
-    DATABASE_RELEASE_RATING_BY_USER (ROOT.endpoint + "/releases/{release_id}/rating/{username}"),
-    DATABASE_COMMUNITY_RELEASE_RATING (ROOT.endpoint + "/releases/{release_id}/rating"),
-    DATABASE_RELEASE_STATS (ROOT.endpoint + "/releases/{release_id}/stats"),
-    DATABASE_MASTER_RELEASE (ROOT.endpoint + "/masters/{master_id}"),
-    DATABASE_MASTER_RELEASE_VERSIONS (ROOT.endpoint + "/masters/{master_id}/versions"),
-    DATABASE_ARTIST (ROOT.endpoint + "/artists/{artist_id}"),
-    DATABASE_ARTIST_RELEASES(ROOT.endpoint + "/artists/{artist_id}/releases"),
-    DATABASE_LABEL (ROOT.endpoint + "/labels/{label_id}");
+    DATABASE_RELEASE                        (ROOT.endpoint + "/releases/{release_id}"),
+    DATABASE_RELEASE_RATING_BY_USER         (ROOT.endpoint + "/releases/{release_id}/rating/{username}"),
+    DATABASE_COMMUNITY_RELEASE_RATING       (ROOT.endpoint + "/releases/{release_id}/rating"),
+    DATABASE_RELEASE_STATS                  (ROOT.endpoint + "/releases/{release_id}/stats"),
+    DATABASE_MASTER_RELEASE                 (ROOT.endpoint + "/masters/{master_id}"),
+    DATABASE_MASTER_RELEASE_VERSIONS        (ROOT.endpoint + "/masters/{master_id}/versions"),
+    DATABASE_ARTIST                         (ROOT.endpoint + "/artists/{artist_id}"),
+    DATABASE_ARTIST_RELEASES                (ROOT.endpoint + "/artists/{artist_id}/releases"),
+    DATABASE_LABEL                          (ROOT.endpoint + "/labels/{label_id}"),
+    DATABASE_LABEL_RELEASES                 (ROOT.endpoint + "/labels/{label_id}/releases");
 
     private final String endpoint;
 
