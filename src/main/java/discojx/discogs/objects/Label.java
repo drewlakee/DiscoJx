@@ -9,6 +9,123 @@ import java.util.Objects;
 
 public class Label {
 
+    public static class Submissions {
+
+        private String name;
+        private long id;
+        @JsonProperty("resource_url")
+        private URL resourceUrl;
+        private URI uri;
+        @JsonProperty("releases_url")
+        private URL releasesUrl;
+        private List<Image> images;
+        @JsonProperty("contactinfo")
+        private String contactInfo;
+        private String profile;
+        @JsonProperty("data_quality")
+        private String dataQuality;
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public long getId() {
+            return id;
+        }
+
+        public void setId(long id) {
+            this.id = id;
+        }
+
+        public URL getResourceUrl() {
+            return resourceUrl;
+        }
+
+        public void setResourceUrl(URL resourceUrl) {
+            this.resourceUrl = resourceUrl;
+        }
+
+        public URI getUri() {
+            return uri;
+        }
+
+        public void setUri(URI uri) {
+            this.uri = uri;
+        }
+
+        public URL getReleasesUrl() {
+            return releasesUrl;
+        }
+
+        public void setReleasesUrl(URL releasesUrl) {
+            this.releasesUrl = releasesUrl;
+        }
+
+        public List<Image> getImages() {
+            return images;
+        }
+
+        public void setImages(List<Image> images) {
+            this.images = images;
+        }
+
+        public String getContactInfo() {
+            return contactInfo;
+        }
+
+        public void setContactInfo(String contactInfo) {
+            this.contactInfo = contactInfo;
+        }
+
+        public String getProfile() {
+            return profile;
+        }
+
+        public void setProfile(String profile) {
+            this.profile = profile;
+        }
+
+        public String getDataQuality() {
+            return dataQuality;
+        }
+
+        public void setDataQuality(String dataQuality) {
+            this.dataQuality = dataQuality;
+        }
+
+        @Override
+        public String toString() {
+            return "Submissions{" +
+                    "name='" + name + '\'' +
+                    ", id=" + id +
+                    ", resourceUrl=" + resourceUrl +
+                    ", uri=" + uri +
+                    ", releasesUrl=" + releasesUrl +
+                    ", images=" + images +
+                    ", contactInfo='" + contactInfo + '\'' +
+                    ", profile='" + profile + '\'' +
+                    ", dataQuality='" + dataQuality + '\'' +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Submissions that = (Submissions) o;
+            return id == that.id && Objects.equals(name, that.name) && Objects.equals(resourceUrl, that.resourceUrl) && Objects.equals(uri, that.uri) && Objects.equals(releasesUrl, that.releasesUrl) && Objects.equals(images, that.images) && Objects.equals(contactInfo, that.contactInfo) && Objects.equals(profile, that.profile) && Objects.equals(dataQuality, that.dataQuality);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(name, id, resourceUrl, uri, releasesUrl, images, contactInfo, profile, dataQuality);
+        }
+    }
+
     public static class Short {
 
         private String name;
@@ -95,6 +212,60 @@ public class Label {
         }
     }
 
+    public static class SubLabel {
+
+        private long id;
+        private String name;
+        @JsonProperty("resource_url")
+        private URL resourceUrl;
+
+        public long getId() {
+            return id;
+        }
+
+        public void setId(long id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public URL getResourceUrl() {
+            return resourceUrl;
+        }
+
+        public void setResourceUrl(URL resourceUrl) {
+            this.resourceUrl = resourceUrl;
+        }
+
+        @Override
+        public String toString() {
+            return "SubLabel{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    ", resourceUrl=" + resourceUrl +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            SubLabel subLabel = (SubLabel) o;
+            return id == subLabel.id && Objects.equals(name, subLabel.name) && Objects.equals(resourceUrl, subLabel.resourceUrl);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(id, name, resourceUrl);
+        }
+    }
+
     private String name;
     private long id;
     @JsonProperty("resource_url")
@@ -103,11 +274,14 @@ public class Label {
     @JsonProperty("releases_url")
     private URL releasesUrl;
     private List<Image> images;
-    @JsonProperty("contactinfo")
+    @JsonProperty("contact_info")
     private String contactInfo;
     private String profile;
     @JsonProperty("data_quality")
     private String dataQuality;
+    private List<String> urls;
+    @JsonProperty("sublabels")
+    private List<SubLabel> subLabels;
 
     public String getName() {
         return name;
@@ -181,6 +355,22 @@ public class Label {
         this.dataQuality = dataQuality;
     }
 
+    public List<String> getUrls() {
+        return urls;
+    }
+
+    public void setUrls(List<String> urls) {
+        this.urls = urls;
+    }
+
+    public List<SubLabel> getSubLabels() {
+        return subLabels;
+    }
+
+    public void setSubLabels(List<SubLabel> subLabels) {
+        this.subLabels = subLabels;
+    }
+
     @Override
     public String toString() {
         return "Label{" +
@@ -193,6 +383,8 @@ public class Label {
                 ", contactInfo='" + contactInfo + '\'' +
                 ", profile='" + profile + '\'' +
                 ", dataQuality='" + dataQuality + '\'' +
+                ", urls=" + urls +
+                ", subLabels=" + subLabels +
                 '}';
     }
 
@@ -201,11 +393,11 @@ public class Label {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Label label = (Label) o;
-        return id == label.id && Objects.equals(name, label.name) && Objects.equals(resourceUrl, label.resourceUrl) && Objects.equals(uri, label.uri) && Objects.equals(releasesUrl, label.releasesUrl) && Objects.equals(images, label.images) && Objects.equals(contactInfo, label.contactInfo) && Objects.equals(profile, label.profile) && Objects.equals(dataQuality, label.dataQuality);
+        return id == label.id && Objects.equals(name, label.name) && Objects.equals(resourceUrl, label.resourceUrl) && Objects.equals(uri, label.uri) && Objects.equals(releasesUrl, label.releasesUrl) && Objects.equals(images, label.images) && Objects.equals(contactInfo, label.contactInfo) && Objects.equals(profile, label.profile) && Objects.equals(dataQuality, label.dataQuality) && Objects.equals(urls, label.urls) && Objects.equals(subLabels, label.subLabels);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, id, resourceUrl, uri, releasesUrl, images, contactInfo, profile, dataQuality);
+        return Objects.hash(name, id, resourceUrl, uri, releasesUrl, images, contactInfo, profile, dataQuality, urls, subLabels);
     }
 }

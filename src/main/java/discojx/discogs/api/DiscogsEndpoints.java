@@ -17,7 +17,8 @@ public enum DiscogsEndpoints {
     DATABASE_MASTER_RELEASE (ROOT.endpoint + "/masters/{master_id}"),
     DATABASE_MASTER_RELEASE_VERSIONS (ROOT.endpoint + "/masters/{master_id}/versions"),
     DATABASE_ARTIST (ROOT.endpoint + "/artists/{artist_id}"),
-    DATABASER_ARTIST_RELEASES (ROOT.endpoint + "/artists/{artist_id}/releases");
+    DATABASE_ARTIST_RELEASES(ROOT.endpoint + "/artists/{artist_id}/releases"),
+    DATABASE_LABEL (ROOT.endpoint + "/labels/{label_id}");
 
     private final String endpoint;
 

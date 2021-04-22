@@ -6,7 +6,6 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsEndpoints;
 import discojx.discogs.objects.ArtistReleases;
-import discojx.discogs.objects.Release;
 import discojx.requests.ParameterizedRequest;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -134,7 +133,7 @@ public class DefaultAsyncArtistReleasesRequest implements AsyncArtistReleasesReq
     @Override
     public CompletableFuture<ArtistReleases> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.DATABASER_ARTIST_RELEASES.getEndpoint().replace("{artist_id}", String.valueOf(artistId)) + endpointParameters));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.DATABASE_ARTIST_RELEASES.getEndpoint().replace("{artist_id}", String.valueOf(artistId)) + endpointParameters));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             ArtistReleases artistReleases;

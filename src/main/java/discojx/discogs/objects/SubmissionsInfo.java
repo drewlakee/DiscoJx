@@ -7,7 +7,7 @@ public class SubmissionsInfo {
 
     private List<Release> releases;
     private List<Artist.Submissions> artists;
-    private List<Label> labels;
+    private List<Label.Submissions> labels;
 
     public List<Release> getReleases() {
         return releases;
@@ -25,11 +25,11 @@ public class SubmissionsInfo {
         this.artists = artists;
     }
 
-    public List<Label> getLabels() {
+    public List<Label.Submissions> getLabels() {
         return labels;
     }
 
-    public void setLabels(List<Label> labels) {
+    public void setLabels(List<Label.Submissions> labels) {
         this.labels = labels;
     }
 
