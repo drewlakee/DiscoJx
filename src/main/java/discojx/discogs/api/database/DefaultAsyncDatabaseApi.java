@@ -1,6 +1,8 @@
 package discojx.discogs.api.database;
 
 import discojx.clients.AbstractHttpClient;
+import discojx.discogs.api.database.requests.artist.AsyncArtistRequestBuilder;
+import discojx.discogs.api.database.requests.artist.DefaultAsyncArtistRequest;
 import discojx.discogs.api.database.requests.release.AsyncReleaseRequestBuilder;
 import discojx.discogs.api.database.requests.release.DefaultAsyncReleaseRequest;
 import discojx.discogs.api.database.requests.release.master.AsyncMasterReleaseRequestBuilder;
@@ -18,8 +20,6 @@ import discojx.discogs.api.database.requests.release.rating.user.edit.DefaultAsy
 import discojx.discogs.api.database.requests.release.stats.AsyncReleaseStatsRequestBuilder;
 import discojx.discogs.api.database.requests.release.stats.DefaultAsyncReleaseStatsRequest;
 import org.apache.http.HttpEntity;
-
-import java.util.Objects;
 
 public class DefaultAsyncDatabaseApi implements AsyncDatabaseApi {
 
@@ -70,22 +70,15 @@ public class DefaultAsyncDatabaseApi implements AsyncDatabaseApi {
     }
 
     @Override
+    public AsyncArtistRequestBuilder artist() {
+        return new DefaultAsyncArtistRequest.Builder(client);
+    }
+
+    @Override
     public String toString() {
         return "DefaultAsyncDatabaseApi{" +
                 "client=" + client +
                 '}';
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DefaultAsyncDatabaseApi that = (DefaultAsyncDatabaseApi) o;
-        return Objects.equals(client, that.client);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client);
-    }
 }

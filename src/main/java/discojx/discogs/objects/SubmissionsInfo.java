@@ -6,7 +6,7 @@ import java.util.Objects;
 public class SubmissionsInfo {
 
     private List<Release> releases;
-    private List<Artist> artists;
+    private List<Artist.Submissions> artists;
     private List<Label> labels;
 
     public List<Release> getReleases() {
@@ -17,11 +17,11 @@ public class SubmissionsInfo {
         this.releases = releases;
     }
 
-    public List<Artist> getArtists() {
+    public List<Artist.Submissions> getArtists() {
         return artists;
     }
 
-    public void setArtists(List<Artist> artists) {
+    public void setArtists(List<Artist.Submissions> artists) {
         this.artists = artists;
     }
 

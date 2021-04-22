@@ -1,5 +1,6 @@
 package discojx.discogs.api.database;
 
+import discojx.discogs.api.database.requests.artist.AsyncArtistRequestBuilder;
 import discojx.discogs.api.database.requests.release.AsyncReleaseRequestBuilder;
 import discojx.discogs.api.database.requests.release.master.AsyncMasterReleaseRequestBuilder;
 import discojx.discogs.api.database.requests.release.master.versions.AsyncMasterReleaseVersionsRequestBuilder;
@@ -19,4 +20,5 @@ public interface AsyncDatabaseApi {
     AsyncCommunityReleaseRatingRequestBuilder communityReleaseRating();
     AsyncMasterReleaseRequestBuilder masterRelease();
     AsyncMasterReleaseVersionsRequestBuilder masterReleaseVersions();
+    AsyncArtistRequestBuilder artist();
 }
