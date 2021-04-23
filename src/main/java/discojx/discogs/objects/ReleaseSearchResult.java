@@ -106,6 +106,7 @@ public class ReleaseSearchResult extends AbstractTypedSearchResult {
     @JsonProperty("style")
     private List<String> styles;
     private long id;
+    private String title;
     @JsonProperty("barcode")
     private List<String> barcodes;
     @JsonProperty("user_data")
@@ -180,6 +181,14 @@ public class ReleaseSearchResult extends AbstractTypedSearchResult {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public List<String> getBarcodes() {
@@ -288,6 +297,7 @@ public class ReleaseSearchResult extends AbstractTypedSearchResult {
                 ", genres=" + genres +
                 ", styles=" + styles +
                 ", id=" + id +
+                ", title='" + title + '\'' +
                 ", barcodes=" + barcodes +
                 ", userData=" + userData +
                 ", masterId=" + masterId +
@@ -309,11 +319,11 @@ public class ReleaseSearchResult extends AbstractTypedSearchResult {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         ReleaseSearchResult that = (ReleaseSearchResult) o;
-        return year == that.year && id == that.id && masterId == that.masterId && formatQuantity == that.formatQuantity && Objects.equals(country, that.country) && Objects.equals(plainFormats, that.plainFormats) && Objects.equals(labels, that.labels) && Objects.equals(genres, that.genres) && Objects.equals(styles, that.styles) && Objects.equals(barcodes, that.barcodes) && Objects.equals(userData, that.userData) && Objects.equals(masterUrl, that.masterUrl) && Objects.equals(uri, that.uri) && Objects.equals(catno, that.catno) && Objects.equals(thumb, that.thumb) && Objects.equals(coverImage, that.coverImage) && Objects.equals(resourceUrl, that.resourceUrl) && Objects.equals(community, that.community) && Objects.equals(formats, that.formats);
+        return year == that.year && id == that.id && masterId == that.masterId && formatQuantity == that.formatQuantity && Objects.equals(country, that.country) && Objects.equals(plainFormats, that.plainFormats) && Objects.equals(labels, that.labels) && Objects.equals(genres, that.genres) && Objects.equals(styles, that.styles) && Objects.equals(title, that.title) && Objects.equals(barcodes, that.barcodes) && Objects.equals(userData, that.userData) && Objects.equals(masterUrl, that.masterUrl) && Objects.equals(uri, that.uri) && Objects.equals(catno, that.catno) && Objects.equals(thumb, that.thumb) && Objects.equals(coverImage, that.coverImage) && Objects.equals(resourceUrl, that.resourceUrl) && Objects.equals(community, that.community) && Objects.equals(formats, that.formats);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), country, year, plainFormats, labels, genres, styles, id, barcodes, userData, masterId, masterUrl, uri, catno, thumb, coverImage, resourceUrl, community, formatQuantity, formats);
+        return Objects.hash(super.hashCode(), country, year, plainFormats, labels, genres, styles, id, title, barcodes, userData, masterId, masterUrl, uri, catno, thumb, coverImage, resourceUrl, community, formatQuantity, formats);
     }
 }
