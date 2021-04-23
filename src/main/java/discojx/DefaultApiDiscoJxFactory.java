@@ -1,8 +1,8 @@
 package discojx;
 
 import discojx.clients.DefaultLazyHttpClient;
-import discojx.discogs.api.AsyncDiscogsApi;
-import discojx.discogs.api.DefaultAsyncDiscogsApi;
+import discojx.discogs.api.DiscogsApi;
+import discojx.discogs.api.DefaultDiscogsApi;
 import org.apache.http.Header;
 
 import java.util.List;
@@ -22,9 +22,9 @@ public class DefaultApiDiscoJxFactory implements DiscoJxFactory {
     }
 
     @Override
-    public AsyncDiscogsApi create() {
+    public DiscogsApi create() {
         DefaultLazyHttpClient client = new DefaultLazyHttpClient().setHeaders(defaultHttpClientHeaders);
-        return new DefaultAsyncDiscogsApi(client);
+        return new DefaultDiscogsApi(client);
     }
 
     @Override
