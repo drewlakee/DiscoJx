@@ -6,6 +6,8 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsEndpoints;
 import discojx.discogs.objects.MasterReleaseVersions;
+import discojx.utils.requests.RequestParametersConstructor;
+import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
@@ -23,12 +25,12 @@ public class DefaultAsyncMasterReleaseVersionsRequest implements AsyncMasterRele
 
     private final long masterId;
 
-    private final String endpointParameters;
+    private final String queryUrl;
 
     public DefaultAsyncMasterReleaseVersionsRequest(Builder builder) {
         this.client = builder.client;
         this.masterId = builder.masterId;
-        this.endpointParameters = builder.endpointParameters;
+        this.queryUrl = builder.queryUrl;
     }
 
     public static class Builder implements AsyncMasterReleaseVersionsRequestBuilder {
@@ -45,7 +47,7 @@ public class DefaultAsyncMasterReleaseVersionsRequest implements AsyncMasterRele
         private int[] years;
         private String[] countries;
 
-        private String endpointParameters;
+        private String queryUrl;
 
         public Builder(AbstractHttpClient<HttpEntity> client) {
             this.client = client;
@@ -107,28 +109,25 @@ public class DefaultAsyncMasterReleaseVersionsRequest implements AsyncMasterRele
 
         @Override
         public AsyncMasterReleaseVersionsRequest build() {
-            this.endpointParameters = constructParameters();
+            this.queryUrl = DiscogsEndpoints.DATABASE_MASTER_RELEASE_VERSIONS.getEndpointWith(constructParameters().toParametersString());
             return new DefaultAsyncMasterReleaseVersionsRequest(this);
         }
 
         @Override
-        public String constructParameters() {
-            List<String> parameters = new ArrayList<>();
+        public RequestParametersConstructor constructParameters() {
+            StringBuilderSequentialRequestParametersConstructor parameters =
+                    new StringBuilderSequentialRequestParametersConstructor();
 
-            if (page > 0) parameters.add("page=" + page);
-            if (perPage > 0) parameters.add("per_page=" + perPage);
-            if (sort != null) parameters.add("sort=" + sort);
-            if (sortOrder != null) parameters.add("sort_order=" + sortOrder);
-            if (formats != null && formats.length > 0) Arrays.stream(formats).forEach(format -> parameters.add("format=" + format));
-            if (labels != null && labels.length > 0) Arrays.stream(labels).forEach(label -> parameters.add("label=" + label));
-            if (years != null && years.length > 0) Arrays.stream(years).forEach(years -> parameters.add("released=" + years));
-            if (countries != null && countries.length > 0) Arrays.stream(countries).forEach(country -> parameters.add("county=" + country));
+            if (page > 0) parameters.append("page", page);
+            if (perPage > 0) parameters.append("per_page", perPage);
+            if (sort != null) parameters.append("sort", sort);
+            if (sortOrder != null) parameters.append("sort_order", sortOrder);
+            if (formats != null && formats.length > 0) Arrays.stream(formats).forEach(format -> parameters.append("format", format));
+            if (labels != null && labels.length > 0) Arrays.stream(labels).forEach(label -> parameters.append("label", label));
+            if (years != null && years.length > 0) Arrays.stream(years).forEach(years -> parameters.append("released", years));
+            if (countries != null && countries.length > 0) Arrays.stream(countries).forEach(country -> parameters.append("county", country));
 
-            if (parameters.isEmpty()) {
-                return "";
-            } else {
-                return "?" + String.join("&", parameters);
-            }
+            return parameters;
         }
 
         @Override
@@ -144,7 +143,7 @@ public class DefaultAsyncMasterReleaseVersionsRequest implements AsyncMasterRele
                     ", labels=" + Arrays.toString(labels) +
                     ", years=" + Arrays.toString(years) +
                     ", countries=" + Arrays.toString(countries) +
-                    ", endpointParameters='" + endpointParameters + '\'' +
+                    ", queryUrl='" + queryUrl + '\'' +
                     '}';
         }
 
@@ -153,12 +152,12 @@ public class DefaultAsyncMasterReleaseVersionsRequest implements AsyncMasterRele
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Builder builder = (Builder) o;
-            return page == builder.page && perPage == builder.perPage && masterId == builder.masterId && Objects.equals(client, builder.client) && Objects.equals(sort, builder.sort) && Objects.equals(sortOrder, builder.sortOrder) && Arrays.equals(formats, builder.formats) && Arrays.equals(labels, builder.labels) && Arrays.equals(years, builder.years) && Arrays.equals(countries, builder.countries) && Objects.equals(endpointParameters, builder.endpointParameters);
+            return page == builder.page && perPage == builder.perPage && masterId == builder.masterId && Objects.equals(client, builder.client) && Objects.equals(sort, builder.sort) && Objects.equals(sortOrder, builder.sortOrder) && Arrays.equals(formats, builder.formats) && Arrays.equals(labels, builder.labels) && Arrays.equals(years, builder.years) && Arrays.equals(countries, builder.countries) && Objects.equals(queryUrl, builder.queryUrl);
         }
 
         @Override
         public int hashCode() {
-            int result = Objects.hash(client, page, perPage, sort, sortOrder, masterId, endpointParameters);
+            int result = Objects.hash(client, page, perPage, sort, sortOrder, masterId, queryUrl);
             result = 31 * result + Arrays.hashCode(formats);
             result = 31 * result + Arrays.hashCode(labels);
             result = 31 * result + Arrays.hashCode(years);
@@ -170,8 +169,7 @@ public class DefaultAsyncMasterReleaseVersionsRequest implements AsyncMasterRele
     @Override
     public CompletableFuture<MasterReleaseVersions> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
-            String endpoint = DiscogsEndpoints.DATABASE_MASTER_RELEASE_VERSIONS.getEndpoint().replace("{master_id}", String.valueOf(masterId)) + endpointParameters;
-            Optional<HttpEntity> execute = client.execute(new HttpGet(endpoint));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl.replace("{master_id}", String.valueOf(masterId))));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             MasterReleaseVersions masterReleaseVersions;
@@ -190,7 +188,7 @@ public class DefaultAsyncMasterReleaseVersionsRequest implements AsyncMasterRele
         return "DefaultAsyncMasterReleaseVersionsRequest{" +
                 "client=" + client +
                 ", masterId=" + masterId +
-                ", endpointParameters='" + endpointParameters + '\'' +
+                ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
 
@@ -199,11 +197,11 @@ public class DefaultAsyncMasterReleaseVersionsRequest implements AsyncMasterRele
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultAsyncMasterReleaseVersionsRequest that = (DefaultAsyncMasterReleaseVersionsRequest) o;
-        return masterId == that.masterId && Objects.equals(client, that.client) && Objects.equals(endpointParameters, that.endpointParameters);
+        return masterId == that.masterId && Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, masterId, endpointParameters);
+        return Objects.hash(client, masterId, queryUrl);
     }
 }

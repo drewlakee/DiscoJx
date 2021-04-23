@@ -6,12 +6,12 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsEndpoints;
 import discojx.discogs.objects.LabelReleases;
+import discojx.utils.requests.RequestParametersConstructor;
+import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -26,12 +26,12 @@ public class DefaultAsyncLabelReleasesRequest implements AsyncLabelReleasesReque
 
     private final long labelId;
 
-    private final String endpointParameters;
+    private final String queryUrl;
 
     public DefaultAsyncLabelReleasesRequest(Builder builder) {
         this.client = builder.client;
         this.labelId = builder.labelId;
-        this.endpointParameters = builder.endpointParameters;
+        this.queryUrl = builder.queryUrl;
     }
 
     public static class Builder implements AsyncLabelReleasesRequestBuilder {
@@ -44,7 +44,7 @@ public class DefaultAsyncLabelReleasesRequest implements AsyncLabelReleasesReque
         private String sortOrder;
         private long labelId;
 
-        private String endpointParameters;
+        private String queryUrl;
 
         public Builder(AbstractHttpClient<HttpEntity> client) {
             this.client = client;
@@ -82,32 +82,54 @@ public class DefaultAsyncLabelReleasesRequest implements AsyncLabelReleasesReque
 
         @Override
         public AsyncLabelReleasesRequest build() {
-            this.endpointParameters = constructParameters();
+            this.queryUrl = DiscogsEndpoints.DATABASE_LABEL_RELEASES.getEndpointWith(constructParameters().toParametersString());
             return new DefaultAsyncLabelReleasesRequest(this);
         }
 
         @Override
-        public String constructParameters() {
-            List<String> parameters = new ArrayList<>();
+        public RequestParametersConstructor constructParameters() {
+            StringBuilderSequentialRequestParametersConstructor parameters =
+                    new StringBuilderSequentialRequestParametersConstructor();
 
-            if (page > 0) parameters.add("page=" + page);
-            if (perPage > 0) parameters.add("per_page=" + perPage);
-            if (sort != null) parameters.add("sort=" + sort);
-            if (sortOrder != null) parameters.add("sort_order=" + sortOrder);
+            if (page > 0) parameters.append("page", page);
+            if (perPage > 0) parameters.append("per_page", perPage);
+            if (sort != null) parameters.append("sort", sort);
+            if (sortOrder != null) parameters.append("sort_order", sortOrder);
 
-            if (parameters.isEmpty()) {
-                return "";
-            } else {
-                return "?" + String.join("&", parameters);
-            }
+            return parameters;
         }
 
+        @Override
+        public String toString() {
+            return "Builder{" +
+                    "client=" + client +
+                    ", page=" + page +
+                    ", perPage=" + perPage +
+                    ", sort='" + sort + '\'' +
+                    ", sortOrder='" + sortOrder + '\'' +
+                    ", labelId=" + labelId +
+                    ", queryUrl='" + queryUrl + '\'' +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Builder builder = (Builder) o;
+            return page == builder.page && perPage == builder.perPage && labelId == builder.labelId && Objects.equals(client, builder.client) && Objects.equals(sort, builder.sort) && Objects.equals(sortOrder, builder.sortOrder) && Objects.equals(queryUrl, builder.queryUrl);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(client, page, perPage, sort, sortOrder, labelId, queryUrl);
+        }
     }
 
     @Override
     public CompletableFuture<LabelReleases> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.DATABASE_LABEL_RELEASES.getEndpoint().replace("{label_id}", String.valueOf(labelId)) + endpointParameters));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl.replace("{label_id}", String.valueOf(labelId))));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             LabelReleases labelReleases;
@@ -126,21 +148,20 @@ public class DefaultAsyncLabelReleasesRequest implements AsyncLabelReleasesReque
         return "DefaultAsyncLabelReleasesRequest{" +
                 "client=" + client +
                 ", labelId=" + labelId +
-                ", endpointParameters='" + endpointParameters + '\'' +
+                ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultAsyncLabelReleasesRequest that = (DefaultAsyncLabelReleasesRequest) o;
-        return labelId == that.labelId && Objects.equals(client, that.client) && Objects.equals(endpointParameters, that.endpointParameters);
+        return labelId == that.labelId && Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, labelId, endpointParameters);
+        return Objects.hash(client, labelId, queryUrl);
     }
 }

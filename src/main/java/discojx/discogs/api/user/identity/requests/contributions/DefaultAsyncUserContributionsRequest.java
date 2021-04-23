@@ -6,12 +6,12 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsEndpoints;
 import discojx.discogs.objects.Contributions;
+import discojx.utils.requests.RequestParametersConstructor;
+import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -26,12 +26,12 @@ public class DefaultAsyncUserContributionsRequest implements AsyncUserContributi
 
     private final String username;
 
-    protected final String endpointParameters;
+    protected final String queryUrl;
 
     public DefaultAsyncUserContributionsRequest(Builder builder) {
         this.client = builder.client;
         this.username = builder.username;
-        this.endpointParameters = builder.endpointParameters;
+        this.queryUrl = builder.queryUrl;
     }
 
     public static class Builder implements AsyncUserContributionsRequestBuilder {
@@ -44,7 +44,7 @@ public class DefaultAsyncUserContributionsRequest implements AsyncUserContributi
         private int page;
         private int perPage;
 
-        private String endpointParameters;
+        private String queryUrl;
 
         public Builder(AbstractHttpClient<HttpEntity> client) {
             this.client = client;
@@ -82,24 +82,21 @@ public class DefaultAsyncUserContributionsRequest implements AsyncUserContributi
 
         @Override
         public AsyncUserContributionsRequest build() {
-            this.endpointParameters = constructParameters();
+            this.queryUrl = DiscogsEndpoints.USER_CONTRIBUTIONS.getEndpointWith(constructParameters().toParametersString());
             return new DefaultAsyncUserContributionsRequest(this);
         }
 
         @Override
-        public String constructParameters() {
-            List<String> parameters = new ArrayList<>();
+        public RequestParametersConstructor constructParameters() {
+            StringBuilderSequentialRequestParametersConstructor parameters =
+                    new StringBuilderSequentialRequestParametersConstructor();
 
-            if (page > 0) parameters.add("page=" + page);
-            if (perPage > 0) parameters.add("per_page=" + perPage);
-            if (sort != null) parameters.add("sort=" + sort);
-            if (sortOrder != null) parameters.add("sort_order=" + sortOrder);
+            if (page > 0) parameters.append("page", page);
+            if (perPage > 0) parameters.append("per_page", perPage);
+            if (sort != null) parameters.append("sort", sort);
+            if (sortOrder != null) parameters.append("sort_order", sortOrder);
 
-            if (parameters.isEmpty()) {
-                return "";
-            } else {
-                return "?" + String.join("&", parameters);
-            }
+            return parameters;
         }
 
         @Override
@@ -111,7 +108,7 @@ public class DefaultAsyncUserContributionsRequest implements AsyncUserContributi
                     ", sortOrder='" + sortOrder + '\'' +
                     ", page=" + page +
                     ", perPage=" + perPage +
-                    ", endpointParameters='" + endpointParameters + '\'' +
+                    ", queryUrl='" + queryUrl + '\'' +
                     '}';
         }
 
@@ -120,19 +117,19 @@ public class DefaultAsyncUserContributionsRequest implements AsyncUserContributi
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Builder builder = (Builder) o;
-            return page == builder.page && perPage == builder.perPage && Objects.equals(client, builder.client) && Objects.equals(username, builder.username) && Objects.equals(sort, builder.sort) && Objects.equals(sortOrder, builder.sortOrder) && Objects.equals(endpointParameters, builder.endpointParameters);
+            return page == builder.page && perPage == builder.perPage && Objects.equals(client, builder.client) && Objects.equals(username, builder.username) && Objects.equals(sort, builder.sort) && Objects.equals(sortOrder, builder.sortOrder) && Objects.equals(queryUrl, builder.queryUrl);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, username, sort, sortOrder, page, perPage, endpointParameters);
+            return Objects.hash(client, username, sort, sortOrder, page, perPage, queryUrl);
         }
     }
 
     @Override
     public CompletableFuture<Contributions> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.USER_CONTRIBUTIONS.getEndpoint().replace("{username}", username) + endpointParameters));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl.replace("{username}", username)));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             Contributions contributions;
@@ -146,13 +143,12 @@ public class DefaultAsyncUserContributionsRequest implements AsyncUserContributi
         });
     }
 
-
     @Override
     public String toString() {
         return "DefaultAsyncUserContributionsRequest{" +
                 "client=" + client +
                 ", username='" + username + '\'' +
-                ", endpointParameters='" + endpointParameters + '\'' +
+                ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
 
@@ -161,11 +157,11 @@ public class DefaultAsyncUserContributionsRequest implements AsyncUserContributi
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultAsyncUserContributionsRequest that = (DefaultAsyncUserContributionsRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(username, that.username) && Objects.equals(endpointParameters, that.endpointParameters);
+        return Objects.equals(client, that.client) && Objects.equals(username, that.username) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, username, endpointParameters);
+        return Objects.hash(client, username, queryUrl);
     }
 }

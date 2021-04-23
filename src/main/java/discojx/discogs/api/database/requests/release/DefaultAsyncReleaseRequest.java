@@ -7,6 +7,8 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsEndpoints;
 import discojx.discogs.objects.MarketplaceCurrencies;
 import discojx.discogs.objects.Release;
+import discojx.utils.requests.RequestParametersConstructor;
+import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
@@ -25,12 +27,12 @@ public class DefaultAsyncReleaseRequest implements AsyncReleaseRequest {
 
     private final long releaseId;
 
-    private final String endpointParameters;
+    private final String queryUrl;
 
     public DefaultAsyncReleaseRequest(Builder builder) {
         this.client = builder.client;
         this.releaseId = builder.releaseId;
-        this.endpointParameters = builder.endpointParameters;
+        this.queryUrl = builder.queryUrl;
     }
 
     public static class Builder implements AsyncReleaseRequestBuilder {
@@ -40,7 +42,7 @@ public class DefaultAsyncReleaseRequest implements AsyncReleaseRequest {
         private long releaseId;
         private MarketplaceCurrencies currAbbr;
 
-        private String endpointParameters;
+        private String queryUrl;
 
         public Builder(AbstractHttpClient<HttpEntity> client) {
             this.client = client;
@@ -60,16 +62,18 @@ public class DefaultAsyncReleaseRequest implements AsyncReleaseRequest {
 
         @Override
         public AsyncReleaseRequest build() {
-            constructParameters();
+            this.queryUrl = DiscogsEndpoints.DATABASE_RELEASE.getEndpointWith(constructParameters().toParametersString());
             return new DefaultAsyncReleaseRequest(this);
         }
 
-        private void constructParameters() {
-            if (currAbbr != null) {
-                endpointParameters = "?curr_abbr=" + currAbbr.name();
-            } else {
-                endpointParameters = "";
-            }
+        @Override
+        public RequestParametersConstructor constructParameters() {
+            StringBuilderSequentialRequestParametersConstructor parameters =
+                    new StringBuilderSequentialRequestParametersConstructor();
+
+            if (currAbbr != null) parameters.append("curr_abbr", currAbbr.name());
+
+            return parameters;
         }
 
         @Override
@@ -78,7 +82,7 @@ public class DefaultAsyncReleaseRequest implements AsyncReleaseRequest {
                     "client=" + client +
                     ", releaseId=" + releaseId +
                     ", currAbbr=" + currAbbr +
-                    ", endpointParameters='" + endpointParameters + '\'' +
+                    ", queryUrl='" + queryUrl + '\'' +
                     '}';
         }
 
@@ -87,19 +91,19 @@ public class DefaultAsyncReleaseRequest implements AsyncReleaseRequest {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Builder builder = (Builder) o;
-            return releaseId == builder.releaseId && Objects.equals(client, builder.client) && currAbbr == builder.currAbbr && Objects.equals(endpointParameters, builder.endpointParameters);
+            return releaseId == builder.releaseId && Objects.equals(client, builder.client) && currAbbr == builder.currAbbr && Objects.equals(queryUrl, builder.queryUrl);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, releaseId, currAbbr, endpointParameters);
+            return Objects.hash(client, releaseId, currAbbr, queryUrl);
         }
     }
 
     @Override
     public CompletableFuture<Release> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.DATABASE_RELEASE.getEndpoint().replace("{release_id}", String.valueOf(releaseId)) + endpointParameters));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl.replace("{release_id}", String.valueOf(releaseId))));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             Release release;
@@ -118,7 +122,7 @@ public class DefaultAsyncReleaseRequest implements AsyncReleaseRequest {
         return "DefaultAsyncReleaseRequest{" +
                 "client=" + client +
                 ", releaseId=" + releaseId +
-                ", endpointParameters='" + endpointParameters + '\'' +
+                ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
 
@@ -127,11 +131,11 @@ public class DefaultAsyncReleaseRequest implements AsyncReleaseRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultAsyncReleaseRequest that = (DefaultAsyncReleaseRequest) o;
-        return releaseId == that.releaseId && Objects.equals(client, that.client) && Objects.equals(endpointParameters, that.endpointParameters);
+        return releaseId == that.releaseId && Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, releaseId, endpointParameters);
+        return Objects.hash(client, releaseId, queryUrl);
     }
 }
