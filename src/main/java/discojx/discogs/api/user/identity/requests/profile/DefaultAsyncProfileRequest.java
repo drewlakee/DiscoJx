@@ -66,7 +66,7 @@ public class DefaultAsyncProfileRequest implements AsyncProfileRequest {
     }
 
     @Override
-    public CompletableFuture<Profile> executeAsync() {
+    public CompletableFuture<Profile> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
             String endpoint = DiscogsEndpoints.USER_PROFILE.getEndpoint().replace("{username}", username);
             Optional<HttpEntity> execute = client.execute(new HttpGet(endpoint));

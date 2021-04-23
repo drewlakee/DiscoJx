@@ -77,7 +77,7 @@ public class DefaultAsyncCommunityReleaseRatingRequest implements AsyncCommunity
     }
 
     @Override
-    public CompletableFuture<CommunityReleaseRating> executeAsync() {
+    public CompletableFuture<CommunityReleaseRating> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.DATABASE_COMMUNITY_RELEASE_RATING.getEndpoint().replace("{release_id}", String.valueOf(releaseId))));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

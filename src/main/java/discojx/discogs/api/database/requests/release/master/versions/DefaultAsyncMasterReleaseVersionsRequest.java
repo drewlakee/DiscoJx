@@ -167,7 +167,7 @@ public class DefaultAsyncMasterReleaseVersionsRequest implements AsyncMasterRele
     }
 
     @Override
-    public CompletableFuture<MasterReleaseVersions> executeAsync() {
+    public CompletableFuture<MasterReleaseVersions> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl.replace("{master_id}", String.valueOf(masterId))));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

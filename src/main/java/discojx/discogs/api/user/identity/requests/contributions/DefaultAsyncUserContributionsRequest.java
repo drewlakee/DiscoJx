@@ -127,7 +127,7 @@ public class DefaultAsyncUserContributionsRequest implements AsyncUserContributi
     }
 
     @Override
-    public CompletableFuture<Contributions> executeAsync() {
+    public CompletableFuture<Contributions> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl.replace("{username}", username)));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

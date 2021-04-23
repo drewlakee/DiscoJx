@@ -1,9 +1,7 @@
 package discojx.discogs.api.database.requests.release;
 
 import discojx.discogs.objects.Release;
-import discojx.requests.AsyncExecutableRequest;
-import discojx.requests.ParameterizedRequest;
-import discojx.utils.requests.RequestParametersConstructor;
+import discojx.requests.AsyncFutureRequest;
 
-public interface AsyncReleaseRequest extends AsyncExecutableRequest<Release> {
+public interface AsyncReleaseRequest extends AsyncFutureRequest<Release> {
 }

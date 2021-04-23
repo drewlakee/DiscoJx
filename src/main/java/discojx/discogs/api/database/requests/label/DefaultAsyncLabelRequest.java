@@ -73,7 +73,7 @@ public class DefaultAsyncLabelRequest implements AsyncLabelRequest {
     }
 
     @Override
-    public CompletableFuture<Label> executeAsync() {
+    public CompletableFuture<Label> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.DATABASE_LABEL.getEndpoint().replace("{label_id}", String.valueOf(labelId))));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

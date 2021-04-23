@@ -83,7 +83,7 @@ public class DefaultAsyncReleaseRatingByUserRequest implements AsyncReleaseRatin
     }
 
     @Override
-    public CompletableFuture<ReleaseRating> executeAsync() {
+    public CompletableFuture<ReleaseRating> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
             String endpoint = DiscogsEndpoints.DATABASE_RELEASE_RATING_BY_USER.getEndpoint().replace("{release_id}", String.valueOf(releaseId)).replace("{username}", username);
             Optional<HttpEntity> execute = client.execute(new HttpGet(endpoint));

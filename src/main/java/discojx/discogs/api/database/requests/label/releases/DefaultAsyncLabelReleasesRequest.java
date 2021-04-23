@@ -127,7 +127,7 @@ public class DefaultAsyncLabelReleasesRequest implements AsyncLabelReleasesReque
     }
 
     @Override
-    public CompletableFuture<LabelReleases> executeAsync() {
+    public CompletableFuture<LabelReleases> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl.replace("{label_id}", String.valueOf(labelId))));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

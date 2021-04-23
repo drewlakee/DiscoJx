@@ -1,6 +1,6 @@
 package discojx.discogs.api.database.requests.release.rating.user.delete;
 
-import discojx.requests.AsyncExecutableRequest;
+import discojx.requests.AsyncFutureRequest;
 
-public interface AsyncReleaseRatingDeleteByUserRequest extends AsyncExecutableRequest<Void> {
+public interface AsyncReleaseRatingDeleteByUserRequest extends AsyncFutureRequest<Void> {
 }

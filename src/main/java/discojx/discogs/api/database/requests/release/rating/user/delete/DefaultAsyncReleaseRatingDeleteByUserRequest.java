@@ -73,7 +73,7 @@ public class DefaultAsyncReleaseRatingDeleteByUserRequest implements AsyncReleas
     }
 
     @Override
-    public CompletableFuture<Void> executeAsync() {
+    public CompletableFuture<Void> supplyFuture() {
         return CompletableFuture.runAsync(() -> {
             String endpoint = DiscogsEndpoints.DATABASE_RELEASE_RATING_BY_USER.getEndpoint().replace("{release_id}", String.valueOf(releaseId)).replace("{username}", username);
             client.execute(new HttpDelete(endpoint));

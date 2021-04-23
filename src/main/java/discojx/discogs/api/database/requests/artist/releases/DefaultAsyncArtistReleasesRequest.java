@@ -127,7 +127,7 @@ public class DefaultAsyncArtistReleasesRequest implements AsyncArtistReleasesReq
     }
 
     @Override
-    public CompletableFuture<ArtistReleases> executeAsync() {
+    public CompletableFuture<ArtistReleases> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl.replace("{artist_id}", String.valueOf(artistId))));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

@@ -101,7 +101,7 @@ public class DefaultAsyncReleaseRequest implements AsyncReleaseRequest {
     }
 
     @Override
-    public CompletableFuture<Release> executeAsync() {
+    public CompletableFuture<Release> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl.replace("{release_id}", String.valueOf(releaseId))));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

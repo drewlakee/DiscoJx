@@ -73,7 +73,7 @@ public class DefaultAsyncMasterReleaseRequest implements AsyncMasterReleaseReque
     }
 
     @Override
-    public CompletableFuture<MasterRelease> executeAsync() {
+    public CompletableFuture<MasterRelease> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.DATABASE_MASTER_RELEASE.getEndpoint().replace("{master_id}", String.valueOf(masterId))));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

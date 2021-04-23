@@ -96,7 +96,7 @@ public class DefaultAsyncReleaseRatingUpdateByUserRequest implements AsyncReleas
     }
 
     @Override
-    public CompletableFuture<ReleaseRating> executeAsync() {
+    public CompletableFuture<ReleaseRating> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
             String endpoint = DiscogsEndpoints.DATABASE_RELEASE_RATING_BY_USER.getEndpoint()
                     .replace("{release_id}", String.valueOf(releaseId))

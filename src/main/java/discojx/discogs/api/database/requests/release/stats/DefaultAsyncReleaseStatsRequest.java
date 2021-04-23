@@ -73,7 +73,7 @@ public class DefaultAsyncReleaseStatsRequest implements AsyncReleaseStatsRequest
     }
 
     @Override
-    public CompletableFuture<ReleaseStats> executeAsync() {
+    public CompletableFuture<ReleaseStats> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.DATABASE_RELEASE_STATS.getEndpoint().replace("{release_id}", String.valueOf(releaseId))));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

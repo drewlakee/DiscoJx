@@ -73,7 +73,7 @@ public class DefaultAsyncArtistRequest implements AsyncArtistRequest {
     }
 
     @Override
-    public CompletableFuture<Artist> executeAsync() {
+    public CompletableFuture<Artist> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.DATABASE_ARTIST.getEndpoint().replace("{artist_id}", String.valueOf(artistId))));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

@@ -133,7 +133,7 @@ public class DefaultAsyncProfileEditRequest implements AsyncProfileEditRequest {
     }
 
     @Override
-    public CompletableFuture<Profile> executeAsync() {
+    public CompletableFuture<Profile> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
             HttpPost request = new HttpPost(DiscogsEndpoints.USER_PROFILE_EDIT.getEndpoint().replace("{username}", username));
             request.addHeader("Content-Type", "application/json");
