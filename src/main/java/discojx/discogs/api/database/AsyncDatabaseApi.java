@@ -12,6 +12,7 @@ import discojx.discogs.api.database.requests.release.rating.user.AsyncReleaseRat
 import discojx.discogs.api.database.requests.release.rating.user.delete.AsyncReleaseRatingDeleteByUserRequestBuilder;
 import discojx.discogs.api.database.requests.release.rating.user.edit.AsyncReleaseRatingUpdateByUserRequestBuilder;
 import discojx.discogs.api.database.requests.release.stats.AsyncReleaseStatsRequestBuilder;
+import discojx.discogs.api.database.requests.search.AsyncSearchRequestBuilder;
 
 public interface AsyncDatabaseApi {
 
@@ -27,4 +28,5 @@ public interface AsyncDatabaseApi {
     AsyncArtistReleasesRequestBuilder artistReleases();
     AsyncLabelRequestBuilder label();
     AsyncLabelReleasesRequestBuilder labelReleases();
+    AsyncSearchRequestBuilder search();
 }

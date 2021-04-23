@@ -25,6 +25,8 @@ import discojx.discogs.api.database.requests.release.rating.user.edit.AsyncRelea
 import discojx.discogs.api.database.requests.release.rating.user.edit.DefaultAsyncReleaseRatingUpdateByUserRequest;
 import discojx.discogs.api.database.requests.release.stats.AsyncReleaseStatsRequestBuilder;
 import discojx.discogs.api.database.requests.release.stats.DefaultAsyncReleaseStatsRequest;
+import discojx.discogs.api.database.requests.search.AsyncSearchRequestBuilder;
+import discojx.discogs.api.database.requests.search.DefaultAsyncSearchRequest;
 import org.apache.http.HttpEntity;
 
 public class DefaultAsyncDatabaseApi implements AsyncDatabaseApi {
@@ -96,10 +98,14 @@ public class DefaultAsyncDatabaseApi implements AsyncDatabaseApi {
     }
 
     @Override
+    public AsyncSearchRequestBuilder search() {
+        return new DefaultAsyncSearchRequest.Builder(client);
+    }
+
+    @Override
     public String toString() {
         return "DefaultAsyncDatabaseApi{" +
                 "client=" + client +
                 '}';
     }
-
 }

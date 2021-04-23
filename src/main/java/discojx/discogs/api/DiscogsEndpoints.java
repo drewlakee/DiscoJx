@@ -19,7 +19,8 @@ public enum DiscogsEndpoints {
     DATABASE_ARTIST                         (ROOT.endpoint + "/artists/{artist_id}"),
     DATABASE_ARTIST_RELEASES                (ROOT.endpoint + "/artists/{artist_id}/releases"),
     DATABASE_LABEL                          (ROOT.endpoint + "/labels/{label_id}"),
-    DATABASE_LABEL_RELEASES                 (ROOT.endpoint + "/labels/{label_id}/releases");
+    DATABASE_LABEL_RELEASES                 (ROOT.endpoint + "/labels/{label_id}/releases"),
+    DATABASE_SEARCH                         (ROOT.endpoint + "/database/search");
 
     private final String endpoint;
 
@@ -29,6 +30,10 @@ public enum DiscogsEndpoints {
 
     public String getEndpoint() {
         return endpoint;
+    }
+
+    public String getEndpointWith(String parameters) {
+        return endpoint + parameters;
     }
 
     @Override
