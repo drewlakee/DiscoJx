@@ -1,27 +1,24 @@
 package discojx.discogs.api.database.requests.release.master.versions;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.MasterReleaseVersions;
+import discojx.utils.json.JsonUtils;
 import discojx.utils.requests.RequestParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
 public class DefaultMasterReleaseVersionsRequest implements MasterReleaseVersionsRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
-
-    protected static final ObjectMapper jsonMapper = new JsonMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     private final long masterId;
 
@@ -174,7 +171,7 @@ public class DefaultMasterReleaseVersionsRequest implements MasterReleaseVersion
 
             MasterReleaseVersions masterReleaseVersions;
             try {
-                masterReleaseVersions = jsonMapper.readValue(httpEntity.getContent(), MasterReleaseVersions.class);
+                masterReleaseVersions = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), MasterReleaseVersions.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

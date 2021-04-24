@@ -1,11 +1,9 @@
 package discojx.discogs.api.user.identity.requests;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.UserIdentity;
+import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
@@ -19,9 +17,6 @@ public class DefaultUserIdentityRequest implements UserIdentityRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
 
-    protected static final ObjectMapper jsonMapper = new JsonMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
     public DefaultUserIdentityRequest(AbstractHttpClient<HttpEntity> client) {
         this.client = client;
     }
@@ -34,7 +29,7 @@ public class DefaultUserIdentityRequest implements UserIdentityRequest {
 
             UserIdentity userIdentity;
             try {
-                userIdentity = jsonMapper.readValue(httpEntity.getContent(), UserIdentity.class);
+                userIdentity = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), UserIdentity.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

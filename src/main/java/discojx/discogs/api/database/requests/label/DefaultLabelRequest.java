@@ -1,11 +1,9 @@
 package discojx.discogs.api.database.requests.label;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.Label;
+import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
@@ -18,9 +16,6 @@ import java.util.concurrent.CompletionException;
 public class DefaultLabelRequest implements LabelRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
-
-    protected static final ObjectMapper jsonMapper = new JsonMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     private final long labelId;
 
@@ -80,7 +75,7 @@ public class DefaultLabelRequest implements LabelRequest {
 
             Label label;
             try {
-                label = jsonMapper.readValue(httpEntity.getContent(), Label.class);
+                label = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), Label.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

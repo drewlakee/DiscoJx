@@ -1,8 +1,8 @@
 package discojx.discogs.api.user;
 
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.user.identity.IdentityApi;
 import discojx.discogs.api.user.identity.DefaultIdentityApi;
+import discojx.discogs.api.user.identity.IdentityApi;
 import discojx.discogs.api.user.lists.DefaultUserListsApi;
 import discojx.discogs.api.user.lists.UserListsApi;
 import org.apache.http.HttpEntity;

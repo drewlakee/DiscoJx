@@ -1,12 +1,10 @@
 package discojx.discogs.api.database.requests.release;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.MarketplaceCurrencies;
 import discojx.discogs.objects.Release;
+import discojx.utils.json.JsonUtils;
 import discojx.utils.requests.RequestParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
 import org.apache.http.HttpEntity;
@@ -21,9 +19,6 @@ import java.util.concurrent.CompletionException;
 public class DefaultReleaseRequest implements ReleaseRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
-
-    protected static final ObjectMapper jsonMapper = new JsonMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     private final long releaseId;
 
@@ -108,7 +103,7 @@ public class DefaultReleaseRequest implements ReleaseRequest {
 
             Release release;
             try {
-                release = jsonMapper.readValue(httpEntity.getContent(), Release.class);
+                release = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), Release.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

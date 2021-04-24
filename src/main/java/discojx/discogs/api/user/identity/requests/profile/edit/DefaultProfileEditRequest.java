@@ -9,6 +9,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.MarketplaceCurrencies;
 import discojx.discogs.objects.Profile;
+import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -143,7 +144,7 @@ public class DefaultProfileEditRequest implements ProfileEditRequest {
 
             Profile profile;
             try {
-                profile = jsonMapper.readValue(httpEntity.getContent(), Profile.class);
+                profile = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), Profile.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

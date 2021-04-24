@@ -1,11 +1,9 @@
 package discojx.discogs.api.database.requests.release.rating.user;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.ReleaseRating;
+import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
@@ -18,9 +16,6 @@ import java.util.concurrent.CompletionException;
 public class DefaultReleaseRatingByUserRequest implements ReleaseRatingByUserRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
-
-    protected static final ObjectMapper jsonMapper = new JsonMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     private final long releaseId;
     private final String username;
@@ -91,7 +86,7 @@ public class DefaultReleaseRatingByUserRequest implements ReleaseRatingByUserReq
 
             ReleaseRating releaseRating;
             try {
-                releaseRating = jsonMapper.readValue(httpEntity.getContent(), ReleaseRating.class);
+                releaseRating = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), ReleaseRating.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

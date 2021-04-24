@@ -1,11 +1,9 @@
 package discojx.discogs.api.user.identity.requests.contributions;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.Contributions;
+import discojx.utils.json.JsonUtils;
 import discojx.utils.requests.RequestParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
 import org.apache.http.HttpEntity;
@@ -20,9 +18,6 @@ import java.util.concurrent.CompletionException;
 public class DefaultUserContributionsRequest implements UserContributionsRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
-
-    protected static final ObjectMapper jsonMapper = new JsonMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     private final String username;
 
@@ -134,7 +129,7 @@ public class DefaultUserContributionsRequest implements UserContributionsRequest
 
             Contributions contributions;
             try {
-                contributions = jsonMapper.readValue(httpEntity.getContent(), Contributions.class);
+                contributions = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), Contributions.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

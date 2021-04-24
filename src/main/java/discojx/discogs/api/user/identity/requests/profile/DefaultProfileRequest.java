@@ -1,16 +1,13 @@
 package discojx.discogs.api.user.identity.requests.profile;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.Profile;
+import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
@@ -19,9 +16,6 @@ import java.util.concurrent.CompletionException;
 public class DefaultProfileRequest implements ProfileRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
-
-    protected static final ObjectMapper jsonMapper = new JsonMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     private final String username;
 
@@ -72,16 +66,9 @@ public class DefaultProfileRequest implements ProfileRequest {
             Optional<HttpEntity> execute = client.execute(new HttpGet(endpoint));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
-            InputStream jsonResponse;
-            try {
-                jsonResponse = httpEntity.getContent();
-            } catch (IOException e) {
-                throw new CompletionException(e);
-            }
-
             Profile profile;
             try {
-                profile = jsonMapper.readValue(jsonResponse, Profile.class);
+                profile = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), Profile.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

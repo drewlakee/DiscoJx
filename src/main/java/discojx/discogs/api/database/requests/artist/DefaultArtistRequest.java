@@ -1,11 +1,9 @@
 package discojx.discogs.api.database.requests.artist;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.Artist;
+import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
@@ -18,9 +16,6 @@ import java.util.concurrent.CompletionException;
 public class DefaultArtistRequest implements ArtistRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
-
-    protected static final ObjectMapper jsonMapper = new JsonMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
 
     private final long artistId;
 
@@ -80,12 +75,33 @@ public class DefaultArtistRequest implements ArtistRequest {
 
             Artist artist;
             try {
-                artist = jsonMapper.readValue(httpEntity.getContent(), Artist.class);
+                artist = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), Artist.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }
 
             return artist;
         });
+    }
+
+    @Override
+    public String toString() {
+        return "DefaultArtistRequest{" +
+                "client=" + client +
+                ", artistId=" + artistId +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DefaultArtistRequest that = (DefaultArtistRequest) o;
+        return artistId == that.artistId && Objects.equals(client, that.client);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(client, artistId);
     }
 }

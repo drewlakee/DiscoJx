@@ -1,16 +1,16 @@
 package discojx.discogs.api.user.identity;
 
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.user.identity.requests.UserIdentityRequest;
 import discojx.discogs.api.user.identity.requests.DefaultUserIdentityRequest;
-import discojx.discogs.api.user.identity.requests.contributions.UserContributionsRequestBuilder;
+import discojx.discogs.api.user.identity.requests.UserIdentityRequest;
 import discojx.discogs.api.user.identity.requests.contributions.DefaultUserContributionsRequest;
-import discojx.discogs.api.user.identity.requests.profile.ProfileRequestBuilder;
+import discojx.discogs.api.user.identity.requests.contributions.UserContributionsRequestBuilder;
 import discojx.discogs.api.user.identity.requests.profile.DefaultProfileRequest;
-import discojx.discogs.api.user.identity.requests.profile.edit.ProfileEditRequestBuilder;
+import discojx.discogs.api.user.identity.requests.profile.ProfileRequestBuilder;
 import discojx.discogs.api.user.identity.requests.profile.edit.DefaultProfileEditRequest;
-import discojx.discogs.api.user.identity.requests.submissions.UserSubmissionsRequestBuilder;
+import discojx.discogs.api.user.identity.requests.profile.edit.ProfileEditRequestBuilder;
 import discojx.discogs.api.user.identity.requests.submissions.DefaultUserSubmissionsRequest;
+import discojx.discogs.api.user.identity.requests.submissions.UserSubmissionsRequestBuilder;
 import org.apache.http.HttpEntity;
 
 import java.util.Objects;

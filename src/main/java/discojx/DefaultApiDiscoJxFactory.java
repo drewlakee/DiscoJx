@@ -1,8 +1,8 @@
 package discojx;
 
 import discojx.clients.DefaultLazyHttpClient;
-import discojx.discogs.api.DiscogsApi;
 import discojx.discogs.api.DefaultDiscogsApi;
+import discojx.discogs.api.DiscogsApi;
 import org.apache.http.Header;
 
 import java.util.List;

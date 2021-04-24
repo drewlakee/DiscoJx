@@ -3,8 +3,8 @@ package discojx.discogs.api;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.database.DatabaseApi;
 import discojx.discogs.api.database.DefaultDatabaseApi;
-import discojx.discogs.api.user.UserApi;
 import discojx.discogs.api.user.DefaultUserApi;
+import discojx.discogs.api.user.UserApi;
 import org.apache.http.HttpEntity;
 
 import java.util.Objects;
