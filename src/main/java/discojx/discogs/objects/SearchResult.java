@@ -1,7 +1,7 @@
 package discojx.discogs.objects;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import discojx.utils.deserializers.SearchResultDeserializer;
+import discojx.utils.json.deserializers.SearchResultDeserializer;
 
 import java.util.List;
 import java.util.Objects;

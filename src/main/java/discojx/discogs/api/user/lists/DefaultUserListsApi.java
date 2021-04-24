@@ -3,6 +3,8 @@ package discojx.discogs.api.user.lists;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.user.lists.requests.DefaultUserListsRequest;
 import discojx.discogs.api.user.lists.requests.UserListsRequestBuilder;
+import discojx.discogs.api.user.lists.requests.list.DefaultUserListRequest;
+import discojx.discogs.api.user.lists.requests.list.UserListRequestBuilder;
 import org.apache.http.HttpEntity;
 
 import java.util.Objects;
@@ -18,6 +20,11 @@ public class DefaultUserListsApi implements UserListsApi {
     @Override
     public UserListsRequestBuilder lists() {
         return new DefaultUserListsRequest.Builder(client);
+    }
+
+    @Override
+    public UserListRequestBuilder list() {
+        return new DefaultUserListRequest.Builder(client);
     }
 
     @Override

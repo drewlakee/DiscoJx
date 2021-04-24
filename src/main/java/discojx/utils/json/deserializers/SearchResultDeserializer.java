@@ -1,4 +1,4 @@
-package discojx.utils.deserializers;
+package discojx.utils.json.deserializers;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.TreeNode;
