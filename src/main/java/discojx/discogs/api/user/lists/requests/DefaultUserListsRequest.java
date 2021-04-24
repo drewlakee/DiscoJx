@@ -62,13 +62,13 @@ public class DefaultUserListsRequest implements UserListsRequest {
         public UserListsRequest build() {
             this.queryUrl = DiscogsApiEndpoints
                     .USER_LISTS
-                    .getEndpointWith(constructParameters().toParametersString())
+                    .getEndpointWith(constructPathParameters().toParametersString())
                     .replace("{username}", username);
             return new DefaultUserListsRequest(this);
         }
 
         @Override
-        public RequestParametersConstructor constructParameters() {
+        public RequestParametersConstructor constructPathParameters() {
             StringBuilderSequentialRequestParametersConstructor parameters =
                     new StringBuilderSequentialRequestParametersConstructor();
 

@@ -17,11 +17,11 @@ public class DefaultLabelRequest implements LabelRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
 
-    private final long labelId;
+    private final String queryUrl;
 
     public DefaultLabelRequest(Builder builder) {
         this.client = builder.client;
-        this.labelId = builder.labelId;
+        this.queryUrl = builder.queryUrl;
     }
 
     public static class Builder implements LabelRequestBuilder {
@@ -29,6 +29,8 @@ public class DefaultLabelRequest implements LabelRequest {
         private final AbstractHttpClient<HttpEntity> client;
 
         private long labelId;
+
+        private String queryUrl;
 
         public Builder(AbstractHttpClient<HttpEntity> client) {
             this.client = client;
@@ -42,6 +44,7 @@ public class DefaultLabelRequest implements LabelRequest {
 
         @Override
         public LabelRequest build() {
+            this.queryUrl = DiscogsApiEndpoints.DATABASE_LABEL.getEndpoint().replace("{label_id}", String.valueOf(labelId));
             return new DefaultLabelRequest(this);
         }
 
@@ -50,6 +53,7 @@ public class DefaultLabelRequest implements LabelRequest {
             return "Builder{" +
                     "client=" + client +
                     ", labelId=" + labelId +
+                    ", queryUrl='" + queryUrl + '\'' +
                     '}';
         }
 
@@ -58,19 +62,19 @@ public class DefaultLabelRequest implements LabelRequest {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Builder builder = (Builder) o;
-            return labelId == builder.labelId && Objects.equals(client, builder.client);
+            return labelId == builder.labelId && Objects.equals(client, builder.client) && Objects.equals(queryUrl, builder.queryUrl);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, labelId);
+            return Objects.hash(client, labelId, queryUrl);
         }
     }
 
     @Override
     public CompletableFuture<Label> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsApiEndpoints.DATABASE_LABEL.getEndpoint().replace("{label_id}", String.valueOf(labelId))));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             Label label;
@@ -88,7 +92,7 @@ public class DefaultLabelRequest implements LabelRequest {
     public String toString() {
         return "DefaultLabelRequest{" +
                 "client=" + client +
-                ", labelId=" + labelId +
+                ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
 
@@ -97,11 +101,11 @@ public class DefaultLabelRequest implements LabelRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultLabelRequest that = (DefaultLabelRequest) o;
-        return labelId == that.labelId && Objects.equals(client, that.client);
+        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, labelId);
+        return Objects.hash(client, queryUrl);
     }
 }

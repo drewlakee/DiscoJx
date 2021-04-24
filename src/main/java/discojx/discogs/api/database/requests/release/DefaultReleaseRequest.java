@@ -20,13 +20,10 @@ public class DefaultReleaseRequest implements ReleaseRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
 
-    private final long releaseId;
-
     private final String queryUrl;
 
     public DefaultReleaseRequest(Builder builder) {
         this.client = builder.client;
-        this.releaseId = builder.releaseId;
         this.queryUrl = builder.queryUrl;
     }
 
@@ -57,12 +54,15 @@ public class DefaultReleaseRequest implements ReleaseRequest {
 
         @Override
         public ReleaseRequest build() {
-            this.queryUrl = DiscogsApiEndpoints.DATABASE_RELEASE.getEndpointWith(constructParameters().toParametersString());
+            this.queryUrl = DiscogsApiEndpoints
+                    .DATABASE_RELEASE
+                    .getEndpointWith(constructPathParameters().toParametersString())
+                    .replace("{release_id}", String.valueOf(releaseId));
             return new DefaultReleaseRequest(this);
         }
 
         @Override
-        public RequestParametersConstructor constructParameters() {
+        public RequestParametersConstructor constructPathParameters() {
             StringBuilderSequentialRequestParametersConstructor parameters =
                     new StringBuilderSequentialRequestParametersConstructor();
 
@@ -98,7 +98,7 @@ public class DefaultReleaseRequest implements ReleaseRequest {
     @Override
     public CompletableFuture<Release> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl.replace("{release_id}", String.valueOf(releaseId))));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             Release release;
@@ -116,7 +116,6 @@ public class DefaultReleaseRequest implements ReleaseRequest {
     public String toString() {
         return "DefaultReleaseRequest{" +
                 "client=" + client +
-                ", releaseId=" + releaseId +
                 ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
@@ -126,11 +125,11 @@ public class DefaultReleaseRequest implements ReleaseRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultReleaseRequest that = (DefaultReleaseRequest) o;
-        return releaseId == that.releaseId && Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
+        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, releaseId, queryUrl);
+        return Objects.hash(client, queryUrl);
     }
 }

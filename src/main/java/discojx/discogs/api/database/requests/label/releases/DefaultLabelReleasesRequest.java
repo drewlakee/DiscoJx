@@ -18,14 +18,10 @@ import java.util.concurrent.CompletionException;
 public class DefaultLabelReleasesRequest implements LabelReleasesRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
-
-    private final long labelId;
-
     private final String queryUrl;
 
     public DefaultLabelReleasesRequest(Builder builder) {
         this.client = builder.client;
-        this.labelId = builder.labelId;
         this.queryUrl = builder.queryUrl;
     }
 
@@ -77,12 +73,15 @@ public class DefaultLabelReleasesRequest implements LabelReleasesRequest {
 
         @Override
         public LabelReleasesRequest build() {
-            this.queryUrl = DiscogsApiEndpoints.DATABASE_LABEL_RELEASES.getEndpointWith(constructParameters().toParametersString());
+            this.queryUrl = DiscogsApiEndpoints
+                    .DATABASE_LABEL_RELEASES
+                    .getEndpointWith(constructPathParameters().toParametersString())
+                    .replace("{label_id}", String.valueOf(labelId));
             return new DefaultLabelReleasesRequest(this);
         }
 
         @Override
-        public RequestParametersConstructor constructParameters() {
+        public RequestParametersConstructor constructPathParameters() {
             StringBuilderSequentialRequestParametersConstructor parameters =
                     new StringBuilderSequentialRequestParametersConstructor();
 
@@ -124,7 +123,7 @@ public class DefaultLabelReleasesRequest implements LabelReleasesRequest {
     @Override
     public CompletableFuture<LabelReleases> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl.replace("{label_id}", String.valueOf(labelId))));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             LabelReleases labelReleases;
@@ -142,7 +141,6 @@ public class DefaultLabelReleasesRequest implements LabelReleasesRequest {
     public String toString() {
         return "DefaultLabelReleasesRequest{" +
                 "client=" + client +
-                ", labelId=" + labelId +
                 ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
@@ -152,11 +150,11 @@ public class DefaultLabelReleasesRequest implements LabelReleasesRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultLabelReleasesRequest that = (DefaultLabelReleasesRequest) o;
-        return labelId == that.labelId && Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
+        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, labelId, queryUrl);
+        return Objects.hash(client, queryUrl);
     }
 }

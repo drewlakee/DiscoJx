@@ -17,11 +17,11 @@ public class DefaultProfileRequest implements ProfileRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
 
-    private final String username;
+    private final String queryUrl;
 
     public DefaultProfileRequest(Builder builder) {
         this.client = builder.client;
-        this.username = builder.username;
+        this.queryUrl = builder.queryUrl;
     }
 
     public static class Builder implements ProfileRequestBuilder {
@@ -29,6 +29,8 @@ public class DefaultProfileRequest implements ProfileRequest {
         private final AbstractHttpClient<HttpEntity> client;
 
         private String username;
+
+        private String queryUrl;
 
         public Builder(AbstractHttpClient<HttpEntity> client) {
             this.client = client;
@@ -42,7 +44,20 @@ public class DefaultProfileRequest implements ProfileRequest {
 
         @Override
         public ProfileRequest build() {
+            this.queryUrl = DiscogsApiEndpoints
+                    .USER_PROFILE
+                    .getEndpoint()
+                    .replace("{username}", username);
             return new DefaultProfileRequest(this);
+        }
+
+        @Override
+        public String toString() {
+            return "Builder{" +
+                    "client=" + client +
+                    ", username='" + username + '\'' +
+                    ", queryUrl='" + queryUrl + '\'' +
+                    '}';
         }
 
         @Override
@@ -50,20 +65,19 @@ public class DefaultProfileRequest implements ProfileRequest {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Builder builder = (Builder) o;
-            return Objects.equals(client, builder.client) && Objects.equals(username, builder.username);
+            return Objects.equals(client, builder.client) && Objects.equals(username, builder.username) && Objects.equals(queryUrl, builder.queryUrl);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, username);
+            return Objects.hash(client, username, queryUrl);
         }
     }
 
     @Override
     public CompletableFuture<Profile> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            String endpoint = DiscogsApiEndpoints.USER_PROFILE.getEndpoint().replace("{username}", username);
-            Optional<HttpEntity> execute = client.execute(new HttpGet(endpoint));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             Profile profile;
@@ -81,7 +95,7 @@ public class DefaultProfileRequest implements ProfileRequest {
     public String toString() {
         return "DefaultProfileRequest{" +
                 "client=" + client +
-                ", username='" + username + '\'' +
+                ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
 
@@ -90,11 +104,11 @@ public class DefaultProfileRequest implements ProfileRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultProfileRequest that = (DefaultProfileRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(username, that.username);
+        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, username);
+        return Objects.hash(client, queryUrl);
     }
 }

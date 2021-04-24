@@ -17,11 +17,11 @@ public class DefaultMasterReleaseRequest implements MasterReleaseRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
 
-    private final long masterId;
+    private final String queryUrl;
 
     public DefaultMasterReleaseRequest(Builder builder) {
         this.client = builder.client;
-        this.masterId = builder.masterId;
+        this.queryUrl = builder.queryUrl;
     }
 
     public static class Builder implements MasterReleaseRequestBuilder {
@@ -29,6 +29,8 @@ public class DefaultMasterReleaseRequest implements MasterReleaseRequest {
         private final AbstractHttpClient<HttpEntity> client;
 
         private long masterId;
+
+        private String queryUrl;
 
         public Builder(AbstractHttpClient<HttpEntity> client) {
             this.client = client;
@@ -42,6 +44,10 @@ public class DefaultMasterReleaseRequest implements MasterReleaseRequest {
 
         @Override
         public MasterReleaseRequest build() {
+            this.queryUrl = DiscogsApiEndpoints
+                    .DATABASE_MASTER_RELEASE
+                    .getEndpoint()
+                    .replace("{master_id}", String.valueOf(masterId));
             return new DefaultMasterReleaseRequest(this);
         }
 
@@ -50,6 +56,7 @@ public class DefaultMasterReleaseRequest implements MasterReleaseRequest {
             return "Builder{" +
                     "client=" + client +
                     ", masterId=" + masterId +
+                    ", queryUrl='" + queryUrl + '\'' +
                     '}';
         }
 
@@ -58,19 +65,19 @@ public class DefaultMasterReleaseRequest implements MasterReleaseRequest {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Builder builder = (Builder) o;
-            return masterId == builder.masterId && Objects.equals(client, builder.client);
+            return masterId == builder.masterId && Objects.equals(client, builder.client) && Objects.equals(queryUrl, builder.queryUrl);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, masterId);
+            return Objects.hash(client, masterId, queryUrl);
         }
     }
 
     @Override
     public CompletableFuture<MasterRelease> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsApiEndpoints.DATABASE_MASTER_RELEASE.getEndpoint().replace("{master_id}", String.valueOf(masterId))));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             MasterRelease masterRelease;
@@ -88,7 +95,7 @@ public class DefaultMasterReleaseRequest implements MasterReleaseRequest {
     public String toString() {
         return "DefaultMasterReleaseRequest{" +
                 "client=" + client +
-                ", masterReleaseId=" + masterId +
+                ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
 
@@ -97,11 +104,11 @@ public class DefaultMasterReleaseRequest implements MasterReleaseRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultMasterReleaseRequest that = (DefaultMasterReleaseRequest) o;
-        return masterId == that.masterId && Objects.equals(client, that.client);
+        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, masterId);
+        return Objects.hash(client, queryUrl);
     }
 }

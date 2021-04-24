@@ -1,12 +1,12 @@
 package discojx.discogs.api.user.lists.requests;
 
 import discojx.requests.PaginationableRequest;
-import discojx.requests.ParameterizedRequest;
+import discojx.requests.PathParameterizedRequest;
 import discojx.utils.requests.RequestParametersConstructor;
 
 public interface UserListsRequestBuilder extends
         PaginationableRequest<UserListsRequestBuilder>,
-        ParameterizedRequest<RequestParametersConstructor> {
+        PathParameterizedRequest<RequestParametersConstructor> {
 
     UserListsRequestBuilder username(String username);
 

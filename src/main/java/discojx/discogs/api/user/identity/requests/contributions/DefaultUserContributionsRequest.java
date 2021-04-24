@@ -19,13 +19,10 @@ public class DefaultUserContributionsRequest implements UserContributionsRequest
 
     protected final AbstractHttpClient<HttpEntity> client;
 
-    private final String username;
-
     protected final String queryUrl;
 
     public DefaultUserContributionsRequest(Builder builder) {
         this.client = builder.client;
-        this.username = builder.username;
         this.queryUrl = builder.queryUrl;
     }
 
@@ -77,12 +74,15 @@ public class DefaultUserContributionsRequest implements UserContributionsRequest
 
         @Override
         public UserContributionsRequest build() {
-            this.queryUrl = DiscogsApiEndpoints.USER_CONTRIBUTIONS.getEndpointWith(constructParameters().toParametersString());
+            this.queryUrl = DiscogsApiEndpoints
+                    .USER_CONTRIBUTIONS
+                    .getEndpointWith(constructPathParameters().toParametersString())
+                    .replace("{username}", username);
             return new DefaultUserContributionsRequest(this);
         }
 
         @Override
-        public RequestParametersConstructor constructParameters() {
+        public RequestParametersConstructor constructPathParameters() {
             StringBuilderSequentialRequestParametersConstructor parameters =
                     new StringBuilderSequentialRequestParametersConstructor();
 
@@ -124,7 +124,7 @@ public class DefaultUserContributionsRequest implements UserContributionsRequest
     @Override
     public CompletableFuture<Contributions> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl.replace("{username}", username)));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             Contributions contributions;
@@ -142,7 +142,6 @@ public class DefaultUserContributionsRequest implements UserContributionsRequest
     public String toString() {
         return "DefaultUserContributionsRequest{" +
                 "client=" + client +
-                ", username='" + username + '\'' +
                 ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
@@ -152,11 +151,11 @@ public class DefaultUserContributionsRequest implements UserContributionsRequest
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultUserContributionsRequest that = (DefaultUserContributionsRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(username, that.username) && Objects.equals(queryUrl, that.queryUrl);
+        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, username, queryUrl);
+        return Objects.hash(client, queryUrl);
     }
 }

@@ -20,15 +20,13 @@ public class DefaultReleaseRatingUpdateByUserRequest implements ReleaseRatingUpd
 
     protected final AbstractHttpClient<HttpEntity> client;
 
-    private final long releaseId;
-    private final String username;
-    private final int rating;
+    private final String queryUrl;
+    private final ObjectNode jsonObject;
 
     public DefaultReleaseRatingUpdateByUserRequest(Builder builder) {
         this.client = builder.client;
-        this.releaseId = builder.releaseId;
-        this.username = builder.username;
-        this.rating = builder.rating;
+        this.queryUrl = builder.queryUrl;
+        this.jsonObject = builder.jsonObject;
     }
 
     public static class Builder implements ReleaseRatingUpdateByUserRequestBuilder {
@@ -38,6 +36,9 @@ public class DefaultReleaseRatingUpdateByUserRequest implements ReleaseRatingUpd
         private long releaseId;
         private String username;
         private int rating;
+
+        private String queryUrl;
+        private ObjectNode jsonObject;
 
         public Builder(AbstractHttpClient<HttpEntity> client) {
             this.client = client;
@@ -63,7 +64,22 @@ public class DefaultReleaseRatingUpdateByUserRequest implements ReleaseRatingUpd
 
         @Override
         public ReleaseRatingUpdateByUserRequest build() {
+            this.queryUrl = DiscogsApiEndpoints
+                    .DATABASE_RELEASE_RATING_BY_USER
+                    .getEndpoint()
+                    .replace("{release_id}", String.valueOf(releaseId))
+                    .replace("{username}", username);
+            this.jsonObject = constructJsonParameters();
             return new DefaultReleaseRatingUpdateByUserRequest(this);
+        }
+
+        @Override
+        public ObjectNode constructJsonParameters() {
+            ObjectNode jsonObject = JsonNodeFactory.instance.objectNode();
+
+            if (rating > 0) jsonObject.put("rating", rating);
+
+            return jsonObject;
         }
 
         @Override
@@ -73,6 +89,8 @@ public class DefaultReleaseRatingUpdateByUserRequest implements ReleaseRatingUpd
                     ", releaseId=" + releaseId +
                     ", username='" + username + '\'' +
                     ", rating=" + rating +
+                    ", queryUrl='" + queryUrl + '\'' +
+                    ", jsonObject=" + jsonObject +
                     '}';
         }
 
@@ -81,27 +99,19 @@ public class DefaultReleaseRatingUpdateByUserRequest implements ReleaseRatingUpd
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Builder builder = (Builder) o;
-            return releaseId == builder.releaseId && Double.compare(builder.rating, rating) == 0 && Objects.equals(client, builder.client) && Objects.equals(username, builder.username);
+            return releaseId == builder.releaseId && rating == builder.rating && Objects.equals(client, builder.client) && Objects.equals(username, builder.username) && Objects.equals(queryUrl, builder.queryUrl) && Objects.equals(jsonObject, builder.jsonObject);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, releaseId, username, rating);
+            return Objects.hash(client, releaseId, username, rating, queryUrl, jsonObject);
         }
     }
 
     @Override
     public CompletableFuture<ReleaseRating> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            String endpoint = DiscogsApiEndpoints.DATABASE_RELEASE_RATING_BY_USER.getEndpoint()
-                    .replace("{release_id}", String.valueOf(releaseId))
-                    .replace("{username}", username);
-
-            HttpPut request = new HttpPut(endpoint);
-
-            ObjectNode jsonObject = JsonNodeFactory.instance.objectNode();
-            jsonObject.put("rating", rating);
-
+            HttpPut request = new HttpPut(queryUrl);
             request.setHeader("Content-Type", "application/json");
             request.setEntity(new StringEntity(jsonObject.toString(), "UTF-8"));
 
@@ -123,9 +133,8 @@ public class DefaultReleaseRatingUpdateByUserRequest implements ReleaseRatingUpd
     public String toString() {
         return "DefaultReleaseRatingUpdateByUserRequest{" +
                 "client=" + client +
-                ", releaseId=" + releaseId +
-                ", username='" + username + '\'' +
-                ", rating=" + rating +
+                ", queryUrl='" + queryUrl + '\'' +
+                ", jsonObject=" + jsonObject +
                 '}';
     }
 
@@ -134,11 +143,11 @@ public class DefaultReleaseRatingUpdateByUserRequest implements ReleaseRatingUpd
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultReleaseRatingUpdateByUserRequest that = (DefaultReleaseRatingUpdateByUserRequest) o;
-        return releaseId == that.releaseId && Double.compare(that.rating, rating) == 0 && Objects.equals(client, that.client) && Objects.equals(username, that.username);
+        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl) && Objects.equals(jsonObject, that.jsonObject);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, releaseId, username, rating);
+        return Objects.hash(client, queryUrl, jsonObject);
     }
 }

@@ -17,13 +17,11 @@ public class DefaultReleaseRatingByUserRequest implements ReleaseRatingByUserReq
 
     protected final AbstractHttpClient<HttpEntity> client;
 
-    private final long releaseId;
-    private final String username;
+    private final String queryUrl;
 
     public DefaultReleaseRatingByUserRequest(Builder builder) {
         this.client = builder.client;
-        this.releaseId = builder.releaseId;
-        this.username = builder.username;
+        this.queryUrl = builder.queryUrl;
     }
 
     public static class Builder implements ReleaseRatingByUserRequestBuilder {
@@ -32,6 +30,8 @@ public class DefaultReleaseRatingByUserRequest implements ReleaseRatingByUserReq
 
         private long releaseId;
         private String username;
+
+        private String queryUrl;
 
         public Builder(AbstractHttpClient<HttpEntity> client) {
             this.client = client;
@@ -51,6 +51,11 @@ public class DefaultReleaseRatingByUserRequest implements ReleaseRatingByUserReq
 
         @Override
         public ReleaseRatingByUserRequest build() {
+            this.queryUrl = DiscogsApiEndpoints
+                    .DATABASE_RELEASE_RATING_BY_USER
+                    .getEndpoint()
+                    .replace("{release_id}", String.valueOf(releaseId))
+                    .replace("{username}", username);
             return new DefaultReleaseRatingByUserRequest(this);
         }
 
@@ -60,6 +65,7 @@ public class DefaultReleaseRatingByUserRequest implements ReleaseRatingByUserReq
                     "client=" + client +
                     ", releaseId=" + releaseId +
                     ", username='" + username + '\'' +
+                    ", queryUrl='" + queryUrl + '\'' +
                     '}';
         }
 
@@ -68,20 +74,19 @@ public class DefaultReleaseRatingByUserRequest implements ReleaseRatingByUserReq
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Builder builder = (Builder) o;
-            return releaseId == builder.releaseId && Objects.equals(client, builder.client) && Objects.equals(username, builder.username);
+            return releaseId == builder.releaseId && Objects.equals(client, builder.client) && Objects.equals(username, builder.username) && Objects.equals(queryUrl, builder.queryUrl);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, releaseId, username);
+            return Objects.hash(client, releaseId, username, queryUrl);
         }
     }
 
     @Override
     public CompletableFuture<ReleaseRating> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            String endpoint = DiscogsApiEndpoints.DATABASE_RELEASE_RATING_BY_USER.getEndpoint().replace("{release_id}", String.valueOf(releaseId)).replace("{username}", username);
-            Optional<HttpEntity> execute = client.execute(new HttpGet(endpoint));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             ReleaseRating releaseRating;
@@ -99,8 +104,7 @@ public class DefaultReleaseRatingByUserRequest implements ReleaseRatingByUserReq
     public String toString() {
         return "DefaultReleaseRatingByUserRequest{" +
                 "client=" + client +
-                ", releaseId=" + releaseId +
-                ", username='" + username + '\'' +
+                ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
 
@@ -109,11 +113,11 @@ public class DefaultReleaseRatingByUserRequest implements ReleaseRatingByUserReq
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultReleaseRatingByUserRequest that = (DefaultReleaseRatingByUserRequest) o;
-        return releaseId == that.releaseId && Objects.equals(client, that.client) && Objects.equals(username, that.username);
+        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, releaseId, username);
+        return Objects.hash(client, queryUrl);
     }
 }

@@ -19,13 +19,10 @@ public class DefaultArtistReleasesRequest implements ArtistReleasesRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
 
-    private final long artistId;
-
     private final String queryUrl;
 
     public DefaultArtistReleasesRequest(Builder builder) {
         this.client = builder.client;
-        this.artistId = builder.artistId;
         this.queryUrl = builder.queryUrl;
     }
 
@@ -77,12 +74,15 @@ public class DefaultArtistReleasesRequest implements ArtistReleasesRequest {
 
         @Override
         public ArtistReleasesRequest build() {
-            this.queryUrl = DiscogsApiEndpoints.DATABASE_ARTIST_RELEASES.getEndpointWith(constructParameters().toParametersString());
+            this.queryUrl = DiscogsApiEndpoints
+                    .DATABASE_ARTIST_RELEASES
+                    .getEndpointWith(constructPathParameters().toParametersString())
+                    .replace("{artist_id}", String.valueOf(artistId));
             return new DefaultArtistReleasesRequest(this);
         }
 
         @Override
-        public RequestParametersConstructor constructParameters() {
+        public RequestParametersConstructor constructPathParameters() {
             StringBuilderSequentialRequestParametersConstructor parameters =
                     new StringBuilderSequentialRequestParametersConstructor();
 
@@ -124,7 +124,7 @@ public class DefaultArtistReleasesRequest implements ArtistReleasesRequest {
     @Override
     public CompletableFuture<ArtistReleases> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl.replace("{artist_id}", String.valueOf(artistId))));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             ArtistReleases artistReleases;
@@ -142,7 +142,6 @@ public class DefaultArtistReleasesRequest implements ArtistReleasesRequest {
     public String toString() {
         return "DefaultArtistReleasesRequest{" +
                 "client=" + client +
-                ", artistId=" + artistId +
                 ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
@@ -152,11 +151,11 @@ public class DefaultArtistReleasesRequest implements ArtistReleasesRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultArtistReleasesRequest that = (DefaultArtistReleasesRequest) o;
-        return artistId == that.artistId && Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
+        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, artistId, queryUrl);
+        return Objects.hash(client, queryUrl);
     }
 }

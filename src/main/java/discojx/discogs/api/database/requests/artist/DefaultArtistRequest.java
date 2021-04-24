@@ -17,11 +17,11 @@ public class DefaultArtistRequest implements ArtistRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
 
-    private final long artistId;
+    private final String queryUrl;
 
     public DefaultArtistRequest(Builder builder) {
         this.client = builder.client;
-        this.artistId = builder.artistId;
+        this.queryUrl = builder.queryUrl;
     }
 
     public static class Builder implements ArtistRequestBuilder {
@@ -29,6 +29,8 @@ public class DefaultArtistRequest implements ArtistRequest {
         private final AbstractHttpClient<HttpEntity> client;
 
         private long artistId;
+
+        private String queryUrl;
 
         public Builder(AbstractHttpClient<HttpEntity> client) {
             this.client = client;
@@ -42,6 +44,7 @@ public class DefaultArtistRequest implements ArtistRequest {
 
         @Override
         public ArtistRequest build() {
+            this.queryUrl = DiscogsApiEndpoints.DATABASE_ARTIST.getEndpoint().replace("{artist_id}", String.valueOf(artistId));
             return new DefaultArtistRequest(this);
         }
 
@@ -50,6 +53,7 @@ public class DefaultArtistRequest implements ArtistRequest {
             return "Builder{" +
                     "client=" + client +
                     ", artistId=" + artistId +
+                    ", queryUrl='" + queryUrl + '\'' +
                     '}';
         }
 
@@ -58,19 +62,19 @@ public class DefaultArtistRequest implements ArtistRequest {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Builder builder = (Builder) o;
-            return artistId == builder.artistId && Objects.equals(client, builder.client);
+            return artistId == builder.artistId && Objects.equals(client, builder.client) && Objects.equals(queryUrl, builder.queryUrl);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, artistId);
+            return Objects.hash(client, artistId, queryUrl);
         }
     }
 
     @Override
     public CompletableFuture<Artist> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsApiEndpoints.DATABASE_ARTIST.getEndpoint().replace("{artist_id}", String.valueOf(artistId))));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             Artist artist;
@@ -88,7 +92,7 @@ public class DefaultArtistRequest implements ArtistRequest {
     public String toString() {
         return "DefaultArtistRequest{" +
                 "client=" + client +
-                ", artistId=" + artistId +
+                ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
 
@@ -97,11 +101,11 @@ public class DefaultArtistRequest implements ArtistRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultArtistRequest that = (DefaultArtistRequest) o;
-        return artistId == that.artistId && Objects.equals(client, that.client);
+        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, artistId);
+        return Objects.hash(client, queryUrl);
     }
 }

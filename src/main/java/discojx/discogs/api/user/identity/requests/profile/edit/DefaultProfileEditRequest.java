@@ -1,8 +1,5 @@
 package discojx.discogs.api.user.identity.requests.profile.edit;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import discojx.clients.AbstractHttpClient;
@@ -24,27 +21,13 @@ public class DefaultProfileEditRequest implements ProfileEditRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
 
-    protected static final ObjectMapper jsonMapper = new JsonMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-    private final String username;
-    private final String name;
-    private final String homePage;
-    private final String location;
-    private final String profile;
-    private final MarketplaceCurrencies currAbbr;
-
-    private final ObjectNode jsonBody;
+    private final String queryUrl;
+    private final ObjectNode jsonObject;
 
     public DefaultProfileEditRequest(Builder builder) {
         this.client = builder.client;
-        this.username = builder.username;
-        this.name = builder.name;
-        this.homePage = builder.homePage;
-        this.location = builder.location;
-        this.profile = builder.profile;
-        this.currAbbr = builder.currAbbr;
-        this.jsonBody = builder.jsonBody;
+        this.queryUrl = builder.queryUrl;
+        this.jsonObject = builder.jsonObject;
     }
 
     public static class Builder implements ProfileEditRequestBuilder {
@@ -58,7 +41,8 @@ public class DefaultProfileEditRequest implements ProfileEditRequest {
         private String profile;
         private MarketplaceCurrencies currAbbr;
 
-        private ObjectNode jsonBody;
+        private String queryUrl;
+        private ObjectNode jsonObject;
 
         public Builder(AbstractHttpClient<HttpEntity> client) {
             this.client = client;
@@ -102,11 +86,16 @@ public class DefaultProfileEditRequest implements ProfileEditRequest {
 
         @Override
         public ProfileEditRequest build() {
-            this.jsonBody = constructJsonBody();
+            this.jsonObject = constructJsonParameters();
+            this.queryUrl = DiscogsApiEndpoints
+                    .USER_PROFILE_EDIT
+                    .getEndpoint()
+                    .replace("{username}", username);
             return new DefaultProfileEditRequest(this);
         }
 
-        private ObjectNode constructJsonBody() {
+        @Override
+        public ObjectNode constructJsonParameters() {
             ObjectNode jsonObject = JsonNodeFactory.instance.objectNode();
 
             if (name != null) jsonObject.put("name", name);
@@ -118,27 +107,41 @@ public class DefaultProfileEditRequest implements ProfileEditRequest {
             return jsonObject;
         }
 
+        @Override
+        public String toString() {
+            return "Builder{" +
+                    "client=" + client +
+                    ", username='" + username + '\'' +
+                    ", name='" + name + '\'' +
+                    ", homePage='" + homePage + '\'' +
+                    ", location='" + location + '\'' +
+                    ", profile='" + profile + '\'' +
+                    ", currAbbr=" + currAbbr +
+                    ", queryUrl='" + queryUrl + '\'' +
+                    ", jsonObject=" + jsonObject +
+                    '}';
+        }
 
         @Override
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Builder builder = (Builder) o;
-            return Objects.equals(client, builder.client) && Objects.equals(username, builder.username) && Objects.equals(name, builder.name) && Objects.equals(homePage, builder.homePage) && Objects.equals(location, builder.location) && Objects.equals(profile, builder.profile) && currAbbr == builder.currAbbr && Objects.equals(jsonBody, builder.jsonBody);
+            return Objects.equals(client, builder.client) && Objects.equals(username, builder.username) && Objects.equals(name, builder.name) && Objects.equals(homePage, builder.homePage) && Objects.equals(location, builder.location) && Objects.equals(profile, builder.profile) && currAbbr == builder.currAbbr && Objects.equals(queryUrl, builder.queryUrl) && Objects.equals(jsonObject, builder.jsonObject);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, username, name, homePage, location, profile, currAbbr, jsonBody);
+            return Objects.hash(client, username, name, homePage, location, profile, currAbbr, queryUrl, jsonObject);
         }
     }
 
     @Override
     public CompletableFuture<Profile> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            HttpPost request = new HttpPost(DiscogsApiEndpoints.USER_PROFILE_EDIT.getEndpoint().replace("{username}", username));
+            HttpPost request = new HttpPost(queryUrl);
             request.addHeader("Content-Type", "application/json");
-            request.setEntity(new StringEntity(jsonBody.toString(), "UTF-8"));
+            request.setEntity(new StringEntity(jsonObject.toString(), "UTF-8"));
             Optional<HttpEntity> execute = client.execute(request);
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
@@ -157,13 +160,8 @@ public class DefaultProfileEditRequest implements ProfileEditRequest {
     public String toString() {
         return "DefaultProfileEditRequest{" +
                 "client=" + client +
-                ", username='" + username + '\'' +
-                ", name='" + name + '\'' +
-                ", homePage='" + homePage + '\'' +
-                ", location='" + location + '\'' +
-                ", profile='" + profile + '\'' +
-                ", currAbbr=" + currAbbr +
-                ", jsonBody=" + jsonBody +
+                ", queryUrl='" + queryUrl + '\'' +
+                ", jsonObject=" + jsonObject +
                 '}';
     }
 
@@ -172,11 +170,11 @@ public class DefaultProfileEditRequest implements ProfileEditRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultProfileEditRequest that = (DefaultProfileEditRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(username, that.username) && Objects.equals(name, that.name) && Objects.equals(homePage, that.homePage) && Objects.equals(location, that.location) && Objects.equals(profile, that.profile) && currAbbr == that.currAbbr && Objects.equals(jsonBody, that.jsonBody);
+        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl) && Objects.equals(jsonObject, that.jsonObject);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, username, name, homePage, location, profile, currAbbr, jsonBody);
+        return Objects.hash(client, queryUrl, jsonObject);
     }
 }

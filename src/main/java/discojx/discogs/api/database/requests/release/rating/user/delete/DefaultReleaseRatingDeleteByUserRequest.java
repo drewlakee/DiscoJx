@@ -12,13 +12,11 @@ public class DefaultReleaseRatingDeleteByUserRequest implements ReleaseRatingDel
 
     protected final AbstractHttpClient<HttpEntity> client;
 
-    private final long releaseId;
-    private final String username;
+    private final String queryUrl;
 
     public DefaultReleaseRatingDeleteByUserRequest(Builder builder) {
         this.client = builder.client;
-        this.releaseId = builder.releaseId;
-        this.username = builder.username;
+        this.queryUrl = builder.queryUrl;
     }
 
     public static class Builder implements ReleaseRatingDeleteByUserRequestBuilder {
@@ -27,6 +25,8 @@ public class DefaultReleaseRatingDeleteByUserRequest implements ReleaseRatingDel
 
         private long releaseId;
         private String username;
+
+        private String queryUrl;
 
         public Builder(AbstractHttpClient<HttpEntity> client) {
             this.client = client;
@@ -46,6 +46,11 @@ public class DefaultReleaseRatingDeleteByUserRequest implements ReleaseRatingDel
 
         @Override
         public DefaultReleaseRatingDeleteByUserRequest build() {
+            this.queryUrl = DiscogsApiEndpoints
+                    .DATABASE_RELEASE_RATING_BY_USER
+                    .getEndpoint()
+                    .replace("{release_id}", String.valueOf(releaseId))
+                    .replace("{username}", username);
             return new DefaultReleaseRatingDeleteByUserRequest(this);
         }
 
@@ -55,6 +60,7 @@ public class DefaultReleaseRatingDeleteByUserRequest implements ReleaseRatingDel
                     "client=" + client +
                     ", releaseId=" + releaseId +
                     ", username='" + username + '\'' +
+                    ", queryUrl='" + queryUrl + '\'' +
                     '}';
         }
 
@@ -63,30 +69,25 @@ public class DefaultReleaseRatingDeleteByUserRequest implements ReleaseRatingDel
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Builder builder = (Builder) o;
-            return releaseId == builder.releaseId && Objects.equals(client, builder.client) && Objects.equals(username, builder.username);
+            return releaseId == builder.releaseId && Objects.equals(client, builder.client) && Objects.equals(username, builder.username) && Objects.equals(queryUrl, builder.queryUrl);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, releaseId, username);
+            return Objects.hash(client, releaseId, username, queryUrl);
         }
     }
 
     @Override
     public CompletableFuture<Void> supplyFuture() {
-        return CompletableFuture.runAsync(() -> {
-            String endpoint = DiscogsApiEndpoints.DATABASE_RELEASE_RATING_BY_USER.getEndpoint().replace("{release_id}", String.valueOf(releaseId)).replace("{username}", username);
-            client.execute(new HttpDelete(endpoint));
-        });
+        return CompletableFuture.runAsync(() -> client.execute(new HttpDelete(queryUrl)));
     }
-
 
     @Override
     public String toString() {
         return "DefaultReleaseRatingDeleteByUserRequest{" +
                 "client=" + client +
-                ", releaseId=" + releaseId +
-                ", username='" + username + '\'' +
+                ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
 
@@ -95,11 +96,11 @@ public class DefaultReleaseRatingDeleteByUserRequest implements ReleaseRatingDel
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultReleaseRatingDeleteByUserRequest that = (DefaultReleaseRatingDeleteByUserRequest) o;
-        return releaseId == that.releaseId && Objects.equals(client, that.client) && Objects.equals(username, that.username);
+        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, releaseId, username);
+        return Objects.hash(client, queryUrl);
     }
 }

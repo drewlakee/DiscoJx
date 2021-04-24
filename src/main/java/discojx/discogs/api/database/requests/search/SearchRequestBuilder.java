@@ -1,12 +1,12 @@
 package discojx.discogs.api.database.requests.search;
 
 import discojx.requests.PaginationableRequest;
-import discojx.requests.ParameterizedRequest;
+import discojx.requests.PathParameterizedRequest;
 import discojx.utils.requests.RequestParametersConstructor;
 
 public interface SearchRequestBuilder extends
         PaginationableRequest<SearchRequestBuilder>,
-        ParameterizedRequest<RequestParametersConstructor> {
+        PathParameterizedRequest<RequestParametersConstructor> {
 
     SearchRequestBuilder query(String query);
     SearchRequestBuilder type(String type);

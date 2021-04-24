@@ -179,12 +179,14 @@ public class DefaultSearchRequest implements SearchRequest {
 
         @Override
         public SearchRequest build() {
-            this.queryUrl = DiscogsApiEndpoints.DATABASE_SEARCH.getEndpointWith(constructParameters().toParametersString());
+            this.queryUrl = DiscogsApiEndpoints
+                    .DATABASE_SEARCH
+                    .getEndpointWith(constructPathParameters().toParametersString());
             return new DefaultSearchRequest(this);
         }
 
         @Override
-        public RequestParametersConstructor constructParameters() {
+        public RequestParametersConstructor constructPathParameters() {
             StringBuilderSequentialRequestParametersConstructor parameters =
                     new StringBuilderSequentialRequestParametersConstructor();
 

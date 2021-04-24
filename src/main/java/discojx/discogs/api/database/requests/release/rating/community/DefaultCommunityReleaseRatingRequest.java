@@ -17,11 +17,11 @@ public class DefaultCommunityReleaseRatingRequest implements CommunityReleaseRat
 
     protected final AbstractHttpClient<HttpEntity> client;
 
-    private final long releaseId;
+    private final String queryUrl;
 
     public DefaultCommunityReleaseRatingRequest(Builder builder) {
         this.client = builder.client;
-        this.releaseId = builder.releaseId;
+        this.queryUrl = builder.queryUrl;
     }
 
     public static class Builder implements CommunityReleaseRatingRequestBuilder {
@@ -29,6 +29,8 @@ public class DefaultCommunityReleaseRatingRequest implements CommunityReleaseRat
         private final AbstractHttpClient<HttpEntity> client;
 
         private long releaseId;
+
+        private String queryUrl;
 
         public Builder(AbstractHttpClient<HttpEntity> client) {
             this.client = client;
@@ -42,6 +44,10 @@ public class DefaultCommunityReleaseRatingRequest implements CommunityReleaseRat
 
         @Override
         public CommunityReleaseRatingRequest build() {
+            this.queryUrl = DiscogsApiEndpoints
+                    .DATABASE_COMMUNITY_RELEASE_RATING
+                    .getEndpoint()
+                    .replace("{release_id}", String.valueOf(releaseId));
             return new DefaultCommunityReleaseRatingRequest(this);
         }
 
@@ -54,6 +60,7 @@ public class DefaultCommunityReleaseRatingRequest implements CommunityReleaseRat
             return "Builder{" +
                     "client=" + client +
                     ", releaseId=" + releaseId +
+                    ", queryUrl='" + queryUrl + '\'' +
                     '}';
         }
 
@@ -62,19 +69,19 @@ public class DefaultCommunityReleaseRatingRequest implements CommunityReleaseRat
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Builder builder = (Builder) o;
-            return releaseId == builder.releaseId && Objects.equals(client, builder.client);
+            return releaseId == builder.releaseId && Objects.equals(client, builder.client) && Objects.equals(queryUrl, builder.queryUrl);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, releaseId);
+            return Objects.hash(client, releaseId, queryUrl);
         }
     }
 
     @Override
     public CompletableFuture<CommunityReleaseRating> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsApiEndpoints.DATABASE_COMMUNITY_RELEASE_RATING.getEndpoint().replace("{release_id}", String.valueOf(releaseId))));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             CommunityReleaseRating communityReleaseRating;
@@ -90,9 +97,9 @@ public class DefaultCommunityReleaseRatingRequest implements CommunityReleaseRat
 
     @Override
     public String toString() {
-        return "DefaultCommunityReleaseRequest{" +
+        return "DefaultCommunityReleaseRatingRequest{" +
                 "client=" + client +
-                ", releaseId=" + releaseId +
+                ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
 
@@ -101,11 +108,11 @@ public class DefaultCommunityReleaseRatingRequest implements CommunityReleaseRat
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultCommunityReleaseRatingRequest that = (DefaultCommunityReleaseRatingRequest) o;
-        return releaseId == that.releaseId && Objects.equals(client, that.client);
+        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, releaseId);
+        return Objects.hash(client, queryUrl);
     }
 }

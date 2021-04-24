@@ -20,13 +20,10 @@ public class DefaultMasterReleaseVersionsRequest implements MasterReleaseVersion
 
     protected final AbstractHttpClient<HttpEntity> client;
 
-    private final long masterId;
-
     private final String queryUrl;
 
     public DefaultMasterReleaseVersionsRequest(Builder builder) {
         this.client = builder.client;
-        this.masterId = builder.masterId;
         this.queryUrl = builder.queryUrl;
     }
 
@@ -106,12 +103,15 @@ public class DefaultMasterReleaseVersionsRequest implements MasterReleaseVersion
 
         @Override
         public MasterReleaseVersionsRequest build() {
-            this.queryUrl = DiscogsApiEndpoints.DATABASE_MASTER_RELEASE_VERSIONS.getEndpointWith(constructParameters().toParametersString());
+            this.queryUrl = DiscogsApiEndpoints
+                    .DATABASE_MASTER_RELEASE_VERSIONS
+                    .getEndpointWith(constructPathParameters().toParametersString())
+                    .replace("{master_id}", String.valueOf(masterId));
             return new DefaultMasterReleaseVersionsRequest(this);
         }
 
         @Override
-        public RequestParametersConstructor constructParameters() {
+        public RequestParametersConstructor constructPathParameters() {
             StringBuilderSequentialRequestParametersConstructor parameters =
                     new StringBuilderSequentialRequestParametersConstructor();
 
@@ -166,7 +166,7 @@ public class DefaultMasterReleaseVersionsRequest implements MasterReleaseVersion
     @Override
     public CompletableFuture<MasterReleaseVersions> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl.replace("{master_id}", String.valueOf(masterId))));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             MasterReleaseVersions masterReleaseVersions;
@@ -184,7 +184,6 @@ public class DefaultMasterReleaseVersionsRequest implements MasterReleaseVersion
     public String toString() {
         return "DefaultMasterReleaseVersionsRequest{" +
                 "client=" + client +
-                ", masterId=" + masterId +
                 ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
@@ -194,11 +193,11 @@ public class DefaultMasterReleaseVersionsRequest implements MasterReleaseVersion
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultMasterReleaseVersionsRequest that = (DefaultMasterReleaseVersionsRequest) o;
-        return masterId == that.masterId && Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
+        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, masterId, queryUrl);
+        return Objects.hash(client, queryUrl);
     }
 }

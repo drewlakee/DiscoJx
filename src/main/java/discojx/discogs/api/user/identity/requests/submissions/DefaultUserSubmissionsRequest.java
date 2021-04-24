@@ -19,13 +19,10 @@ public class DefaultUserSubmissionsRequest implements UserSubmissionsRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
 
-    private final String username;
-
     private final String queryUrl;
 
     public DefaultUserSubmissionsRequest(Builder builder) {
         this.client = builder.client;
-        this.username = builder.username;
         this.queryUrl = builder.queryUrl;
     }
 
@@ -63,12 +60,15 @@ public class DefaultUserSubmissionsRequest implements UserSubmissionsRequest {
 
         @Override
         public UserSubmissionsRequest build() {
-            this.queryUrl = DiscogsApiEndpoints.USER_SUBMISSIONS.getEndpointWith(constructParameters().toParametersString());
+            this.queryUrl = DiscogsApiEndpoints
+                    .USER_SUBMISSIONS
+                    .getEndpointWith(constructPathParameters().toParametersString())
+                    .replace("{username}", username);
             return new DefaultUserSubmissionsRequest(this);
         }
 
         @Override
-        public RequestParametersConstructor constructParameters() {
+        public RequestParametersConstructor constructPathParameters() {
             StringBuilderSequentialRequestParametersConstructor parameters =
                     new StringBuilderSequentialRequestParametersConstructor();
 
@@ -106,7 +106,7 @@ public class DefaultUserSubmissionsRequest implements UserSubmissionsRequest {
     @Override
     public CompletableFuture<Submissions> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl.replace("{username}", username)));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             Submissions submissions;
@@ -124,8 +124,7 @@ public class DefaultUserSubmissionsRequest implements UserSubmissionsRequest {
     public String toString() {
         return "DefaultUserSubmissionsRequest{" +
                 "client=" + client +
-                ", username='" + username + '\'' +
-                ", endpointParameters='" + queryUrl + '\'' +
+                ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
 
@@ -134,11 +133,11 @@ public class DefaultUserSubmissionsRequest implements UserSubmissionsRequest {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultUserSubmissionsRequest that = (DefaultUserSubmissionsRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(username, that.username) && Objects.equals(queryUrl, that.queryUrl);
+        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, username, queryUrl);
+        return Objects.hash(client, queryUrl);
     }
 }
