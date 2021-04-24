@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.DiscogsEndpoints;
+import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.MarketplaceCurrencies;
 import discojx.discogs.objects.Release;
 import discojx.utils.requests.RequestParametersConstructor;
@@ -62,7 +62,7 @@ public class DefaultReleaseRequest implements ReleaseRequest {
 
         @Override
         public ReleaseRequest build() {
-            this.queryUrl = DiscogsEndpoints.DATABASE_RELEASE.getEndpointWith(constructParameters().toParametersString());
+            this.queryUrl = DiscogsApiEndpoints.DATABASE_RELEASE.getEndpointWith(constructParameters().toParametersString());
             return new DefaultReleaseRequest(this);
         }
 

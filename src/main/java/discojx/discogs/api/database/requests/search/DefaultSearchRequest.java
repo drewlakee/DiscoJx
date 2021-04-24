@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.DiscogsEndpoints;
+import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.SearchResult;
 import discojx.utils.requests.RequestParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
@@ -184,7 +184,7 @@ public class DefaultSearchRequest implements SearchRequest {
 
         @Override
         public SearchRequest build() {
-            this.queryUrl = DiscogsEndpoints.DATABASE_SEARCH.getEndpointWith(constructParameters().toParametersString());
+            this.queryUrl = DiscogsApiEndpoints.DATABASE_SEARCH.getEndpointWith(constructParameters().toParametersString());
             return new DefaultSearchRequest(this);
         }
 

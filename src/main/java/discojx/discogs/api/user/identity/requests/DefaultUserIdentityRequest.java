@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.DiscogsEndpoints;
+import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.UserIdentity;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -29,7 +29,7 @@ public class DefaultUserIdentityRequest implements UserIdentityRequest {
     @Override
     public CompletableFuture<UserIdentity> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.USER_IDENTITY.getEndpoint()));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsApiEndpoints.USER_IDENTITY.getEndpoint()));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             UserIdentity userIdentity;

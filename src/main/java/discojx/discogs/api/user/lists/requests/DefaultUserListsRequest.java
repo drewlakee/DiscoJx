@@ -1,11 +1,9 @@
-package discojx.discogs.api.user.identity.requests.submissions;
+package discojx.discogs.api.user.lists.requests;
 
-import com.fasterxml.jackson.databind.DeserializationFeature;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.Submissions;
+import discojx.discogs.objects.UserLists;
+import discojx.utils.json.JsonUtils;
 import discojx.utils.requests.RequestParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
 import org.apache.http.HttpEntity;
@@ -17,30 +15,24 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultUserSubmissionsRequest implements UserSubmissionsRequest {
+public class DefaultUserListsRequest implements UserListsRequest {
 
     protected final AbstractHttpClient<HttpEntity> client;
 
-    protected static final ObjectMapper jsonMapper = new JsonMapper()
-            .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
-
-    private final String username;
-
     private final String queryUrl;
 
-    public DefaultUserSubmissionsRequest(Builder builder) {
+    public DefaultUserListsRequest(Builder builder) {
         this.client = builder.client;
-        this.username = builder.username;
         this.queryUrl = builder.queryUrl;
     }
 
-    public static class Builder implements UserSubmissionsRequestBuilder {
+    public static class Builder implements UserListsRequestBuilder {
 
         private final AbstractHttpClient<HttpEntity> client;
 
-        private String username;
         private int page;
         private int perPage;
+        private String username;
 
         private String queryUrl;
 
@@ -49,27 +41,30 @@ public class DefaultUserSubmissionsRequest implements UserSubmissionsRequest {
         }
 
         @Override
-        public UserSubmissionsRequestBuilder username(String username) {
+        public UserListsRequestBuilder username(String username) {
             this.username = username;
             return this;
         }
 
         @Override
-        public UserSubmissionsRequestBuilder page(int page) {
+        public UserListsRequestBuilder page(int page) {
             this.page = page;
             return this;
         }
 
         @Override
-        public UserSubmissionsRequestBuilder perPage(int perPage) {
+        public UserListsRequestBuilder perPage(int perPage) {
             this.perPage = perPage;
             return this;
         }
 
         @Override
-        public UserSubmissionsRequest build() {
-            this.queryUrl = DiscogsApiEndpoints.USER_SUBMISSIONS.getEndpointWith(constructParameters().toParametersString());
-            return new DefaultUserSubmissionsRequest(this);
+        public UserListsRequest build() {
+            this.queryUrl = DiscogsApiEndpoints
+                    .USER_LISTS
+                    .getEndpointWith(constructParameters().toParametersString())
+                    .replace("{username}", username);
+            return new DefaultUserListsRequest(this);
         }
 
         @Override
@@ -87,10 +82,10 @@ public class DefaultUserSubmissionsRequest implements UserSubmissionsRequest {
         public String toString() {
             return "Builder{" +
                     "client=" + client +
-                    ", username='" + username + '\'' +
                     ", page=" + page +
                     ", perPage=" + perPage +
-                    ", endpointParameters='" + queryUrl + '\'' +
+                    ", username='" + username + '\'' +
+                    ", queryUrl='" + queryUrl + '\'' +
                     '}';
         }
 
@@ -104,33 +99,32 @@ public class DefaultUserSubmissionsRequest implements UserSubmissionsRequest {
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, username, page, perPage, queryUrl);
+            return Objects.hash(client, page, perPage, username, queryUrl);
         }
     }
 
     @Override
-    public CompletableFuture<Submissions> supplyFuture() {
+    public CompletableFuture<UserLists> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl.replace("{username}", username)));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
-            Submissions submissions;
+            UserLists userLists;
             try {
-                submissions = jsonMapper.readValue(httpEntity.getContent(), Submissions.class);
+                userLists = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), UserLists.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }
 
-            return submissions;
+            return userLists;
         });
     }
 
     @Override
     public String toString() {
-        return "DefaultUserSubmissionsRequest{" +
+        return "DefaultUserListsRequest{" +
                 "client=" + client +
-                ", username='" + username + '\'' +
-                ", endpointParameters='" + queryUrl + '\'' +
+                ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
 
@@ -138,12 +132,12 @@ public class DefaultUserSubmissionsRequest implements UserSubmissionsRequest {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DefaultUserSubmissionsRequest that = (DefaultUserSubmissionsRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(username, that.username) && Objects.equals(queryUrl, that.queryUrl);
+        DefaultUserListsRequest that = (DefaultUserListsRequest) o;
+        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, username, queryUrl);
+        return Objects.hash(client, queryUrl);
     }
 }

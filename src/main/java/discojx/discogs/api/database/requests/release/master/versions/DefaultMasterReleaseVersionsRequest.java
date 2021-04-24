@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.DiscogsEndpoints;
+import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.MasterReleaseVersions;
 import discojx.utils.requests.RequestParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
@@ -109,7 +109,7 @@ public class DefaultMasterReleaseVersionsRequest implements MasterReleaseVersion
 
         @Override
         public MasterReleaseVersionsRequest build() {
-            this.queryUrl = DiscogsEndpoints.DATABASE_MASTER_RELEASE_VERSIONS.getEndpointWith(constructParameters().toParametersString());
+            this.queryUrl = DiscogsApiEndpoints.DATABASE_MASTER_RELEASE_VERSIONS.getEndpointWith(constructParameters().toParametersString());
             return new DefaultMasterReleaseVersionsRequest(this);
         }
 

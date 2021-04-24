@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.DiscogsEndpoints;
+import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.Label;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -75,7 +75,7 @@ public class DefaultLabelRequest implements LabelRequest {
     @Override
     public CompletableFuture<Label> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.DATABASE_LABEL.getEndpoint().replace("{label_id}", String.valueOf(labelId))));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsApiEndpoints.DATABASE_LABEL.getEndpoint().replace("{label_id}", String.valueOf(labelId))));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             Label label;

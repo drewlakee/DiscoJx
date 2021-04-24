@@ -1,6 +1,6 @@
 package discojx.discogs.api;
 
-public enum DiscogsEndpoints {
+public enum DiscogsApiEndpoints {
 
     ROOT                                    ("https://api.discogs.com"),
 
@@ -9,6 +9,7 @@ public enum DiscogsEndpoints {
     USER_IDENTITY                           (ROOT.endpoint + "/oauth/identity"),
     USER_SUBMISSIONS                        (ROOT.endpoint + "/users/{username}/submissions"),
     USER_CONTRIBUTIONS                      (ROOT.endpoint + "/users/{username}/contributions"),
+    USER_LISTS                              (ROOT.endpoint + "/users/{username}/lists"),
 
     DATABASE_RELEASE                        (ROOT.endpoint + "/releases/{release_id}"),
     DATABASE_RELEASE_RATING_BY_USER         (ROOT.endpoint + "/releases/{release_id}/rating/{username}"),
@@ -24,7 +25,7 @@ public enum DiscogsEndpoints {
 
     private final String endpoint;
 
-    DiscogsEndpoints(String endpoint) {
+    DiscogsApiEndpoints(String endpoint) {
         this.endpoint = endpoint;
     }
 

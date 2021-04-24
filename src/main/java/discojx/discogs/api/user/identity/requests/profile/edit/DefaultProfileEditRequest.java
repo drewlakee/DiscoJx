@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.DiscogsEndpoints;
+import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.MarketplaceCurrencies;
 import discojx.discogs.objects.Profile;
 import org.apache.http.HttpEntity;
@@ -135,7 +135,7 @@ public class DefaultProfileEditRequest implements ProfileEditRequest {
     @Override
     public CompletableFuture<Profile> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            HttpPost request = new HttpPost(DiscogsEndpoints.USER_PROFILE_EDIT.getEndpoint().replace("{username}", username));
+            HttpPost request = new HttpPost(DiscogsApiEndpoints.USER_PROFILE_EDIT.getEndpoint().replace("{username}", username));
             request.addHeader("Content-Type", "application/json");
             request.setEntity(new StringEntity(jsonBody.toString(), "UTF-8"));
             Optional<HttpEntity> execute = client.execute(request);

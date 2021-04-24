@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.DiscogsEndpoints;
+import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.Profile;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -68,7 +68,7 @@ public class DefaultProfileRequest implements ProfileRequest {
     @Override
     public CompletableFuture<Profile> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            String endpoint = DiscogsEndpoints.USER_PROFILE.getEndpoint().replace("{username}", username);
+            String endpoint = DiscogsApiEndpoints.USER_PROFILE.getEndpoint().replace("{username}", username);
             Optional<HttpEntity> execute = client.execute(new HttpGet(endpoint));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 

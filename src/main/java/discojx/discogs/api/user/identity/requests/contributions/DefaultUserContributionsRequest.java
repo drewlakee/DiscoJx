@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.DiscogsEndpoints;
+import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.Contributions;
 import discojx.utils.requests.RequestParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
@@ -82,7 +82,7 @@ public class DefaultUserContributionsRequest implements UserContributionsRequest
 
         @Override
         public UserContributionsRequest build() {
-            this.queryUrl = DiscogsEndpoints.USER_CONTRIBUTIONS.getEndpointWith(constructParameters().toParametersString());
+            this.queryUrl = DiscogsApiEndpoints.USER_CONTRIBUTIONS.getEndpointWith(constructParameters().toParametersString());
             return new DefaultUserContributionsRequest(this);
         }
 

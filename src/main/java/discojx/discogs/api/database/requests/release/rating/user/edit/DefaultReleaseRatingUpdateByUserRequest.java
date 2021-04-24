@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.DiscogsEndpoints;
+import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.ReleaseRating;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPut;
@@ -98,7 +98,7 @@ public class DefaultReleaseRatingUpdateByUserRequest implements ReleaseRatingUpd
     @Override
     public CompletableFuture<ReleaseRating> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            String endpoint = DiscogsEndpoints.DATABASE_RELEASE_RATING_BY_USER.getEndpoint()
+            String endpoint = DiscogsApiEndpoints.DATABASE_RELEASE_RATING_BY_USER.getEndpoint()
                     .replace("{release_id}", String.valueOf(releaseId))
                     .replace("{username}", username);
 

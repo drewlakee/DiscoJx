@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.DiscogsEndpoints;
+import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.Artist;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -75,7 +75,7 @@ public class DefaultArtistRequest implements ArtistRequest {
     @Override
     public CompletableFuture<Artist> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.DATABASE_ARTIST.getEndpoint().replace("{artist_id}", String.valueOf(artistId))));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsApiEndpoints.DATABASE_ARTIST.getEndpoint().replace("{artist_id}", String.valueOf(artistId))));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             Artist artist;

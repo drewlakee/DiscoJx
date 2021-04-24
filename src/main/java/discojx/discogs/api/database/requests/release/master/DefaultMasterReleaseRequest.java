@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.DiscogsEndpoints;
+import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.MasterRelease;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -75,7 +75,7 @@ public class DefaultMasterReleaseRequest implements MasterReleaseRequest {
     @Override
     public CompletableFuture<MasterRelease> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsEndpoints.DATABASE_MASTER_RELEASE.getEndpoint().replace("{master_id}", String.valueOf(masterId))));
+            Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsApiEndpoints.DATABASE_MASTER_RELEASE.getEndpoint().replace("{master_id}", String.valueOf(masterId))));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
             MasterRelease masterRelease;

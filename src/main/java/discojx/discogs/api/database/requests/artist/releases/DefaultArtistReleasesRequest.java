@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.json.JsonMapper;
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.DiscogsEndpoints;
+import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.ArtistReleases;
 import discojx.utils.requests.RequestParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
@@ -82,7 +82,7 @@ public class DefaultArtistReleasesRequest implements ArtistReleasesRequest {
 
         @Override
         public ArtistReleasesRequest build() {
-            this.queryUrl = DiscogsEndpoints.DATABASE_ARTIST_RELEASES.getEndpointWith(constructParameters().toParametersString());
+            this.queryUrl = DiscogsApiEndpoints.DATABASE_ARTIST_RELEASES.getEndpointWith(constructParameters().toParametersString());
             return new DefaultArtistReleasesRequest(this);
         }
 

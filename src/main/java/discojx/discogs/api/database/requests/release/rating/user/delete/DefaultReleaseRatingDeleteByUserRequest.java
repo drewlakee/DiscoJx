@@ -1,7 +1,7 @@
 package discojx.discogs.api.database.requests.release.rating.user.delete;
 
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.DiscogsEndpoints;
+import discojx.discogs.api.DiscogsApiEndpoints;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpDelete;
 
@@ -75,7 +75,7 @@ public class DefaultReleaseRatingDeleteByUserRequest implements ReleaseRatingDel
     @Override
     public CompletableFuture<Void> supplyFuture() {
         return CompletableFuture.runAsync(() -> {
-            String endpoint = DiscogsEndpoints.DATABASE_RELEASE_RATING_BY_USER.getEndpoint().replace("{release_id}", String.valueOf(releaseId)).replace("{username}", username);
+            String endpoint = DiscogsApiEndpoints.DATABASE_RELEASE_RATING_BY_USER.getEndpoint().replace("{release_id}", String.valueOf(releaseId)).replace("{username}", username);
             client.execute(new HttpDelete(endpoint));
         });
     }
