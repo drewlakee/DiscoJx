@@ -44,7 +44,7 @@ public class DefaultUserListRequest implements UserListRequest {
 
         @Override
         public UserListRequest build() {
-            this.queryUrl = DiscogsApiEndpoints.LIST.getEndpoint().replace("{list_id}", String.valueOf(listId));
+            this.queryUrl = DiscogsApiEndpoints.USER_LIST.getEndpoint().replace("{list_id}", String.valueOf(listId));
             return new DefaultUserListRequest(this);
         }
 
