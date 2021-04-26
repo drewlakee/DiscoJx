@@ -1,4 +1,4 @@
-package discojx.discogs.api.user.wantlist.requests.add;
+package discojx.discogs.api.user.wantlist.requests.edit;
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -7,7 +7,7 @@ import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.UserWant;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.HttpPut;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 
 import java.io.IOException;
@@ -16,27 +16,27 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultAddUserWantListRequest implements AddUserWantListRequest {
+public class DefaultEditUserWantListRequest implements EditUserWantListRequest {
 
-    protected final AbstractHttpClient<HttpEntity> client;
+    private final AbstractHttpClient<HttpEntity> client;
 
-    protected final String queryUrl;
-    protected final ObjectNode jsonObject;
+    private final String queryUrl;
+    private final ObjectNode jsonObject;
 
-    public DefaultAddUserWantListRequest(Builder builder) {
+    public DefaultEditUserWantListRequest(Builder builder) {
         this.client = builder.client;
         this.queryUrl = builder.queryUrl;
         this.jsonObject = builder.jsonObject;
     }
 
-    public static class Builder implements AddUserWantListRequestBuilder {
+    public static class Builder implements EditUserWantListRequestBuilder {
 
         private final AbstractHttpClient<HttpEntity> client;
 
         private String username;
-        private long releaseId;
         private String notes;
         private int rating;
+        private long releaseId;
 
         private String queryUrl;
         private ObjectNode jsonObject;
@@ -46,37 +46,38 @@ public class DefaultAddUserWantListRequest implements AddUserWantListRequest {
         }
 
         @Override
-        public AddUserWantListRequestBuilder username(String username) {
+        public EditUserWantListRequestBuilder username(String username) {
             this.username = username;
             return this;
         }
 
         @Override
-        public AddUserWantListRequestBuilder releaseId(long releaseId) {
+        public EditUserWantListRequestBuilder releaseId(long releaseId) {
             this.releaseId = releaseId;
             return this;
         }
 
         @Override
-        public AddUserWantListRequestBuilder notes(String notes) {
+        public EditUserWantListRequestBuilder notes(String notes) {
             this.notes = notes;
             return this;
         }
 
         @Override
-        public AddUserWantListRequestBuilder rating(int rating) {
+        public EditUserWantListRequestBuilder rating(int rating) {
             this.rating = rating;
             return this;
         }
 
         @Override
-        public AddUserWantListRequest build() {
+        public EditUserWantListRequest build() {
             this.queryUrl = DiscogsApiEndpoints
-                    .USER_ADD_WANT_LIST.getEndpoint()
+                    .USER_EDIT_WANT_LIST
+                    .getEndpoint()
                     .replace("{username}", username)
                     .replace("{release_id}", String.valueOf(releaseId));
             this.jsonObject = constructJsonParameters();
-            return new DefaultAddUserWantListRequest(this);
+            return new DefaultEditUserWantListRequest(this);
         }
 
         @Override
@@ -94,9 +95,9 @@ public class DefaultAddUserWantListRequest implements AddUserWantListRequest {
             return "Builder{" +
                     "client=" + client +
                     ", username='" + username + '\'' +
-                    ", releaseId=" + releaseId +
                     ", notes='" + notes + '\'' +
                     ", rating=" + rating +
+                    ", releaseId=" + releaseId +
                     ", queryUrl='" + queryUrl + '\'' +
                     ", jsonObject=" + jsonObject +
                     '}';
@@ -107,19 +108,19 @@ public class DefaultAddUserWantListRequest implements AddUserWantListRequest {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Builder builder = (Builder) o;
-            return releaseId == builder.releaseId && rating == builder.rating && Objects.equals(client, builder.client) && Objects.equals(username, builder.username) && Objects.equals(notes, builder.notes) && Objects.equals(queryUrl, builder.queryUrl) && Objects.equals(jsonObject, builder.jsonObject);
+            return rating == builder.rating && releaseId == builder.releaseId && Objects.equals(client, builder.client) && Objects.equals(username, builder.username) && Objects.equals(notes, builder.notes) && Objects.equals(queryUrl, builder.queryUrl) && Objects.equals(jsonObject, builder.jsonObject);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, username, releaseId, notes, rating, queryUrl, jsonObject);
+            return Objects.hash(client, username, notes, rating, releaseId, queryUrl, jsonObject);
         }
     }
 
     @Override
     public CompletableFuture<UserWant> supplyFuture() {
         return CompletableFuture.supplyAsync(() -> {
-            HttpPut request = new HttpPut(queryUrl);
+            HttpPost request = new HttpPost(queryUrl);
             request.setHeader("Content-Type", "application/json");
             request.setEntity(new StringEntity(jsonObject.toString(), "UTF-8"));
             Optional<HttpEntity> execute = client.execute(request);
@@ -138,7 +139,7 @@ public class DefaultAddUserWantListRequest implements AddUserWantListRequest {
 
     @Override
     public String toString() {
-        return "DefaultAddUserWantListRequest{" +
+        return "DefaultEditUserWantListRequest{" +
                 "client=" + client +
                 ", queryUrl='" + queryUrl + '\'' +
                 ", jsonObject=" + jsonObject +
@@ -149,7 +150,7 @@ public class DefaultAddUserWantListRequest implements AddUserWantListRequest {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        DefaultAddUserWantListRequest that = (DefaultAddUserWantListRequest) o;
+        DefaultEditUserWantListRequest that = (DefaultEditUserWantListRequest) o;
         return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl) && Objects.equals(jsonObject, that.jsonObject);
     }
 
