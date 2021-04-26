@@ -5,6 +5,8 @@ import discojx.discogs.api.user.wantlist.requests.DefaultUserWantListRequest;
 import discojx.discogs.api.user.wantlist.requests.UserWantListRequestBuilder;
 import discojx.discogs.api.user.wantlist.requests.add.AddUserWantListRequestBuilder;
 import discojx.discogs.api.user.wantlist.requests.add.DefaultAddUserWantListRequest;
+import discojx.discogs.api.user.wantlist.requests.delete.DefaultDeleteUserWantListRequest;
+import discojx.discogs.api.user.wantlist.requests.delete.DeleteUserWantListRequestBuilder;
 import discojx.discogs.api.user.wantlist.requests.edit.DefaultEditUserWantListRequest;
 import discojx.discogs.api.user.wantlist.requests.edit.EditUserWantListRequestBuilder;
 import org.apache.http.HttpEntity;
@@ -32,6 +34,11 @@ public class DefaultUserWantListApi implements UserWantListApi {
     @Override
     public EditUserWantListRequestBuilder editWantList() {
         return new DefaultEditUserWantListRequest.Builder(client);
+    }
+
+    @Override
+    public DeleteUserWantListRequestBuilder deleteWantList() {
+        return new DefaultDeleteUserWantListRequest.Builder(client);
     }
 
     @Override
