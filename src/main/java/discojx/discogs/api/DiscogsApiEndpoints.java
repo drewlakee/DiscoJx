@@ -12,6 +12,7 @@ public enum DiscogsApiEndpoints {
     USER_LISTS                              (ROOT.endpoint + "/users/{username}/lists"),
     USER_LIST                               (ROOT.endpoint + "/lists/{list_id}"),
     USER_WANT_LIST                          (ROOT.endpoint + "/users/{username}/wants"),
+    USER_ADD_WANT_LIST                      (ROOT.endpoint + "/users/{username}/wants/{release_id}"),
 
     DATABASE_RELEASE                        (ROOT.endpoint + "/releases/{release_id}"),
     DATABASE_RELEASE_RATING_BY_USER         (ROOT.endpoint + "/releases/{release_id}/rating/{username}"),

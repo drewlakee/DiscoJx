@@ -162,6 +162,7 @@ public class UserWant {
     private Date dateAdded;
     @JsonProperty("basic_information")
     private BasicInformation basicInformation;
+    private String notes;
 
     public long getId() {
         return id;
@@ -203,6 +204,14 @@ public class UserWant {
         this.basicInformation = basicInformation;
     }
 
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
     @Override
     public String toString() {
         return "UserWant{" +
@@ -211,6 +220,7 @@ public class UserWant {
                 ", rating=" + rating +
                 ", dateAdded=" + dateAdded +
                 ", basicInformation=" + basicInformation +
+                ", notes='" + notes + '\'' +
                 '}';
     }
 
@@ -219,11 +229,11 @@ public class UserWant {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserWant userWant = (UserWant) o;
-        return id == userWant.id && rating == userWant.rating && Objects.equals(resourceUrl, userWant.resourceUrl) && Objects.equals(dateAdded, userWant.dateAdded) && Objects.equals(basicInformation, userWant.basicInformation);
+        return id == userWant.id && rating == userWant.rating && Objects.equals(resourceUrl, userWant.resourceUrl) && Objects.equals(dateAdded, userWant.dateAdded) && Objects.equals(basicInformation, userWant.basicInformation) && Objects.equals(notes, userWant.notes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, resourceUrl, rating, dateAdded, basicInformation);
+        return Objects.hash(id, resourceUrl, rating, dateAdded, basicInformation, notes);
     }
 }
