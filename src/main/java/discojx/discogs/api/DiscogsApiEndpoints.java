@@ -18,6 +18,7 @@ public enum DiscogsApiEndpoints {
     USER_COLLECTION_FOLDERS                 (ROOT.endpoint + "/users/{username}/collection/folders"),
     USER_COLLECTION_CREATE_FOLDER           (ROOT.endpoint + "/users/{username}/collection/folders"),
     USER_COLLECTION_FOLDER                  (ROOT.endpoint + "/users/{username}/collection/folders/{folder_id}"),
+    USER_COLLECTION_EDIT_FOLDER             (ROOT.endpoint + "/users/{username}/collection/folders/{folder_id}"),
 
     DATABASE_RELEASE                        (ROOT.endpoint + "/releases/{release_id}"),
     DATABASE_RELEASE_RATING_BY_USER         (ROOT.endpoint + "/releases/{release_id}/rating/{username}"),
