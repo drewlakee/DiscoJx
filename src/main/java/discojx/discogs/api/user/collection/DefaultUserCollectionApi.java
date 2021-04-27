@@ -1,10 +1,10 @@
 package discojx.discogs.api.user.collection;
 
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.user.collection.requests.folders.DefaultUserFoldersRequest;
-import discojx.discogs.api.user.collection.requests.folders.UserFoldersRequestBuilder;
-import discojx.discogs.api.user.collection.requests.folders.create.CreateUserFolderRequestBuilder;
-import discojx.discogs.api.user.collection.requests.folders.create.DefaultCreateUserFolderRequest;
+import discojx.discogs.api.user.collection.requests.collection.DefaultUserFoldersRequest;
+import discojx.discogs.api.user.collection.requests.collection.UserFoldersRequestBuilder;
+import discojx.discogs.api.user.collection.requests.collection.create.CreateUserFolderRequestBuilder;
+import discojx.discogs.api.user.collection.requests.collection.create.DefaultCreateUserFolderRequest;
 import org.apache.http.HttpEntity;
 
 import java.util.Objects;

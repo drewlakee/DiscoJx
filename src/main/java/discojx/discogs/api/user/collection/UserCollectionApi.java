@@ -1,7 +1,7 @@
 package discojx.discogs.api.user.collection;
 
-import discojx.discogs.api.user.collection.requests.folders.UserFoldersRequestBuilder;
-import discojx.discogs.api.user.collection.requests.folders.create.CreateUserFolderRequestBuilder;
+import discojx.discogs.api.user.collection.requests.collection.UserFoldersRequestBuilder;
+import discojx.discogs.api.user.collection.requests.collection.create.CreateUserFolderRequestBuilder;
 
 public interface UserCollectionApi {
 

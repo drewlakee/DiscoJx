@@ -1,4 +1,4 @@
-package discojx.discogs.api.user.collection.requests.folders.create;
+package discojx.discogs.api.user.collection.requests.collection.create;
 
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import discojx.requests.JsonParameterizedRequest;

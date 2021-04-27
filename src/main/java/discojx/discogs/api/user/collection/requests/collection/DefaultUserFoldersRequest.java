@@ -1,4 +1,4 @@
-package discojx.discogs.api.user.collection.requests.folders;
+package discojx.discogs.api.user.collection.requests.collection;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;

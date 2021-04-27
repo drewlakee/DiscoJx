@@ -1,4 +1,4 @@
-package discojx.discogs.api.user.collection.requests.folders;
+package discojx.discogs.api.user.collection.requests.collection;
 
 import discojx.discogs.objects.UserFolders;
 import discojx.requests.AsyncExecutableRequest;

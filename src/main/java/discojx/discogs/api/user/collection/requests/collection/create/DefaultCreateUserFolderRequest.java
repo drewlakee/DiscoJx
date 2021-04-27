@@ -1,4 +1,4 @@
-package discojx.discogs.api.user.collection.requests.folders.create;
+package discojx.discogs.api.user.collection.requests.collection.create;
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -7,7 +7,6 @@ import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.UserFolders;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
-import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 
