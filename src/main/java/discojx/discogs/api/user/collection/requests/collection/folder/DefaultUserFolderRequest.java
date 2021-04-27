@@ -3,11 +3,11 @@ package discojx.discogs.api.user.collection.requests.collection.folder;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.UserFolders;
+import discojx.requests.AbstractRequest;
+import discojx.requests.AbstractRequestBuilder;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 
 import java.io.IOException;
 import java.util.Objects;
@@ -15,28 +15,21 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultUserFolderRequest implements UserFolderRequest {
-
-    protected final AbstractHttpClient<HttpEntity> client;
-
-    protected final String queryUrl;
+public class DefaultUserFolderRequest extends AbstractRequest<HttpEntity>
+        implements UserFolderRequest {
 
     public DefaultUserFolderRequest(Builder builder) {
-        this.client = builder.client;
-        this.queryUrl = builder.queryUrl;
+        super(builder);
     }
 
-    public static class Builder implements UserFolderRequestBuilder {
-
-        private final AbstractHttpClient<HttpEntity> client;
+    public static class Builder extends AbstractRequestBuilder<HttpEntity>
+            implements UserFolderRequestBuilder {
 
         private String username;
         private long folderId;
 
-        private String queryUrl;
-
         public Builder(AbstractHttpClient<HttpEntity> client) {
-            this.client = client;
+            super(client);
         }
 
         @Override
@@ -101,26 +94,5 @@ public class DefaultUserFolderRequest implements UserFolderRequest {
 
             return userFolder;
         });
-    }
-
-    @Override
-    public String toString() {
-        return "DefaultUserFolderRequest{" +
-                "client=" + client +
-                ", queryUrl='" + queryUrl + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DefaultUserFolderRequest that = (DefaultUserFolderRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client, queryUrl);
     }
 }

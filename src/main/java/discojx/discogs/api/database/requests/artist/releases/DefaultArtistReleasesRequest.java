@@ -3,6 +3,8 @@ package discojx.discogs.api.database.requests.artist.releases;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.ArtistReleases;
+import discojx.requests.AbstractPathParameterizedRequestBuilder;
+import discojx.requests.AbstractRequest;
 import discojx.utils.json.JsonUtils;
 import discojx.utils.requests.RequestParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
@@ -15,20 +17,15 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultArtistReleasesRequest implements ArtistReleasesRequest {
-
-    protected final AbstractHttpClient<HttpEntity> client;
-
-    private final String queryUrl;
+public class DefaultArtistReleasesRequest extends AbstractRequest<HttpEntity>
+        implements ArtistReleasesRequest {
 
     public DefaultArtistReleasesRequest(Builder builder) {
-        this.client = builder.client;
-        this.queryUrl = builder.queryUrl;
+        super(builder);
     }
 
-    public static class Builder implements ArtistReleasesRequestBuilder {
-
-        private final AbstractHttpClient<HttpEntity> client;
+    public static class Builder extends AbstractPathParameterizedRequestBuilder<HttpEntity, RequestParametersConstructor>
+            implements ArtistReleasesRequestBuilder {
 
         private int page;
         private int perPage;
@@ -36,10 +33,8 @@ public class DefaultArtistReleasesRequest implements ArtistReleasesRequest {
         private String sortOrder;
         private long artistId;
 
-        private String queryUrl;
-
         public Builder(AbstractHttpClient<HttpEntity> client) {
-            this.client = client;
+            super(client);
         }
 
         @Override
@@ -136,26 +131,5 @@ public class DefaultArtistReleasesRequest implements ArtistReleasesRequest {
 
             return artistReleases;
         });
-    }
-
-    @Override
-    public String toString() {
-        return "DefaultArtistReleasesRequest{" +
-                "client=" + client +
-                ", queryUrl='" + queryUrl + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DefaultArtistReleasesRequest that = (DefaultArtistReleasesRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client, queryUrl);
     }
 }

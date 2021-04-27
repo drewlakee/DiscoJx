@@ -1,13 +1,10 @@
 package discojx.discogs.api.database.requests.release;
 
 import discojx.discogs.objects.MarketplaceCurrencies;
-import discojx.requests.PathParameterizedRequest;
-import discojx.utils.requests.RequestParametersConstructor;
+import discojx.requests.RequestBuilder;
 
-public interface ReleaseRequestBuilder extends PathParameterizedRequest<RequestParametersConstructor> {
+public interface ReleaseRequestBuilder extends RequestBuilder<ReleaseRequest> {
 
     ReleaseRequestBuilder releaseId(long id);
     ReleaseRequestBuilder currAbbr(MarketplaceCurrencies currency);
-
-    ReleaseRequest build();
 }

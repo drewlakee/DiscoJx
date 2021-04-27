@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.UserFolders;
+import discojx.requests.AbstractJsonParameterizedRequest;
+import discojx.requests.AbstractJsonParameterizedRequestBuilder;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -16,31 +18,21 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultCreateUserFolderRequest implements CreateUserFolderRequest {
-
-    protected final AbstractHttpClient<HttpEntity> client;
-
-    protected final String queryUrl;
-    protected final ObjectNode jsonObject;
+public class DefaultCreateUserFolderRequest extends AbstractJsonParameterizedRequest<HttpEntity, ObjectNode>
+        implements CreateUserFolderRequest {
 
     public DefaultCreateUserFolderRequest(Builder builder) {
-        this.client = builder.client;
-        this.queryUrl = builder.queryUrl;
-        this.jsonObject = builder.jsonObject;
+        super(builder);
     }
 
-    public static class Builder implements CreateUserFolderRequestBuilder {
-
-        private final AbstractHttpClient<HttpEntity> client;
+    public static class Builder extends AbstractJsonParameterizedRequestBuilder<HttpEntity, ObjectNode>
+            implements CreateUserFolderRequestBuilder {
 
         private String username;
         private String name;
 
-        private String queryUrl;
-        private ObjectNode jsonObject;
-
         public Builder(AbstractHttpClient<HttpEntity> client) {
-            this.client = client;
+            super(client);
         }
 
         @Override
@@ -117,27 +109,5 @@ public class DefaultCreateUserFolderRequest implements CreateUserFolderRequest {
 
             return userFolder;
         });
-    }
-
-    @Override
-    public String toString() {
-        return "DefaultCreateUserFolderRequest{" +
-                "client=" + client +
-                ", queryUrl='" + queryUrl + '\'' +
-                ", jsonObject=" + jsonObject +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DefaultCreateUserFolderRequest that = (DefaultCreateUserFolderRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl) && Objects.equals(jsonObject, that.jsonObject);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client, queryUrl, jsonObject);
     }
 }

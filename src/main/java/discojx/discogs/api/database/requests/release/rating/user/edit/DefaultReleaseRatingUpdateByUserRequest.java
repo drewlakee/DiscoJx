@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.ReleaseRating;
+import discojx.requests.AbstractJsonParameterizedRequest;
+import discojx.requests.AbstractJsonParameterizedRequestBuilder;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPut;
@@ -16,32 +18,22 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultReleaseRatingUpdateByUserRequest implements ReleaseRatingUpdateByUserRequest {
-
-    protected final AbstractHttpClient<HttpEntity> client;
-
-    private final String queryUrl;
-    private final ObjectNode jsonObject;
+public class DefaultReleaseRatingUpdateByUserRequest extends AbstractJsonParameterizedRequest<HttpEntity, ObjectNode>
+        implements ReleaseRatingUpdateByUserRequest {
 
     public DefaultReleaseRatingUpdateByUserRequest(Builder builder) {
-        this.client = builder.client;
-        this.queryUrl = builder.queryUrl;
-        this.jsonObject = builder.jsonObject;
+        super(builder);
     }
 
-    public static class Builder implements ReleaseRatingUpdateByUserRequestBuilder {
-
-        private final AbstractHttpClient<HttpEntity> client;
+    public static class Builder extends AbstractJsonParameterizedRequestBuilder<HttpEntity, ObjectNode>
+            implements ReleaseRatingUpdateByUserRequestBuilder {
 
         private long releaseId;
         private String username;
         private int rating;
 
-        private String queryUrl;
-        private ObjectNode jsonObject;
-
         public Builder(AbstractHttpClient<HttpEntity> client) {
-            this.client = client;
+            super(client);
         }
 
         @Override
@@ -127,27 +119,5 @@ public class DefaultReleaseRatingUpdateByUserRequest implements ReleaseRatingUpd
 
             return releaseRating;
         });
-    }
-
-    @Override
-    public String toString() {
-        return "DefaultReleaseRatingUpdateByUserRequest{" +
-                "client=" + client +
-                ", queryUrl='" + queryUrl + '\'' +
-                ", jsonObject=" + jsonObject +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DefaultReleaseRatingUpdateByUserRequest that = (DefaultReleaseRatingUpdateByUserRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl) && Objects.equals(jsonObject, that.jsonObject);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client, queryUrl, jsonObject);
     }
 }

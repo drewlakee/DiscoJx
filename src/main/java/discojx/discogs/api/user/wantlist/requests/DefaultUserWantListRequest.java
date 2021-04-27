@@ -2,8 +2,9 @@ package discojx.discogs.api.user.wantlist.requests;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.UserLists;
 import discojx.discogs.objects.UserWantList;
+import discojx.requests.AbstractPathParameterizedRequestBuilder;
+import discojx.requests.AbstractRequest;
 import discojx.utils.json.JsonUtils;
 import discojx.utils.requests.RequestParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
@@ -16,29 +17,22 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultUserWantListRequest implements UserWantListRequest {
-
-    protected final AbstractHttpClient<HttpEntity> client;
-
-    protected final String queryUrl;
+public class DefaultUserWantListRequest extends AbstractRequest<HttpEntity>
+        implements UserWantListRequest {
 
     public DefaultUserWantListRequest(Builder builder) {
-        this.client = builder.client;
-        this.queryUrl = builder.queryUrl;
+        super(builder);
     }
 
-    public static class Builder implements UserWantListRequestBuilder {
-
-        private final AbstractHttpClient<HttpEntity> client;
+    public static class Builder extends AbstractPathParameterizedRequestBuilder<HttpEntity, RequestParametersConstructor>
+            implements UserWantListRequestBuilder {
 
         private int page;
         private int perPage;
         private String username;
 
-        private String queryUrl;
-
         public Builder(AbstractHttpClient<HttpEntity> client) {
-            this.client = client;
+            super(client);
         }
 
         @Override
@@ -60,7 +54,7 @@ public class DefaultUserWantListRequest implements UserWantListRequest {
         }
 
         @Override
-        public UserWantListRequest build() {
+        public DefaultUserWantListRequest build() {
             this.queryUrl = DiscogsApiEndpoints
                     .USER_WANT_LIST.getEndpointWith(constructPathParameters().toParametersString())
                     .replace("{username}", username);
@@ -81,26 +75,24 @@ public class DefaultUserWantListRequest implements UserWantListRequest {
         @Override
         public String toString() {
             return "Builder{" +
-                    "client=" + client +
-                    ", page=" + page +
+                    "page=" + page +
                     ", perPage=" + perPage +
                     ", username='" + username + '\'' +
-                    ", queryUrl='" + queryUrl + '\'' +
                     '}';
         }
 
         @Override
         public boolean equals(Object o) {
-
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
+            if (!super.equals(o)) return false;
             Builder builder = (Builder) o;
-            return page == builder.page && perPage == builder.perPage && Objects.equals(client, builder.client) && Objects.equals(username, builder.username) && Objects.equals(queryUrl, builder.queryUrl);
+            return page == builder.page && perPage == builder.perPage && Objects.equals(username, builder.username);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, page, perPage, username, queryUrl);
+            return Objects.hash(super.hashCode(), page, perPage, username);
         }
     }
 
@@ -119,26 +111,5 @@ public class DefaultUserWantListRequest implements UserWantListRequest {
 
             return userWantList;
         });
-    }
-
-    @Override
-    public String toString() {
-        return "DefaultUserWantListRequest{" +
-                "client=" + client +
-                ", queryUrl='" + queryUrl + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DefaultUserWantListRequest that = (DefaultUserWantListRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client, queryUrl);
     }
 }

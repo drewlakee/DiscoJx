@@ -3,6 +3,8 @@ package discojx.discogs.api.user.identity.requests.submissions;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.Submissions;
+import discojx.requests.AbstractPathParameterizedRequestBuilder;
+import discojx.requests.AbstractRequest;
 import discojx.utils.json.JsonUtils;
 import discojx.utils.requests.RequestParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
@@ -15,29 +17,22 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultUserSubmissionsRequest implements UserSubmissionsRequest {
-
-    protected final AbstractHttpClient<HttpEntity> client;
-
-    private final String queryUrl;
+public class DefaultUserSubmissionsRequest extends AbstractRequest<HttpEntity>
+        implements UserSubmissionsRequest {
 
     public DefaultUserSubmissionsRequest(Builder builder) {
-        this.client = builder.client;
-        this.queryUrl = builder.queryUrl;
+        super(builder);
     }
 
-    public static class Builder implements UserSubmissionsRequestBuilder {
-
-        private final AbstractHttpClient<HttpEntity> client;
+    public static class Builder extends AbstractPathParameterizedRequestBuilder<HttpEntity, RequestParametersConstructor>
+            implements UserSubmissionsRequestBuilder {
 
         private String username;
         private int page;
         private int perPage;
 
-        private String queryUrl;
-
         public Builder(AbstractHttpClient<HttpEntity> client) {
-            this.client = client;
+            super(client);
         }
 
         @Override
@@ -118,26 +113,5 @@ public class DefaultUserSubmissionsRequest implements UserSubmissionsRequest {
 
             return submissions;
         });
-    }
-
-    @Override
-    public String toString() {
-        return "DefaultUserSubmissionsRequest{" +
-                "client=" + client +
-                ", queryUrl='" + queryUrl + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DefaultUserSubmissionsRequest that = (DefaultUserSubmissionsRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client, queryUrl);
     }
 }

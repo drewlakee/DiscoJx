@@ -1,8 +1,8 @@
 package discojx.discogs.api.database.requests.artist;
 
-public interface ArtistRequestBuilder {
+import discojx.requests.RequestBuilder;
+
+public interface ArtistRequestBuilder extends RequestBuilder<ArtistRequest> {
 
     ArtistRequestBuilder artistId(long artistId);
-
-    ArtistRequest build();
 }

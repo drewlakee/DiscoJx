@@ -1,8 +1,8 @@
 package discojx.discogs.api.database.requests.release.rating.community;
 
-public interface CommunityReleaseRatingRequestBuilder {
+import discojx.requests.RequestBuilder;
+
+public interface CommunityReleaseRatingRequestBuilder extends RequestBuilder<CommunityReleaseRatingRequest> {
 
     CommunityReleaseRatingRequestBuilder releaseId(long releaseId);
-
-    CommunityReleaseRatingRequest build();
 }

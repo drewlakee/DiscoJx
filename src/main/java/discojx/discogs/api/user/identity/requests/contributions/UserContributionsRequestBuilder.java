@@ -1,16 +1,12 @@
 package discojx.discogs.api.user.identity.requests.contributions;
 
 import discojx.requests.PaginationableRequest;
-import discojx.requests.PathParameterizedRequest;
+import discojx.requests.RequestBuilder;
 import discojx.requests.SortableRequest;
-import discojx.utils.requests.RequestParametersConstructor;
 
-public interface UserContributionsRequestBuilder extends
+public interface UserContributionsRequestBuilder extends RequestBuilder<UserContributionsRequest>,
         PaginationableRequest<UserContributionsRequestBuilder>,
-        SortableRequest<UserContributionsRequestBuilder>,
-        PathParameterizedRequest<RequestParametersConstructor> {
+        SortableRequest<UserContributionsRequestBuilder> {
 
     UserContributionsRequestBuilder username(String username);
-
-    UserContributionsRequest build();
 }

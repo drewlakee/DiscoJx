@@ -3,6 +3,8 @@ package discojx.discogs.api.database.requests.release.rating.community;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.CommunityReleaseRating;
+import discojx.requests.AbstractRequest;
+import discojx.requests.AbstractRequestBuilder;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -13,27 +15,20 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultCommunityReleaseRatingRequest implements CommunityReleaseRatingRequest {
-
-    protected final AbstractHttpClient<HttpEntity> client;
-
-    private final String queryUrl;
+public class DefaultCommunityReleaseRatingRequest extends AbstractRequest<HttpEntity>
+        implements CommunityReleaseRatingRequest {
 
     public DefaultCommunityReleaseRatingRequest(Builder builder) {
-        this.client = builder.client;
-        this.queryUrl = builder.queryUrl;
+        super(builder);
     }
 
-    public static class Builder implements CommunityReleaseRatingRequestBuilder {
-
-        private final AbstractHttpClient<HttpEntity> client;
+    public static class Builder extends AbstractRequestBuilder<HttpEntity>
+            implements CommunityReleaseRatingRequestBuilder {
 
         private long releaseId;
 
-        private String queryUrl;
-
         public Builder(AbstractHttpClient<HttpEntity> client) {
-            this.client = client;
+            super(client);
         }
 
         @Override
@@ -93,26 +88,5 @@ public class DefaultCommunityReleaseRatingRequest implements CommunityReleaseRat
 
             return communityReleaseRating;
         });
-    }
-
-    @Override
-    public String toString() {
-        return "DefaultCommunityReleaseRatingRequest{" +
-                "client=" + client +
-                ", queryUrl='" + queryUrl + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DefaultCommunityReleaseRatingRequest that = (DefaultCommunityReleaseRatingRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client, queryUrl);
     }
 }

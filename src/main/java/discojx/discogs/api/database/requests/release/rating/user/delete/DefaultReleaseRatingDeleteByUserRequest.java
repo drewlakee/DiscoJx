@@ -2,34 +2,29 @@ package discojx.discogs.api.database.requests.release.rating.user.delete;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
+import discojx.requests.AbstractRequest;
+import discojx.requests.AbstractRequestBuilder;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpDelete;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-public class DefaultReleaseRatingDeleteByUserRequest implements ReleaseRatingDeleteByUserRequest {
-
-    protected final AbstractHttpClient<HttpEntity> client;
-
-    private final String queryUrl;
+public class DefaultReleaseRatingDeleteByUserRequest extends AbstractRequest<HttpEntity>
+        implements ReleaseRatingDeleteByUserRequest {
 
     public DefaultReleaseRatingDeleteByUserRequest(Builder builder) {
-        this.client = builder.client;
-        this.queryUrl = builder.queryUrl;
+        super(builder);
     }
 
-    public static class Builder implements ReleaseRatingDeleteByUserRequestBuilder {
-
-        private final AbstractHttpClient<HttpEntity> client;
+    public static class Builder extends AbstractRequestBuilder<HttpEntity>
+            implements ReleaseRatingDeleteByUserRequestBuilder {
 
         private long releaseId;
         private String username;
 
-        private String queryUrl;
-
         public Builder(AbstractHttpClient<HttpEntity> client) {
-            this.client = client;
+            super(client);
         }
 
         @Override
@@ -81,26 +76,5 @@ public class DefaultReleaseRatingDeleteByUserRequest implements ReleaseRatingDel
     @Override
     public CompletableFuture<Void> executeAsync() {
         return CompletableFuture.runAsync(() -> client.execute(new HttpDelete(queryUrl)));
-    }
-
-    @Override
-    public String toString() {
-        return "DefaultReleaseRatingDeleteByUserRequest{" +
-                "client=" + client +
-                ", queryUrl='" + queryUrl + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DefaultReleaseRatingDeleteByUserRequest that = (DefaultReleaseRatingDeleteByUserRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client, queryUrl);
     }
 }

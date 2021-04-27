@@ -4,6 +4,8 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.MarketplaceCurrencies;
 import discojx.discogs.objects.Release;
+import discojx.requests.AbstractPathParameterizedRequestBuilder;
+import discojx.requests.AbstractRequest;
 import discojx.utils.json.JsonUtils;
 import discojx.utils.requests.RequestParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
@@ -16,28 +18,21 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultReleaseRequest implements ReleaseRequest {
-
-    protected final AbstractHttpClient<HttpEntity> client;
-
-    private final String queryUrl;
+public class DefaultReleaseRequest extends AbstractRequest<HttpEntity>
+        implements ReleaseRequest {
 
     public DefaultReleaseRequest(Builder builder) {
-        this.client = builder.client;
-        this.queryUrl = builder.queryUrl;
+        super(builder);
     }
 
-    public static class Builder implements ReleaseRequestBuilder {
-
-        private final AbstractHttpClient<HttpEntity> client;
+    public static class Builder extends AbstractPathParameterizedRequestBuilder<HttpEntity, RequestParametersConstructor>
+            implements ReleaseRequestBuilder {
 
         private long releaseId;
         private MarketplaceCurrencies currAbbr;
 
-        private String queryUrl;
-
         public Builder(AbstractHttpClient<HttpEntity> client) {
-            this.client = client;
+            super(client);
         }
 
         @Override
@@ -74,10 +69,8 @@ public class DefaultReleaseRequest implements ReleaseRequest {
         @Override
         public String toString() {
             return "Builder{" +
-                    "client=" + client +
-                    ", releaseId=" + releaseId +
+                    "releaseId=" + releaseId +
                     ", currAbbr=" + currAbbr +
-                    ", queryUrl='" + queryUrl + '\'' +
                     '}';
         }
 
@@ -85,13 +78,14 @@ public class DefaultReleaseRequest implements ReleaseRequest {
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
+            if (!super.equals(o)) return false;
             Builder builder = (Builder) o;
-            return releaseId == builder.releaseId && Objects.equals(client, builder.client) && currAbbr == builder.currAbbr && Objects.equals(queryUrl, builder.queryUrl);
+            return releaseId == builder.releaseId && currAbbr == builder.currAbbr;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, releaseId, currAbbr, queryUrl);
+            return Objects.hash(super.hashCode(), releaseId, currAbbr);
         }
     }
 
@@ -110,26 +104,5 @@ public class DefaultReleaseRequest implements ReleaseRequest {
 
             return release;
         });
-    }
-
-    @Override
-    public String toString() {
-        return "DefaultReleaseRequest{" +
-                "client=" + client +
-                ", queryUrl='" + queryUrl + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DefaultReleaseRequest that = (DefaultReleaseRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client, queryUrl);
     }
 }

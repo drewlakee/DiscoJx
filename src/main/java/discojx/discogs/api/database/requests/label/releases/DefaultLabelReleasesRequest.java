@@ -3,6 +3,8 @@ package discojx.discogs.api.database.requests.label.releases;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.LabelReleases;
+import discojx.requests.AbstractPathParameterizedRequestBuilder;
+import discojx.requests.AbstractRequest;
 import discojx.utils.json.JsonUtils;
 import discojx.utils.requests.RequestParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
@@ -15,19 +17,15 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultLabelReleasesRequest implements LabelReleasesRequest {
-
-    protected final AbstractHttpClient<HttpEntity> client;
-    private final String queryUrl;
+public class DefaultLabelReleasesRequest extends AbstractRequest<HttpEntity>
+        implements LabelReleasesRequest {
 
     public DefaultLabelReleasesRequest(Builder builder) {
-        this.client = builder.client;
-        this.queryUrl = builder.queryUrl;
+        super(builder);
     }
 
-    public static class Builder implements LabelReleasesRequestBuilder {
-
-        private final AbstractHttpClient<HttpEntity> client;
+    public static class Builder extends AbstractPathParameterizedRequestBuilder<HttpEntity, RequestParametersConstructor>
+            implements LabelReleasesRequestBuilder {
 
         private int page;
         private int perPage;
@@ -35,10 +33,8 @@ public class DefaultLabelReleasesRequest implements LabelReleasesRequest {
         private String sortOrder;
         private long labelId;
 
-        private String queryUrl;
-
         public Builder(AbstractHttpClient<HttpEntity> client) {
-            this.client = client;
+            super(client);
         }
 
         @Override
@@ -135,26 +131,5 @@ public class DefaultLabelReleasesRequest implements LabelReleasesRequest {
 
             return labelReleases;
         });
-    }
-
-    @Override
-    public String toString() {
-        return "DefaultLabelReleasesRequest{" +
-                "client=" + client +
-                ", queryUrl='" + queryUrl + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DefaultLabelReleasesRequest that = (DefaultLabelReleasesRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client, queryUrl);
     }
 }

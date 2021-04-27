@@ -2,34 +2,29 @@ package discojx.discogs.api.user.wantlist.requests.delete;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
+import discojx.requests.AbstractRequest;
+import discojx.requests.AbstractRequestBuilder;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpDelete;
 
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-public class DefaultDeleteUserWantListRequest implements DeleteUserWantListRequest {
-
-    protected final AbstractHttpClient<HttpEntity> client;
-
-    protected final String queryUrl;
+public class DefaultDeleteUserWantListRequest extends AbstractRequest<HttpEntity>
+        implements DeleteUserWantListRequest {
 
     public DefaultDeleteUserWantListRequest(Builder builder) {
-        this.client = builder.client;
-        this.queryUrl = builder.queryUrl;
+        super(builder);
     }
 
-    public static class Builder implements DeleteUserWantListRequestBuilder {
-
-        private final AbstractHttpClient<HttpEntity> client;
+    public static class Builder extends AbstractRequestBuilder<HttpEntity>
+            implements DeleteUserWantListRequestBuilder {
 
         private String username;
         private long releaseId;
 
-        private String queryUrl;
-
         public Builder(AbstractHttpClient<HttpEntity> client) {
-            this.client = client;
+            super(client);
         }
 
         @Override
@@ -81,26 +76,5 @@ public class DefaultDeleteUserWantListRequest implements DeleteUserWantListReque
     @Override
     public CompletableFuture<Void> executeAsync() {
         return CompletableFuture.runAsync(() -> client.execute(new HttpDelete(queryUrl)));
-    }
-
-    @Override
-    public String toString() {
-        return "DefaultDeleteUserWantListRequest{" +
-                "client=" + client +
-                ", queryUrl='" + queryUrl + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DefaultDeleteUserWantListRequest that = (DefaultDeleteUserWantListRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client, queryUrl);
     }
 }

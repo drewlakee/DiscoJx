@@ -3,6 +3,8 @@ package discojx.discogs.api.database.requests.artist;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.Artist;
+import discojx.requests.AbstractRequest;
+import discojx.requests.AbstractRequestBuilder;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -13,27 +15,20 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultArtistRequest implements ArtistRequest {
-
-    protected final AbstractHttpClient<HttpEntity> client;
-
-    private final String queryUrl;
+public class DefaultArtistRequest extends AbstractRequest<HttpEntity>
+        implements ArtistRequest {
 
     public DefaultArtistRequest(Builder builder) {
-        this.client = builder.client;
-        this.queryUrl = builder.queryUrl;
+        super(builder);
     }
 
-    public static class Builder implements ArtistRequestBuilder {
-
-        private final AbstractHttpClient<HttpEntity> client;
+    public static class Builder extends AbstractRequestBuilder<HttpEntity>
+            implements ArtistRequestBuilder {
 
         private long artistId;
 
-        private String queryUrl;
-
         public Builder(AbstractHttpClient<HttpEntity> client) {
-            this.client = client;
+            super(client);
         }
 
         @Override
@@ -44,7 +39,10 @@ public class DefaultArtistRequest implements ArtistRequest {
 
         @Override
         public ArtistRequest build() {
-            this.queryUrl = DiscogsApiEndpoints.DATABASE_ARTIST.getEndpoint().replace("{artist_id}", String.valueOf(artistId));
+            this.queryUrl = DiscogsApiEndpoints
+                    .DATABASE_ARTIST
+                    .getEndpoint()
+                    .replace("{artist_id}", String.valueOf(artistId));
             return new DefaultArtistRequest(this);
         }
 
@@ -86,26 +84,5 @@ public class DefaultArtistRequest implements ArtistRequest {
 
             return artist;
         });
-    }
-
-    @Override
-    public String toString() {
-        return "DefaultArtistRequest{" +
-                "client=" + client +
-                ", queryUrl='" + queryUrl + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DefaultArtistRequest that = (DefaultArtistRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client, queryUrl);
     }
 }

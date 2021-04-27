@@ -1,8 +1,8 @@
 package discojx.discogs.api.user.identity.requests.profile;
 
-public interface ProfileRequestBuilder {
+import discojx.requests.RequestBuilder;
+
+public interface ProfileRequestBuilder extends RequestBuilder<ProfileRequest> {
 
     ProfileRequestBuilder username(String username);
-
-    ProfileRequest build();
 }

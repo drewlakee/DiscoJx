@@ -1,6 +1,8 @@
 package discojx.discogs.api.database.requests.release.stats;
 
-public interface ReleaseStatsRequestBuilder {
+import discojx.requests.RequestBuilder;
+
+public interface ReleaseStatsRequestBuilder extends RequestBuilder<ReleaseStatsRequest> {
 
     ReleaseStatsRequestBuilder releaseId(long releaseId);
 

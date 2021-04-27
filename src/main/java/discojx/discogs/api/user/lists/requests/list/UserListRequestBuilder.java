@@ -1,8 +1,8 @@
 package discojx.discogs.api.user.lists.requests.list;
 
-public interface UserListRequestBuilder {
+import discojx.requests.RequestBuilder;
+
+public interface UserListRequestBuilder extends RequestBuilder<UserListRequest> {
 
     UserListRequestBuilder listId(long listId);
-
-    UserListRequest build();
 }

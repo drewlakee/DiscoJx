@@ -1,8 +1,8 @@
 package discojx.discogs.api.user.collection.requests.collection;
 
-public interface UserFoldersRequestBuilder {
+import discojx.requests.RequestBuilder;
+
+public interface UserFoldersRequestBuilder extends RequestBuilder<UserFoldersRequest> {
 
     UserFoldersRequestBuilder username(String username);
-
-    UserFoldersRequest build();
 }

@@ -1,8 +1,8 @@
 package discojx.discogs.api.database.requests.label;
 
-public interface LabelRequestBuilder {
+import discojx.requests.RequestBuilder;
+
+public interface LabelRequestBuilder extends RequestBuilder<LabelRequest> {
 
     LabelRequestBuilder labelId(long labelId);
-
-    LabelRequest build();
 }

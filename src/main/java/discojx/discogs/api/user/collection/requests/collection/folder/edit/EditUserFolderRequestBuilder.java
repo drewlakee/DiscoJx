@@ -1,13 +1,10 @@
 package discojx.discogs.api.user.collection.requests.collection.folder.edit;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
-import discojx.requests.JsonParameterizedRequest;
+import discojx.requests.RequestBuilder;
 
-public interface EditUserFolderRequestBuilder extends JsonParameterizedRequest<ObjectNode> {
+public interface EditUserFolderRequestBuilder extends RequestBuilder<EditUserFolderRequest> {
 
     EditUserFolderRequestBuilder username(String username);
     EditUserFolderRequestBuilder folderId(long folderId);
     EditUserFolderRequestBuilder name(String name);
-
-    EditUserFolderRequest build();
 }

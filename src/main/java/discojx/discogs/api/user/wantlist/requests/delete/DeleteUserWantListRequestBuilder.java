@@ -1,9 +1,9 @@
 package discojx.discogs.api.user.wantlist.requests.delete;
 
-public interface DeleteUserWantListRequestBuilder {
+import discojx.requests.RequestBuilder;
+
+public interface DeleteUserWantListRequestBuilder extends RequestBuilder<DeleteUserWantListRequest> {
 
     DeleteUserWantListRequestBuilder username(String username);
     DeleteUserWantListRequestBuilder releaseId(long releaseId);
-
-    DeleteUserWantListRequest build();
 }

@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.UserWant;
+import discojx.requests.AbstractJsonParameterizedRequest;
+import discojx.requests.AbstractJsonParameterizedRequestBuilder;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpPost;
@@ -16,33 +18,23 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultEditUserWantListRequest implements EditUserWantListRequest {
-
-    private final AbstractHttpClient<HttpEntity> client;
-
-    private final String queryUrl;
-    private final ObjectNode jsonObject;
+public class DefaultEditUserWantListRequest extends AbstractJsonParameterizedRequest<HttpEntity, ObjectNode>
+        implements EditUserWantListRequest {
 
     public DefaultEditUserWantListRequest(Builder builder) {
-        this.client = builder.client;
-        this.queryUrl = builder.queryUrl;
-        this.jsonObject = builder.jsonObject;
+        super(builder);
     }
 
-    public static class Builder implements EditUserWantListRequestBuilder {
-
-        private final AbstractHttpClient<HttpEntity> client;
+    public static class Builder extends AbstractJsonParameterizedRequestBuilder<HttpEntity, ObjectNode>
+            implements EditUserWantListRequestBuilder {
 
         private String username;
         private String notes;
         private int rating;
         private long releaseId;
 
-        private String queryUrl;
-        private ObjectNode jsonObject;
-
         public Builder(AbstractHttpClient<HttpEntity> client) {
-            this.client = client;
+            super(client);
         }
 
         @Override
@@ -135,27 +127,5 @@ public class DefaultEditUserWantListRequest implements EditUserWantListRequest {
 
             return userWant;
         });
-    }
-
-    @Override
-    public String toString() {
-        return "DefaultEditUserWantListRequest{" +
-                "client=" + client +
-                ", queryUrl='" + queryUrl + '\'' +
-                ", jsonObject=" + jsonObject +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DefaultEditUserWantListRequest that = (DefaultEditUserWantListRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl) && Objects.equals(jsonObject, that.jsonObject);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client, queryUrl, jsonObject);
     }
 }

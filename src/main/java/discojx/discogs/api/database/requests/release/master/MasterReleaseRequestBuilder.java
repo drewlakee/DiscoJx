@@ -1,8 +1,8 @@
 package discojx.discogs.api.database.requests.release.master;
 
-public interface MasterReleaseRequestBuilder {
+import discojx.requests.RequestBuilder;
+
+public interface MasterReleaseRequestBuilder extends RequestBuilder<MasterReleaseRequest> {
 
     MasterReleaseRequestBuilder masterId(long masterId);
-
-    MasterReleaseRequest build();
 }

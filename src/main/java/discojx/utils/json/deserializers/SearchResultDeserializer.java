@@ -5,10 +5,7 @@ import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import discojx.discogs.objects.AbstractTypedSearchResult;
-import discojx.discogs.objects.ArtistSearchResult;
-import discojx.discogs.objects.MasterSearchResult;
-import discojx.discogs.objects.ReleaseSearchResult;
+import discojx.discogs.objects.*;
 import discojx.utils.json.JsonUtils;
 
 import java.io.IOException;
@@ -36,7 +33,8 @@ public class SearchResultDeserializer extends JsonDeserializer<List<AbstractType
             case "master" -> JsonUtils.DefaultObjectMapperHolder.mapper.readValue(objectNode.traverse(), MasterSearchResult.class);
             case "release" -> JsonUtils.DefaultObjectMapperHolder.mapper.readValue(objectNode.traverse(), ReleaseSearchResult.class);
             case "artist" -> JsonUtils.DefaultObjectMapperHolder.mapper.readValue(objectNode.traverse(), ArtistSearchResult.class);
-            default -> throw new NullPointerException("Typed Json Object expected.");
+            case "label" -> JsonUtils.DefaultObjectMapperHolder.mapper.readValue(objectNode.traverse(), LabelSearchResult.class);
+            default -> new UndefinedObjectSearchResultWrapper(objectNode);
         };
     }
 }

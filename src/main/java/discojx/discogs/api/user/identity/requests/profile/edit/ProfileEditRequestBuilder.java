@@ -1,10 +1,9 @@
 package discojx.discogs.api.user.identity.requests.profile.edit;
 
-import com.fasterxml.jackson.databind.node.ObjectNode;
 import discojx.discogs.objects.MarketplaceCurrencies;
-import discojx.requests.JsonParameterizedRequest;
+import discojx.requests.RequestBuilder;
 
-public interface ProfileEditRequestBuilder extends JsonParameterizedRequest<ObjectNode> {
+public interface ProfileEditRequestBuilder extends RequestBuilder<ProfileEditRequest> {
 
     ProfileEditRequestBuilder username(String username);
     ProfileEditRequestBuilder name(String name);
@@ -12,6 +11,4 @@ public interface ProfileEditRequestBuilder extends JsonParameterizedRequest<Obje
     ProfileEditRequestBuilder location(String location);
     ProfileEditRequestBuilder profile(String profile);
     ProfileEditRequestBuilder currAbbr(MarketplaceCurrencies currency);
-
-    ProfileEditRequest build();
 }

@@ -3,6 +3,8 @@ package discojx.discogs.api.database.requests.release.rating.user;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.ReleaseRating;
+import discojx.requests.AbstractRequest;
+import discojx.requests.AbstractRequestBuilder;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
@@ -13,28 +15,21 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultReleaseRatingByUserRequest implements ReleaseRatingByUserRequest {
-
-    protected final AbstractHttpClient<HttpEntity> client;
-
-    private final String queryUrl;
+public class DefaultReleaseRatingByUserRequest extends AbstractRequest<HttpEntity>
+        implements ReleaseRatingByUserRequest {
 
     public DefaultReleaseRatingByUserRequest(Builder builder) {
-        this.client = builder.client;
-        this.queryUrl = builder.queryUrl;
+        super(builder);
     }
 
-    public static class Builder implements ReleaseRatingByUserRequestBuilder {
-
-        private final AbstractHttpClient<HttpEntity> client;
+    public static class Builder extends AbstractRequestBuilder<HttpEntity>
+            implements ReleaseRatingByUserRequestBuilder {
 
         private long releaseId;
         private String username;
 
-        private String queryUrl;
-
         public Builder(AbstractHttpClient<HttpEntity> client) {
-            this.client = client;
+            super(client);
         }
 
         @Override
@@ -98,26 +93,5 @@ public class DefaultReleaseRatingByUserRequest implements ReleaseRatingByUserReq
 
             return releaseRating;
         });
-    }
-
-    @Override
-    public String toString() {
-        return "DefaultReleaseRatingByUserRequest{" +
-                "client=" + client +
-                ", queryUrl='" + queryUrl + '\'' +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        DefaultReleaseRatingByUserRequest that = (DefaultReleaseRatingByUserRequest) o;
-        return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(client, queryUrl);
     }
 }
