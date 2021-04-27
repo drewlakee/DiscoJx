@@ -3,6 +3,8 @@ package discojx.discogs.api.user.collection;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.user.collection.requests.folders.DefaultUserFoldersRequest;
 import discojx.discogs.api.user.collection.requests.folders.UserFoldersRequestBuilder;
+import discojx.discogs.api.user.collection.requests.folders.create.CreateUserFolderRequestBuilder;
+import discojx.discogs.api.user.collection.requests.folders.create.DefaultCreateUserFolderRequest;
 import org.apache.http.HttpEntity;
 
 import java.util.Objects;
@@ -18,6 +20,11 @@ public class DefaultUserCollectionApi implements UserCollectionApi {
     @Override
     public UserFoldersRequestBuilder folders() {
         return new DefaultUserFoldersRequest.Builder(client);
+    }
+
+    @Override
+    public CreateUserFolderRequestBuilder createFolder() {
+        return new DefaultCreateUserFolderRequest.Builder(client);
     }
 
     @Override
