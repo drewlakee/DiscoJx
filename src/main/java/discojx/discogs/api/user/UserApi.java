@@ -8,7 +8,7 @@ import discojx.discogs.api.user.wantlist.UserWantListApi;
 public interface UserApi {
 
     IdentityApi identity();
-    UserListsApi userLists();
-    UserWantListApi userWantList();
-    UserCollectionApi userCollection();
+    UserListsApi lists();
+    UserWantListApi wantList();
+    UserCollectionApi collection();
 }

@@ -33,17 +33,17 @@ public class DefaultUserApi implements UserApi {
     }
 
     @Override
-    public UserListsApi userLists() {
+    public UserListsApi lists() {
         return userListsApi;
     }
 
     @Override
-    public UserWantListApi userWantList() {
+    public UserWantListApi wantList() {
         return userWantListApi;
     }
 
     @Override
-    public UserCollectionApi userCollection() {
+    public UserCollectionApi collection() {
         return userCollectionApi;
     }
 
