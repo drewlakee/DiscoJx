@@ -257,7 +257,7 @@ public class DefaultSearchRequest implements SearchRequest {
     }
 
     @Override
-    public CompletableFuture<SearchResult> supplyFuture() {
+    public CompletableFuture<SearchResult> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

@@ -79,7 +79,7 @@ public class DefaultDeleteUserWantListRequest implements DeleteUserWantListReque
     }
 
     @Override
-    public CompletableFuture<Void> supplyFuture() {
+    public CompletableFuture<Void> executeAsync() {
         return CompletableFuture.runAsync(() -> client.execute(new HttpDelete(queryUrl)));
     }
 

@@ -1,7 +1,7 @@
 package discojx.discogs.api.database.requests.search;
 
 import discojx.discogs.objects.SearchResult;
-import discojx.requests.FutureProvidableRequest;
+import discojx.requests.AsyncExecutableRequest;
 
-public interface SearchRequest extends FutureProvidableRequest<SearchResult> {
+public interface SearchRequest extends AsyncExecutableRequest<SearchResult> {
 }

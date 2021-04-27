@@ -137,7 +137,7 @@ public class DefaultProfileEditRequest implements ProfileEditRequest {
     }
 
     @Override
-    public CompletableFuture<Profile> supplyFuture() {
+    public CompletableFuture<Profile> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpPost request = new HttpPost(queryUrl);
             request.addHeader("Content-Type", "application/json");

@@ -75,7 +75,7 @@ public class DefaultProfileRequest implements ProfileRequest {
     }
 
     @Override
-    public CompletableFuture<Profile> supplyFuture() {
+    public CompletableFuture<Profile> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

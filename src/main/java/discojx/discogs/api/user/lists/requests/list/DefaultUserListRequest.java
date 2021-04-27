@@ -72,7 +72,7 @@ public class DefaultUserListRequest implements UserListRequest {
     }
 
     @Override
-    public CompletableFuture<UserList> supplyFuture() {
+    public CompletableFuture<UserList> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

@@ -72,7 +72,7 @@ public class DefaultLabelRequest implements LabelRequest {
     }
 
     @Override
-    public CompletableFuture<Label> supplyFuture() {
+    public CompletableFuture<Label> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

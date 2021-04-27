@@ -117,7 +117,7 @@ public class DefaultAddUserWantListRequest implements AddUserWantListRequest {
     }
 
     @Override
-    public CompletableFuture<UserWant> supplyFuture() {
+    public CompletableFuture<UserWant> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpPut request = new HttpPut(queryUrl);
             request.setHeader("Content-Type", "application/json");

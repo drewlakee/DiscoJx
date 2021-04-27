@@ -22,7 +22,7 @@ public class DefaultUserIdentityRequest implements UserIdentityRequest {
     }
 
     @Override
-    public CompletableFuture<UserIdentity> supplyFuture() {
+    public CompletableFuture<UserIdentity> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(DiscogsApiEndpoints.USER_IDENTITY.getEndpoint()));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

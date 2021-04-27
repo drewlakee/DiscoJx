@@ -104,7 +104,7 @@ public class DefaultUserSubmissionsRequest implements UserSubmissionsRequest {
     }
 
     @Override
-    public CompletableFuture<Submissions> supplyFuture() {
+    public CompletableFuture<Submissions> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

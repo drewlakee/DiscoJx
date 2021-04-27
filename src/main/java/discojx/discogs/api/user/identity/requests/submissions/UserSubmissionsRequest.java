@@ -1,7 +1,7 @@
 package discojx.discogs.api.user.identity.requests.submissions;
 
 import discojx.discogs.objects.Submissions;
-import discojx.requests.FutureProvidableRequest;
+import discojx.requests.AsyncExecutableRequest;
 
-public interface UserSubmissionsRequest extends FutureProvidableRequest<Submissions> {
+public interface UserSubmissionsRequest extends AsyncExecutableRequest<Submissions> {
 }

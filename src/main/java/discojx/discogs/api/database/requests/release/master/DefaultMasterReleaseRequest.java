@@ -75,7 +75,7 @@ public class DefaultMasterReleaseRequest implements MasterReleaseRequest {
     }
 
     @Override
-    public CompletableFuture<MasterRelease> supplyFuture() {
+    public CompletableFuture<MasterRelease> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

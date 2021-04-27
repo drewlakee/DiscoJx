@@ -76,7 +76,7 @@ public class DefaultUserFoldersRequest implements UserFoldersRequest {
     }
 
     @Override
-    public CompletableFuture<UserFolders> supplyFuture() {
+    public CompletableFuture<UserFolders> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

@@ -75,7 +75,7 @@ public class DefaultReleaseStatsRequest implements ReleaseStatsRequest {
     }
 
     @Override
-    public CompletableFuture<ReleaseStats> supplyFuture() {
+    public CompletableFuture<ReleaseStats> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

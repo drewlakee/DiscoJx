@@ -101,7 +101,7 @@ public class DefaultCreateUserFolderRequest implements CreateUserFolderRequest {
     }
 
     @Override
-    public CompletableFuture<UserFolders.UserFolder> supplyFuture() {
+    public CompletableFuture<UserFolders.UserFolder> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpPost request = new HttpPost(queryUrl);
             request.setHeader("Content-Type", "application/json");

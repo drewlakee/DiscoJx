@@ -122,7 +122,7 @@ public class DefaultUserContributionsRequest implements UserContributionsRequest
     }
 
     @Override
-    public CompletableFuture<Contributions> supplyFuture() {
+    public CompletableFuture<Contributions> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

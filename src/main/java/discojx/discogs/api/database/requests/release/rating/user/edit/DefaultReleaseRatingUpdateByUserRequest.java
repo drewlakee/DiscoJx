@@ -109,7 +109,7 @@ public class DefaultReleaseRatingUpdateByUserRequest implements ReleaseRatingUpd
     }
 
     @Override
-    public CompletableFuture<ReleaseRating> supplyFuture() {
+    public CompletableFuture<ReleaseRating> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpPut request = new HttpPut(queryUrl);
             request.setHeader("Content-Type", "application/json");

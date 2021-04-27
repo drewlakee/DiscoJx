@@ -1,6 +1,6 @@
 package discojx.discogs.api.user.wantlist.requests.delete;
 
-import discojx.requests.FutureProvidableRequest;
+import discojx.requests.AsyncExecutableRequest;
 
-public interface DeleteUserWantListRequest extends FutureProvidableRequest<Void> {
+public interface DeleteUserWantListRequest extends AsyncExecutableRequest<Void> {
 }

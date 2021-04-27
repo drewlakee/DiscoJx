@@ -1,7 +1,7 @@
 package discojx.discogs.api.database.requests.release.master.versions;
 
 import discojx.discogs.objects.MasterReleaseVersions;
-import discojx.requests.FutureProvidableRequest;
+import discojx.requests.AsyncExecutableRequest;
 
-public interface MasterReleaseVersionsRequest extends FutureProvidableRequest<MasterReleaseVersions> {
+public interface MasterReleaseVersionsRequest extends AsyncExecutableRequest<MasterReleaseVersions> {
 }

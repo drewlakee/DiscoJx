@@ -164,7 +164,7 @@ public class DefaultMasterReleaseVersionsRequest implements MasterReleaseVersion
     }
 
     @Override
-    public CompletableFuture<MasterReleaseVersions> supplyFuture() {
+    public CompletableFuture<MasterReleaseVersions> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));

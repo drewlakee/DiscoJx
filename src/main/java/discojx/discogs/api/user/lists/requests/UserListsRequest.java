@@ -1,7 +1,7 @@
 package discojx.discogs.api.user.lists.requests;
 
 import discojx.discogs.objects.UserLists;
-import discojx.requests.FutureProvidableRequest;
+import discojx.requests.AsyncExecutableRequest;
 
-public interface UserListsRequest extends FutureProvidableRequest<UserLists> {
+public interface UserListsRequest extends AsyncExecutableRequest<UserLists> {
 }

@@ -1,7 +1,7 @@
 package discojx.discogs.api.database.requests.label;
 
 import discojx.discogs.objects.Label;
-import discojx.requests.FutureProvidableRequest;
+import discojx.requests.AsyncExecutableRequest;
 
-public interface LabelRequest extends FutureProvidableRequest<Label> {
+public interface LabelRequest extends AsyncExecutableRequest<Label> {
 }

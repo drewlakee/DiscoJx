@@ -118,7 +118,7 @@ public class DefaultEditUserWantListRequest implements EditUserWantListRequest {
     }
 
     @Override
-    public CompletableFuture<UserWant> supplyFuture() {
+    public CompletableFuture<UserWant> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpPost request = new HttpPost(queryUrl);
             request.setHeader("Content-Type", "application/json");

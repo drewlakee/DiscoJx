@@ -1,7 +1,7 @@
 package discojx.discogs.api.database.requests.artist;
 
 import discojx.discogs.objects.Artist;
-import discojx.requests.FutureProvidableRequest;
+import discojx.requests.AsyncExecutableRequest;
 
-public interface ArtistRequest extends FutureProvidableRequest<Artist> {
+public interface ArtistRequest extends AsyncExecutableRequest<Artist> {
 }
