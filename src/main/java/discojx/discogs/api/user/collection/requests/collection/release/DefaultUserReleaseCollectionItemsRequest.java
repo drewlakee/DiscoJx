@@ -2,14 +2,13 @@ package discojx.discogs.api.user.collection.requests.collection.release;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.UserFolders;
 import discojx.discogs.objects.UserReleaseCollectionItems;
 import discojx.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;
 import discojx.utils.json.JsonUtils;
-import discojx.utils.requests.RequestParametersConstructor;
-import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
+import discojx.utils.requests.RequestPathParametersConstructor;
+import discojx.utils.requests.StringBuilderSequentialRequestPathParametersConstructor;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
@@ -26,7 +25,7 @@ public class DefaultUserReleaseCollectionItemsRequest extends AbstractRequest<Ht
         super(builder);
     }
 
-    public static class Builder extends AbstractPathParameterizedRequestBuilder<HttpEntity, RequestParametersConstructor>
+    public static class Builder extends AbstractPathParameterizedRequestBuilder<HttpEntity, RequestPathParametersConstructor>
             implements UserReleaseCollectionItemsRequestBuilder {
 
         private int page;
@@ -65,7 +64,7 @@ public class DefaultUserReleaseCollectionItemsRequest extends AbstractRequest<Ht
         @Override
         public UserReleaseCollectionItemsRequest build() {
             this.queryUrl = DiscogsApiEndpoints
-                    .USER_COLLECTION_RELEASE_ITEMS
+                    .USER_COLLECTION_RELEASE_ITEMS_BY_RELEASE
                     .getEndpointWith(constructPathParameters().toParametersString())
                     .replace("{username}", username)
                     .replace("{release_id}", String.valueOf(releaseId));
@@ -73,9 +72,9 @@ public class DefaultUserReleaseCollectionItemsRequest extends AbstractRequest<Ht
         }
 
         @Override
-        public RequestParametersConstructor constructPathParameters() {
-            StringBuilderSequentialRequestParametersConstructor parameters =
-                    new StringBuilderSequentialRequestParametersConstructor();
+        public RequestPathParametersConstructor constructPathParameters() {
+            StringBuilderSequentialRequestPathParametersConstructor parameters =
+                    new StringBuilderSequentialRequestPathParametersConstructor();
 
             if (page > 0) parameters.append("page", page);
             if (perPage > 0) parameters.append("per_page", perPage);

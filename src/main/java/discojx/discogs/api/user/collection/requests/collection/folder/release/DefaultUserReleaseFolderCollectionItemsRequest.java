@@ -1,10 +1,11 @@
-package discojx.discogs.api.user.identity.requests.contributions;
+package discojx.discogs.api.user.collection.requests.collection.folder.release;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.Contributions;
+import discojx.discogs.objects.UserReleaseCollectionItems;
 import discojx.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.requests.AbstractRequest;
+import discojx.requests.AbstractRequestBuilder;
 import discojx.utils.json.JsonUtils;
 import discojx.utils.requests.RequestPathParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestPathParametersConstructor;
@@ -17,63 +18,71 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultUserContributionsRequest extends AbstractRequest<HttpEntity>
-        implements UserContributionsRequest {
+public class DefaultUserReleaseFolderCollectionItemsRequest extends AbstractRequest<HttpEntity>
+        implements UserReleaseFolderCollectionItemsRequest {
 
-    public DefaultUserContributionsRequest(Builder builder) {
+    public DefaultUserReleaseFolderCollectionItemsRequest(AbstractRequestBuilder<HttpEntity> builder) {
         super(builder);
     }
 
     public static class Builder extends AbstractPathParameterizedRequestBuilder<HttpEntity, RequestPathParametersConstructor>
-            implements UserContributionsRequestBuilder {
+            implements UserReleaseFolderCollectionItemsRequestBuilder {
 
-        private String username;
-        private String sort;
-        private String sortOrder;
         private int page;
         private int perPage;
+        private String username;
+        private long folderId;
+        private String sort;
+        private String sortOrder;
 
         public Builder(AbstractHttpClient<HttpEntity> client) {
             super(client);
         }
 
         @Override
-        public UserContributionsRequestBuilder username(String username) {
+        public UserReleaseFolderCollectionItemsRequestBuilder username(String username) {
             this.username = username;
             return this;
         }
 
         @Override
-        public UserContributionsRequestBuilder sort(String attribute) {
-            this.sort = attribute;
+        public UserReleaseFolderCollectionItemsRequestBuilder folderId(long folderId) {
+            this.folderId = folderId;
             return this;
         }
 
         @Override
-        public UserContributionsRequestBuilder sortOrder(String sortOrder) {
-            this.sortOrder = sortOrder;
-            return this;
-        }
-
-        @Override
-        public UserContributionsRequestBuilder page(int page) {
+        public UserReleaseFolderCollectionItemsRequestBuilder page(int page) {
             this.page = page;
             return this;
         }
 
         @Override
-        public UserContributionsRequestBuilder perPage(int perPage) {
+        public UserReleaseFolderCollectionItemsRequestBuilder perPage(int perPage) {
             this.perPage = perPage;
             return this;
         }
 
         @Override
-        public UserContributionsRequest build() {
+        public UserReleaseFolderCollectionItemsRequestBuilder sort(String attribute) {
+            this.sort = attribute;
+            return this;
+        }
+
+        @Override
+        public UserReleaseFolderCollectionItemsRequestBuilder sortOrder(String sortOrder) {
+            this.sortOrder = sortOrder;
+            return this;
+        }
+
+        @Override
+        public UserReleaseFolderCollectionItemsRequest build() {
             this.queryUrl = DiscogsApiEndpoints
-                    .USER_CONTRIBUTIONS
+                    .USER_COLLECTION_RELEASE_ITEMS_BY_FOLDER
                     .getEndpointWith(constructPathParameters().toParametersString())
-                    .replace("{username}", username);
-            return new DefaultUserContributionsRequest(this);
+                    .replace("{username}", username)
+                    .replace("{folder_id}", String.valueOf(folderId));
+            return new DefaultUserReleaseFolderCollectionItemsRequest(this);
         }
 
         @Override
@@ -92,13 +101,12 @@ public class DefaultUserContributionsRequest extends AbstractRequest<HttpEntity>
         @Override
         public String toString() {
             return "Builder{" +
-                    "client=" + client +
+                    "page=" + page +
+                    ", perPage=" + perPage +
                     ", username='" + username + '\'' +
+                    ", folderId=" + folderId +
                     ", sort='" + sort + '\'' +
                     ", sortOrder='" + sortOrder + '\'' +
-                    ", page=" + page +
-                    ", perPage=" + perPage +
-                    ", queryUrl='" + queryUrl + '\'' +
                     '}';
         }
 
@@ -106,30 +114,31 @@ public class DefaultUserContributionsRequest extends AbstractRequest<HttpEntity>
         public boolean equals(Object o) {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
+            if (!super.equals(o)) return false;
             Builder builder = (Builder) o;
-            return page == builder.page && perPage == builder.perPage && Objects.equals(client, builder.client) && Objects.equals(username, builder.username) && Objects.equals(sort, builder.sort) && Objects.equals(sortOrder, builder.sortOrder) && Objects.equals(queryUrl, builder.queryUrl);
+            return page == builder.page && perPage == builder.perPage && folderId == builder.folderId && Objects.equals(username, builder.username) && Objects.equals(sort, builder.sort) && Objects.equals(sortOrder, builder.sortOrder);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(client, username, sort, sortOrder, page, perPage, queryUrl);
+            return Objects.hash(super.hashCode(), page, perPage, username, folderId, sort, sortOrder);
         }
     }
 
     @Override
-    public CompletableFuture<Contributions> executeAsync() {
+    public CompletableFuture<UserReleaseCollectionItems> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
             HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
 
-            Contributions contributions;
+            UserReleaseCollectionItems userReleaseCollectionItems;
             try {
-                contributions = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), Contributions.class);
+                userReleaseCollectionItems = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), UserReleaseCollectionItems.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }
 
-            return contributions;
+            return userReleaseCollectionItems;
         });
     }
 }

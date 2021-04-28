@@ -6,8 +6,8 @@ import discojx.discogs.objects.UserLists;
 import discojx.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.requests.AbstractRequest;
 import discojx.utils.json.JsonUtils;
-import discojx.utils.requests.RequestParametersConstructor;
-import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
+import discojx.utils.requests.RequestPathParametersConstructor;
+import discojx.utils.requests.StringBuilderSequentialRequestPathParametersConstructor;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
@@ -24,7 +24,7 @@ public class DefaultUserListsRequest extends AbstractRequest<HttpEntity>
         super(builder);
     }
 
-    public static class Builder extends AbstractPathParameterizedRequestBuilder<HttpEntity, RequestParametersConstructor>
+    public static class Builder extends AbstractPathParameterizedRequestBuilder<HttpEntity, RequestPathParametersConstructor>
             implements UserListsRequestBuilder {
 
         private int page;
@@ -63,9 +63,9 @@ public class DefaultUserListsRequest extends AbstractRequest<HttpEntity>
         }
 
         @Override
-        public RequestParametersConstructor constructPathParameters() {
-            StringBuilderSequentialRequestParametersConstructor parameters =
-                    new StringBuilderSequentialRequestParametersConstructor();
+        public RequestPathParametersConstructor constructPathParameters() {
+            StringBuilderSequentialRequestPathParametersConstructor parameters =
+                    new StringBuilderSequentialRequestPathParametersConstructor();
 
             if (page > 0) parameters.append("page", page);
             if (perPage > 0) parameters.append("per_page", perPage);

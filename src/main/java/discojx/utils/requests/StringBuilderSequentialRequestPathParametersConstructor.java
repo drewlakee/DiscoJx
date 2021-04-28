@@ -2,12 +2,12 @@ package discojx.utils.requests;
 
 import java.util.Objects;
 
-public class StringBuilderSequentialRequestParametersConstructor implements SequentialRequestParametersConstructor {
+public class StringBuilderSequentialRequestPathParametersConstructor implements SequentialRequestPathParametersConstructor {
 
     private final StringBuilder builder = new StringBuilder();
 
     @Override
-    public SequentialRequestParametersConstructor append(String key, Object value) {
+    public SequentialRequestPathParametersConstructor append(String key, Object value) {
         if (builder.length() == 0) builder.append("?");
         builder.append(key).append("=").append(value).append("&");
         return this;
@@ -49,7 +49,7 @@ public class StringBuilderSequentialRequestParametersConstructor implements Sequ
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        StringBuilderSequentialRequestParametersConstructor that = (StringBuilderSequentialRequestParametersConstructor) o;
+        StringBuilderSequentialRequestPathParametersConstructor that = (StringBuilderSequentialRequestPathParametersConstructor) o;
         return Objects.equals(builder, that.builder);
     }
 

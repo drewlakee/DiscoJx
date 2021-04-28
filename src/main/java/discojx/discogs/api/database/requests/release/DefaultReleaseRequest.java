@@ -7,8 +7,8 @@ import discojx.discogs.objects.Release;
 import discojx.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.requests.AbstractRequest;
 import discojx.utils.json.JsonUtils;
-import discojx.utils.requests.RequestParametersConstructor;
-import discojx.utils.requests.StringBuilderSequentialRequestParametersConstructor;
+import discojx.utils.requests.RequestPathParametersConstructor;
+import discojx.utils.requests.StringBuilderSequentialRequestPathParametersConstructor;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.HttpGet;
 
@@ -25,7 +25,7 @@ public class DefaultReleaseRequest extends AbstractRequest<HttpEntity>
         super(builder);
     }
 
-    public static class Builder extends AbstractPathParameterizedRequestBuilder<HttpEntity, RequestParametersConstructor>
+    public static class Builder extends AbstractPathParameterizedRequestBuilder<HttpEntity, RequestPathParametersConstructor>
             implements ReleaseRequestBuilder {
 
         private long releaseId;
@@ -57,9 +57,9 @@ public class DefaultReleaseRequest extends AbstractRequest<HttpEntity>
         }
 
         @Override
-        public RequestParametersConstructor constructPathParameters() {
-            StringBuilderSequentialRequestParametersConstructor parameters =
-                    new StringBuilderSequentialRequestParametersConstructor();
+        public RequestPathParametersConstructor constructPathParameters() {
+            StringBuilderSequentialRequestPathParametersConstructor parameters =
+                    new StringBuilderSequentialRequestPathParametersConstructor();
 
             if (currAbbr != null) parameters.append("curr_abbr", currAbbr.name());
 
