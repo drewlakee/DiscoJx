@@ -7,6 +7,7 @@ import discojx.discogs.api.user.collection.requests.collection.folder.delete.Del
 import discojx.discogs.api.user.collection.requests.collection.folder.edit.EditUserFolderRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.folder.release.UserReleaseFolderCollectionItemsRequest;
 import discojx.discogs.api.user.collection.requests.collection.folder.release.UserReleaseFolderCollectionItemsRequestBuilder;
+import discojx.discogs.api.user.collection.requests.collection.folder.release.add.AddUserReleaseFolderCollectionItemRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.release.UserReleaseCollectionItemsRequestBuilder;
 
 public interface UserCollectionApi {
@@ -18,4 +19,5 @@ public interface UserCollectionApi {
     DeleteUserFolderRequestBuilder deleteFolder();
     UserReleaseCollectionItemsRequestBuilder collectionItemsByRelease();
     UserReleaseFolderCollectionItemsRequestBuilder collectionItemsByFolder();
+    AddUserReleaseFolderCollectionItemRequestBuilder addReleaseItemToCollectionFolder();
 }

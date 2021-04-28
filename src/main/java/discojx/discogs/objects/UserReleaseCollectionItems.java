@@ -11,6 +11,50 @@ public class UserReleaseCollectionItems {
 
     public static class Release {
 
+        public static class Short {
+            @JsonProperty("instance_id")
+            private long instanceId;
+            @JsonProperty("resource_url")
+            private URL resourceUrl;
+
+            public long getInstanceId() {
+                return instanceId;
+            }
+
+            public void setInstanceId(long instanceId) {
+                this.instanceId = instanceId;
+            }
+
+            public URL getResourceUrl() {
+                return resourceUrl;
+            }
+
+            public void setResourceUrl(URL resourceUrl) {
+                this.resourceUrl = resourceUrl;
+            }
+
+            @Override
+            public String toString() {
+                return "Short{" +
+                        "instanceId=" + instanceId +
+                        ", resourceUrl=" + resourceUrl +
+                        '}';
+            }
+
+            @Override
+            public boolean equals(Object o) {
+                if (this == o) return true;
+                if (o == null || getClass() != o.getClass()) return false;
+                Short aShort = (Short) o;
+                return instanceId == aShort.instanceId && Objects.equals(resourceUrl, aShort.resourceUrl);
+            }
+
+            @Override
+            public int hashCode() {
+                return Objects.hash(instanceId, resourceUrl);
+            }
+        }
+
         public static class BasicInformation {
             private long id;
             @JsonProperty("master_id")

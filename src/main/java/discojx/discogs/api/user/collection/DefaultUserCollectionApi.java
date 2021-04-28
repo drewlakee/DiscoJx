@@ -13,6 +13,8 @@ import discojx.discogs.api.user.collection.requests.collection.folder.edit.Defau
 import discojx.discogs.api.user.collection.requests.collection.folder.edit.EditUserFolderRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.folder.release.DefaultUserReleaseFolderCollectionItemsRequest;
 import discojx.discogs.api.user.collection.requests.collection.folder.release.UserReleaseFolderCollectionItemsRequestBuilder;
+import discojx.discogs.api.user.collection.requests.collection.folder.release.add.AddUserReleaseFolderCollectionItemRequestBuilder;
+import discojx.discogs.api.user.collection.requests.collection.folder.release.add.DefaultAddUserReleaseFolderCollectionItemRequest;
 import discojx.discogs.api.user.collection.requests.collection.release.DefaultUserReleaseCollectionItemsRequest;
 import discojx.discogs.api.user.collection.requests.collection.release.UserReleaseCollectionItemsRequestBuilder;
 import org.apache.http.HttpEntity;
@@ -60,6 +62,11 @@ public class DefaultUserCollectionApi implements UserCollectionApi {
     @Override
     public UserReleaseFolderCollectionItemsRequestBuilder collectionItemsByFolder() {
         return new DefaultUserReleaseFolderCollectionItemsRequest.Builder(client);
+    }
+
+    @Override
+    public AddUserReleaseFolderCollectionItemRequestBuilder addReleaseItemToCollectionFolder() {
+        return new DefaultAddUserReleaseFolderCollectionItemRequest.Builder(client);
     }
 
     @Override
