@@ -17,6 +17,8 @@ import discojx.discogs.api.user.collection.requests.collection.folder.release.ad
 import discojx.discogs.api.user.collection.requests.collection.folder.release.add.DefaultAddUserReleaseFolderCollectionItemRequest;
 import discojx.discogs.api.user.collection.requests.collection.release.DefaultUserReleaseCollectionItemsRequest;
 import discojx.discogs.api.user.collection.requests.collection.release.UserReleaseCollectionItemsRequestBuilder;
+import discojx.discogs.api.user.collection.requests.collection.release.rating.ChangeReleaseRatingRequestBuilder;
+import discojx.discogs.api.user.collection.requests.collection.release.rating.DefaultChangeReleaseRatingRequest;
 import org.apache.http.HttpEntity;
 
 import java.util.Objects;
@@ -67,6 +69,11 @@ public class DefaultUserCollectionApi implements UserCollectionApi {
     @Override
     public AddUserReleaseFolderCollectionItemRequestBuilder addReleaseItemToCollectionFolder() {
         return new DefaultAddUserReleaseFolderCollectionItemRequest.Builder(client);
+    }
+
+    @Override
+    public ChangeReleaseRatingRequestBuilder changeRatingOfRelease() {
+        return new DefaultChangeReleaseRatingRequest.Builder(client);
     }
 
     @Override

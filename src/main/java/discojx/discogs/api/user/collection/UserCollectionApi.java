@@ -9,6 +9,7 @@ import discojx.discogs.api.user.collection.requests.collection.folder.release.Us
 import discojx.discogs.api.user.collection.requests.collection.folder.release.UserReleaseFolderCollectionItemsRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.folder.release.add.AddUserReleaseFolderCollectionItemRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.release.UserReleaseCollectionItemsRequestBuilder;
+import discojx.discogs.api.user.collection.requests.collection.release.rating.ChangeReleaseRatingRequestBuilder;
 
 public interface UserCollectionApi {
 
@@ -20,4 +21,5 @@ public interface UserCollectionApi {
     UserReleaseCollectionItemsRequestBuilder collectionItemsByRelease();
     UserReleaseFolderCollectionItemsRequestBuilder collectionItemsByFolder();
     AddUserReleaseFolderCollectionItemRequestBuilder addReleaseItemToCollectionFolder();
+    ChangeReleaseRatingRequestBuilder changeRatingOfRelease();
 }
