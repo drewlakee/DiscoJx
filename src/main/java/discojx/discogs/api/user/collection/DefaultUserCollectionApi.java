@@ -17,6 +17,8 @@ import discojx.discogs.api.user.collection.requests.collection.folder.release.ad
 import discojx.discogs.api.user.collection.requests.collection.folder.release.add.DefaultAddUserReleaseFolderCollectionItemRequest;
 import discojx.discogs.api.user.collection.requests.collection.release.DefaultUserReleaseCollectionItemsRequest;
 import discojx.discogs.api.user.collection.requests.collection.release.UserReleaseCollectionItemsRequestBuilder;
+import discojx.discogs.api.user.collection.requests.collection.release.delete.DefaultDeleteInstanceFromFolderRequest;
+import discojx.discogs.api.user.collection.requests.collection.release.delete.DeleteInstanceFromFolderRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.release.rating.ChangeReleaseRatingRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.release.rating.DefaultChangeReleaseRatingRequest;
 import org.apache.http.HttpEntity;
@@ -74,6 +76,11 @@ public class DefaultUserCollectionApi implements UserCollectionApi {
     @Override
     public ChangeReleaseRatingRequestBuilder changeRatingOfRelease() {
         return new DefaultChangeReleaseRatingRequest.Builder(client);
+    }
+
+    @Override
+    public DeleteInstanceFromFolderRequestBuilder deleteInstanceFromFolder() {
+        return new DefaultDeleteInstanceFromFolderRequest.Builder(client);
     }
 
     @Override
