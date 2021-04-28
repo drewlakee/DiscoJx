@@ -11,6 +11,8 @@ import discojx.discogs.api.user.collection.requests.collection.folder.delete.Def
 import discojx.discogs.api.user.collection.requests.collection.folder.delete.DeleteUserFolderRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.folder.edit.DefaultEditUserFolderRequest;
 import discojx.discogs.api.user.collection.requests.collection.folder.edit.EditUserFolderRequestBuilder;
+import discojx.discogs.api.user.collection.requests.collection.release.DefaultUserReleaseCollectionItemsRequest;
+import discojx.discogs.api.user.collection.requests.collection.release.UserReleaseCollectionItemsRequestBuilder;
 import org.apache.http.HttpEntity;
 
 import java.util.Objects;
@@ -46,6 +48,11 @@ public class DefaultUserCollectionApi implements UserCollectionApi {
     @Override
     public DeleteUserFolderRequestBuilder deleteFolder() {
         return new DefaultDeleteUserFolderRequest.Builder(client);
+    }
+
+    @Override
+    public UserReleaseCollectionItemsRequestBuilder collectionItemsByRelease() {
+        return new DefaultUserReleaseCollectionItemsRequest.Builder(client);
     }
 
     @Override
