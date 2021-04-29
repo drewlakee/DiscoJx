@@ -14,6 +14,7 @@ import discojx.discogs.api.user.collection.requests.collection.release.UserRelea
 import discojx.discogs.api.user.collection.requests.collection.release.delete.DeleteInstanceFromFolderRequest;
 import discojx.discogs.api.user.collection.requests.collection.release.delete.DeleteInstanceFromFolderRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.release.rating.ChangeReleaseRatingRequestBuilder;
+import discojx.discogs.api.user.collection.requests.collection.value.UserCollectionValueRequestBuilder;
 
 public interface UserCollectionApi {
 
@@ -29,4 +30,5 @@ public interface UserCollectionApi {
     DeleteInstanceFromFolderRequestBuilder deleteInstanceFromFolder();
     ListCustomFieldsRequestBuilder listCustomFields();
     EditFieldsInstanceRequestBuilder editFieldsInstance();
+    UserCollectionValueRequestBuilder collectionValue();
 }

@@ -25,6 +25,8 @@ import discojx.discogs.api.user.collection.requests.collection.release.delete.De
 import discojx.discogs.api.user.collection.requests.collection.release.delete.DeleteInstanceFromFolderRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.release.rating.ChangeReleaseRatingRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.release.rating.DefaultChangeReleaseRatingRequest;
+import discojx.discogs.api.user.collection.requests.collection.value.DefaultUserCollectionValueRequest;
+import discojx.discogs.api.user.collection.requests.collection.value.UserCollectionValueRequestBuilder;
 import org.apache.http.HttpEntity;
 
 import java.util.Objects;
@@ -98,6 +100,11 @@ public class DefaultUserCollectionApi implements UserCollectionApi {
     }
 
     @Override
+    public UserCollectionValueRequestBuilder collectionValue() {
+        return new DefaultUserCollectionValueRequest.Builder(client);
+    }
+
+    @Override
     public String toString() {
         return "DefaultUserCollectionApi{" +
                 "client=" + client +
@@ -106,6 +113,7 @@ public class DefaultUserCollectionApi implements UserCollectionApi {
 
     @Override
     public boolean equals(Object o) {
+
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultUserCollectionApi that = (DefaultUserCollectionApi) o;

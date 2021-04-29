@@ -27,6 +27,7 @@ public enum DiscogsApiEndpoints {
     USER_COLLECTION_DELETE_INSTANCE_FROM_FOLDER (ROOT.endpoint + "/users/{username}/collection/folders/{folder_id}/releases/{release_id}/instances/{instance_id}"),
     USER_COLLECTION_LIST_CUSTOM_FIELDS          (ROOT.endpoint + "/users/{username}/collection/fields"),
     USER_COLLECTION_EDIT_FIELDS_INSTANCE        (ROOT.endpoint + "/users/{username}/collection/folders/{folder_id}/releases/{release_id}/instances/{instance_id}/fields/{field_id}"),
+    USER_COLLECTION_VALUE                       (ROOT.endpoint + "/users/{username}/collection/value"),
 
     DATABASE_RELEASE                            (ROOT.endpoint + "/releases/{release_id}"),
     DATABASE_RELEASE_RATING_BY_USER             (ROOT.endpoint + "/releases/{release_id}/rating/{username}"),
