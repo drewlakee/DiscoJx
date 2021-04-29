@@ -7,6 +7,8 @@ import discojx.discogs.api.user.collection.requests.collection.create.CreateUser
 import discojx.discogs.api.user.collection.requests.collection.create.DefaultCreateUserFolderRequest;
 import discojx.discogs.api.user.collection.requests.collection.fields.DefaultListCustomFieldsRequest;
 import discojx.discogs.api.user.collection.requests.collection.fields.ListCustomFieldsRequestBuilder;
+import discojx.discogs.api.user.collection.requests.collection.fields.edit.DefaultEditFieldsInstanceRequest;
+import discojx.discogs.api.user.collection.requests.collection.fields.edit.EditFieldsInstanceRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.folder.DefaultUserFolderRequest;
 import discojx.discogs.api.user.collection.requests.collection.folder.UserFolderRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.folder.delete.DefaultDeleteUserFolderRequest;
@@ -88,6 +90,11 @@ public class DefaultUserCollectionApi implements UserCollectionApi {
     @Override
     public ListCustomFieldsRequestBuilder listCustomFields() {
         return new DefaultListCustomFieldsRequest.Builder(client);
+    }
+
+    @Override
+    public EditFieldsInstanceRequestBuilder editFieldsInstance() {
+        return new DefaultEditFieldsInstanceRequest.Builder(client);
     }
 
     @Override
