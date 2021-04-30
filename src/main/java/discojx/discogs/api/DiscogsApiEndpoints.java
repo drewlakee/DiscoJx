@@ -33,6 +33,7 @@ public enum DiscogsApiEndpoints {
     INVENTORY_UPLOAD_CHANGE                     (ROOT.endpoint + "/inventory/upload/change"),
     INVENTORY_UPLOAD_DELETE                     (ROOT.endpoint + "/inventory/upload/delete"),
     INVENTORY_UPLOAD_GET_RECENT_UPLOADS         (ROOT.endpoint + "/inventory/upload"),
+    INVENTORY_UPLOAD_GET_UPLOAD                 (ROOT.endpoint + "/inventory/upload/{id}"),
 
     DATABASE_RELEASE                            (ROOT.endpoint + "/releases/{release_id}"),
     DATABASE_RELEASE_RATING_BY_USER             (ROOT.endpoint + "/releases/{release_id}/rating/{username}"),

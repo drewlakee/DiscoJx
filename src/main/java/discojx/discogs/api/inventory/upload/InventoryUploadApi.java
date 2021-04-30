@@ -4,6 +4,7 @@ import discojx.discogs.api.inventory.upload.requests.add.AddInventoryRequestBuil
 import discojx.discogs.api.inventory.upload.requests.change.ChangeInventoryRequestBuilder;
 import discojx.discogs.api.inventory.upload.requests.delete.DeleteInventoryRequestBuilder;
 import discojx.discogs.api.inventory.upload.requests.recent.GetRecentUploadsRequestBuilder;
+import discojx.discogs.api.inventory.upload.requests.recent.get.GetUploadRequestBuilder;
 
 public interface InventoryUploadApi {
 
@@ -11,4 +12,5 @@ public interface InventoryUploadApi {
     ChangeInventoryRequestBuilder change();
     DeleteInventoryRequestBuilder delete();
     GetRecentUploadsRequestBuilder getRecentUploads();
+    GetUploadRequestBuilder getUpload();
 }
