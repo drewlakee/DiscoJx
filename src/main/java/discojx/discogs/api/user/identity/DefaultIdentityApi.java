@@ -11,7 +11,6 @@ import discojx.discogs.api.user.identity.requests.profile.edit.DefaultProfileEdi
 import discojx.discogs.api.user.identity.requests.profile.edit.ProfileEditRequestBuilder;
 import discojx.discogs.api.user.identity.requests.submissions.DefaultUserSubmissionsRequest;
 import discojx.discogs.api.user.identity.requests.submissions.UserSubmissionsRequestBuilder;
-import org.apache.http.HttpEntity;
 
 import java.util.Objects;
 

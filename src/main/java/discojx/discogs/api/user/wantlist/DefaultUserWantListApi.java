@@ -9,7 +9,6 @@ import discojx.discogs.api.user.wantlist.requests.delete.DefaultDeleteUserWantLi
 import discojx.discogs.api.user.wantlist.requests.delete.DeleteUserWantListRequestBuilder;
 import discojx.discogs.api.user.wantlist.requests.edit.DefaultEditUserWantListRequest;
 import discojx.discogs.api.user.wantlist.requests.edit.EditUserWantListRequestBuilder;
-import org.apache.http.HttpEntity;
 
 import java.util.Objects;
 

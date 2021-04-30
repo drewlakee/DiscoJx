@@ -9,7 +9,6 @@ import discojx.discogs.api.user.lists.DefaultUserListsApi;
 import discojx.discogs.api.user.lists.UserListsApi;
 import discojx.discogs.api.user.wantlist.DefaultUserWantListApi;
 import discojx.discogs.api.user.wantlist.UserWantListApi;
-import org.apache.http.HttpEntity;
 
 import java.util.Objects;
 

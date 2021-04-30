@@ -7,11 +7,9 @@ import discojx.discogs.api.user.collection.requests.collection.fields.edit.EditF
 import discojx.discogs.api.user.collection.requests.collection.folder.UserFolderRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.folder.delete.DeleteUserFolderRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.folder.edit.EditUserFolderRequestBuilder;
-import discojx.discogs.api.user.collection.requests.collection.folder.release.UserReleaseFolderCollectionItemsRequest;
 import discojx.discogs.api.user.collection.requests.collection.folder.release.UserReleaseFolderCollectionItemsRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.folder.release.add.AddUserReleaseFolderCollectionItemRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.release.UserReleaseCollectionItemsRequestBuilder;
-import discojx.discogs.api.user.collection.requests.collection.release.delete.DeleteInstanceFromFolderRequest;
 import discojx.discogs.api.user.collection.requests.collection.release.delete.DeleteInstanceFromFolderRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.release.rating.ChangeReleaseRatingRequestBuilder;
 import discojx.discogs.api.user.collection.requests.collection.value.UserCollectionValueRequestBuilder;

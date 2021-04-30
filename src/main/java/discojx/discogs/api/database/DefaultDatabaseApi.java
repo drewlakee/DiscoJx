@@ -27,7 +27,6 @@ import discojx.discogs.api.database.requests.release.stats.DefaultReleaseStatsRe
 import discojx.discogs.api.database.requests.release.stats.ReleaseStatsRequestBuilder;
 import discojx.discogs.api.database.requests.search.DefaultSearchRequest;
 import discojx.discogs.api.database.requests.search.SearchRequestBuilder;
-import org.apache.http.HttpEntity;
 
 import java.util.Objects;
 

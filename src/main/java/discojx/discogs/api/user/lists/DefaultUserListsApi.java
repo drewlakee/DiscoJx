@@ -5,7 +5,6 @@ import discojx.discogs.api.user.lists.requests.DefaultUserListsRequest;
 import discojx.discogs.api.user.lists.requests.UserListsRequestBuilder;
 import discojx.discogs.api.user.lists.requests.list.DefaultUserListRequest;
 import discojx.discogs.api.user.lists.requests.list.UserListRequestBuilder;
-import org.apache.http.HttpEntity;
 
 import java.util.Objects;
 

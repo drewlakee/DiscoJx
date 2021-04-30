@@ -7,7 +7,6 @@ import discojx.discogs.api.inventory.DefaultInventoryApi;
 import discojx.discogs.api.inventory.InventoryApi;
 import discojx.discogs.api.user.DefaultUserApi;
 import discojx.discogs.api.user.UserApi;
-import org.apache.http.HttpEntity;
 
 import java.util.Objects;
 

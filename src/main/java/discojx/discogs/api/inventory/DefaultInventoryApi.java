@@ -3,7 +3,6 @@ package discojx.discogs.api.inventory;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.inventory.upload.DefaultInventoryUploadApi;
 import discojx.discogs.api.inventory.upload.InventoryUploadApi;
-import org.apache.http.HttpEntity;
 
 import java.util.Objects;
 
