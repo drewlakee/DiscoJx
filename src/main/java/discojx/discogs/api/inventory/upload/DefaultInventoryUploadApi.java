@@ -7,6 +7,8 @@ import discojx.discogs.api.inventory.upload.requests.change.ChangeInventoryReque
 import discojx.discogs.api.inventory.upload.requests.change.DefaultChangeInventoryRequest;
 import discojx.discogs.api.inventory.upload.requests.delete.DefaultDeleteInventoryRequest;
 import discojx.discogs.api.inventory.upload.requests.delete.DeleteInventoryRequestBuilder;
+import discojx.discogs.api.inventory.upload.requests.recent.DefaultGetRecentUploadsRequest;
+import discojx.discogs.api.inventory.upload.requests.recent.GetRecentUploadsRequestBuilder;
 
 import java.util.Objects;
 
@@ -31,6 +33,11 @@ public class DefaultInventoryUploadApi implements InventoryUploadApi {
     @Override
     public DeleteInventoryRequestBuilder delete() {
         return new DefaultDeleteInventoryRequest.Builder(client);
+    }
+
+    @Override
+    public GetRecentUploadsRequestBuilder getRecentUploads() {
+        return new DefaultGetRecentUploadsRequest.Builder(client);
     }
 
     @Override
