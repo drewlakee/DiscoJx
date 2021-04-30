@@ -18,6 +18,8 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "$jacksonVersion"
 
     implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: "$apacheHttpClientVersion"
+    implementation group: 'org.apache.httpcomponents', name: 'httpmime', version: "$apacheHttpClientVersion"
+
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
