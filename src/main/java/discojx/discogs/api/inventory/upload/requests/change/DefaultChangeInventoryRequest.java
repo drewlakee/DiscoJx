@@ -1,4 +1,4 @@
-package discojx.discogs.api.inventory.upload.requests;
+package discojx.discogs.api.inventory.upload.requests.change;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
@@ -13,18 +13,18 @@ import java.nio.file.Path;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-public class DefaultAddInventoryRequest extends AbstractRequest
-        implements AddInventoryRequest {
+public class DefaultChangeInventoryRequest extends AbstractRequest
+        implements ChangeInventoryRequest {
 
-    private final Path pathToCsvFile;
+    protected final Path pathToCsvFile;
 
-    public DefaultAddInventoryRequest(Builder builder) {
+    public DefaultChangeInventoryRequest(Builder builder) {
         super(builder);
         this.pathToCsvFile = builder.pathToCsvFile;
     }
 
     public static class Builder extends AbstractRequestBuilder
-            implements AddInventoryRequestBuilder {
+            implements ChangeInventoryRequestBuilder {
 
         private Path pathToCsvFile;
 
@@ -33,17 +33,17 @@ public class DefaultAddInventoryRequest extends AbstractRequest
         }
 
         @Override
-        public AddInventoryRequestBuilder csvFile(Path pathToCsvFile) {
+        public ChangeInventoryRequestBuilder csvFile(Path pathToCsvFile) {
             this.pathToCsvFile = pathToCsvFile;
             return this;
         }
 
         @Override
-        public AddInventoryRequest build() {
+        public ChangeInventoryRequest build() {
             this.queryUrl = DiscogsApiEndpoints
-                    .INVENTORY_UPLOAD_ADD
+                    .INVENTORY_UPLOAD_CHANGE
                     .getEndpoint();
-            return new DefaultAddInventoryRequest(this);
+            return new DefaultChangeInventoryRequest(this);
         }
 
         @Override
@@ -82,8 +82,10 @@ public class DefaultAddInventoryRequest extends AbstractRequest
 
     @Override
     public String toString() {
-        return "DefaultAddInventoryRequest{" +
+        return "DefaultChangeInventoryRequest{" +
                 "pathToCsvFile=" + pathToCsvFile +
+                ", client=" + client +
+                ", queryUrl='" + queryUrl + '\'' +
                 '}';
     }
 
@@ -92,7 +94,7 @@ public class DefaultAddInventoryRequest extends AbstractRequest
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        DefaultAddInventoryRequest that = (DefaultAddInventoryRequest) o;
+        DefaultChangeInventoryRequest that = (DefaultChangeInventoryRequest) o;
         return Objects.equals(pathToCsvFile, that.pathToCsvFile);
     }
 

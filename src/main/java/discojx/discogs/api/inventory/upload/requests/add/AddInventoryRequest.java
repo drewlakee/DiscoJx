@@ -1,4 +1,4 @@
-package discojx.discogs.api.inventory.upload.requests;
+package discojx.discogs.api.inventory.upload.requests.add;
 
 import discojx.requests.AsyncExecutableRequest;
 import org.apache.http.HttpResponse;

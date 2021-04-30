@@ -1,8 +1,10 @@
 package discojx.discogs.api.inventory.upload;
 
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.inventory.upload.requests.AddInventoryRequestBuilder;
-import discojx.discogs.api.inventory.upload.requests.DefaultAddInventoryRequest;
+import discojx.discogs.api.inventory.upload.requests.add.AddInventoryRequestBuilder;
+import discojx.discogs.api.inventory.upload.requests.add.DefaultAddInventoryRequest;
+import discojx.discogs.api.inventory.upload.requests.change.ChangeInventoryRequestBuilder;
+import discojx.discogs.api.inventory.upload.requests.change.DefaultChangeInventoryRequest;
 
 import java.util.Objects;
 
@@ -17,6 +19,11 @@ public class DefaultInventoryUploadApi implements InventoryUploadApi {
     @Override
     public AddInventoryRequestBuilder add() {
         return new DefaultAddInventoryRequest.Builder(client);
+    }
+
+    @Override
+    public ChangeInventoryRequestBuilder change() {
+        return new DefaultChangeInventoryRequest.Builder(client);
     }
 
     @Override

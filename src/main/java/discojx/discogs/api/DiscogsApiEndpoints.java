@@ -30,6 +30,7 @@ public enum DiscogsApiEndpoints {
     USER_COLLECTION_VALUE                       (ROOT.endpoint + "/users/{username}/collection/value"),
 
     INVENTORY_UPLOAD_ADD                        (ROOT.endpoint + "/inventory/upload/add"),
+    INVENTORY_UPLOAD_CHANGE                     (ROOT.endpoint + "/inventory/upload/change"),
 
     DATABASE_RELEASE                            (ROOT.endpoint + "/releases/{release_id}"),
     DATABASE_RELEASE_RATING_BY_USER             (ROOT.endpoint + "/releases/{release_id}/rating/{username}"),
