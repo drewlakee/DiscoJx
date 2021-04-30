@@ -7,6 +7,7 @@ import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.requests.AbstractJsonParameterizedRequest;
 import discojx.requests.AbstractJsonParameterizedRequestBuilder;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 
@@ -121,12 +122,12 @@ public class DefaultEditFieldsInstanceRequest extends AbstractJsonParameterizedR
     }
 
     @Override
-    public CompletableFuture<Void> executeAsync() {
-        return CompletableFuture.runAsync(() -> {
+    public CompletableFuture<HttpResponse> executeAsync() {
+        return CompletableFuture.supplyAsync(() -> {
             HttpPost request = new HttpPost(queryUrl);
             request.setHeader("Content-Type", "application/json");
             request.setEntity(new StringEntity(jsonObject.toString(), "UTF-8"));
-            client.execute(request);
+            return client.execute(request);
         });
     }
 }

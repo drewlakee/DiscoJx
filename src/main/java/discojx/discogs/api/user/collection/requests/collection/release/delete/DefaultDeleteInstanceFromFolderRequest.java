@@ -5,6 +5,7 @@ import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -104,8 +105,8 @@ public class DefaultDeleteInstanceFromFolderRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<Void> executeAsync() {
-        return CompletableFuture.runAsync(() -> {
+    public CompletableFuture<HttpResponse> executeAsync() {
+        return CompletableFuture.supplyAsync(() -> {
             HttpRequestBase request;
 
             if (isUncategorized) {
@@ -114,7 +115,7 @@ public class DefaultDeleteInstanceFromFolderRequest extends AbstractRequest
                 request = new HttpDelete(queryUrl);
             }
 
-            client.execute(request);
+            return client.execute(request);
         });
     }
 

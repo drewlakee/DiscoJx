@@ -5,6 +5,7 @@ import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
@@ -70,14 +71,14 @@ public class DefaultAddInventoryRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<Void> executeAsync() {
-        return CompletableFuture.runAsync(() -> {
+    public CompletableFuture<HttpResponse> executeAsync() {
+        return CompletableFuture.supplyAsync(() -> {
             HttpPost request = new HttpPost(queryUrl);
             MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
             multipartEntityBuilder.addBinaryBody("upload", pathToCsvFile.toFile());
             HttpEntity fileEntity = multipartEntityBuilder.build();
             request.setEntity(fileEntity);
-            client.execute(request);
+            return client.execute(request);
         });
     }
 

@@ -5,6 +5,7 @@ import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpDelete;
 
 import java.util.Objects;
@@ -74,7 +75,7 @@ public class DefaultDeleteUserWantListRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<Void> executeAsync() {
-        return CompletableFuture.runAsync(() -> client.execute(new HttpDelete(queryUrl)));
+    public CompletableFuture<HttpResponse> executeAsync() {
+        return CompletableFuture.supplyAsync(() -> client.execute(new HttpDelete(queryUrl)));
     }
 }
