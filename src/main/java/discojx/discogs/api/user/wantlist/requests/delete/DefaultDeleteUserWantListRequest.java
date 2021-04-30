@@ -10,20 +10,20 @@ import org.apache.http.client.methods.HttpDelete;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-public class DefaultDeleteUserWantListRequest extends AbstractRequest<HttpEntity>
+public class DefaultDeleteUserWantListRequest extends AbstractRequest
         implements DeleteUserWantListRequest {
 
     public DefaultDeleteUserWantListRequest(Builder builder) {
         super(builder);
     }
 
-    public static class Builder extends AbstractRequestBuilder<HttpEntity>
+    public static class Builder extends AbstractRequestBuilder
             implements DeleteUserWantListRequestBuilder {
 
         private String username;
         private long releaseId;
 
-        public Builder(AbstractHttpClient<HttpEntity> client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 

@@ -14,7 +14,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-public class DefaultAddInventoryRequest extends AbstractRequest<HttpEntity>
+public class DefaultAddInventoryRequest extends AbstractRequest
         implements AddInventoryRequest {
 
     private final Path pathToCsvFile;
@@ -24,12 +24,12 @@ public class DefaultAddInventoryRequest extends AbstractRequest<HttpEntity>
         this.pathToCsvFile = builder.pathToCsvFile;
     }
 
-    public static class Builder extends AbstractRequestBuilder<HttpEntity>
+    public static class Builder extends AbstractRequestBuilder
             implements AddInventoryRequestBuilder {
 
         private Path pathToCsvFile;
 
-        public Builder(AbstractHttpClient<HttpEntity> client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 

@@ -8,6 +8,7 @@ import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 
 import java.io.IOException;
@@ -16,19 +17,19 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultUserCollectionValueRequest extends AbstractRequest<HttpEntity>
+public class DefaultUserCollectionValueRequest extends AbstractRequest
         implements UserCollectionValueRequest {
 
-    public DefaultUserCollectionValueRequest(AbstractRequestBuilder<HttpEntity> builder) {
+    public DefaultUserCollectionValueRequest(AbstractRequestBuilder builder) {
         super(builder);
     }
 
-    public static class Builder extends AbstractRequestBuilder<HttpEntity>
+    public static class Builder extends AbstractRequestBuilder
             implements UserCollectionValueRequestBuilder {
 
         private String username;
 
-        public Builder(AbstractHttpClient<HttpEntity> client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 
@@ -72,12 +73,11 @@ public class DefaultUserCollectionValueRequest extends AbstractRequest<HttpEntit
     @Override
     public CompletableFuture<UserCollectionValue> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
-            HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
+            HttpResponse response = client.execute(new HttpGet(queryUrl));
 
             UserCollectionValue userCollectionValue;
             try {
-                userCollectionValue = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), UserCollectionValue.class);
+                userCollectionValue = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), UserCollectionValue.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

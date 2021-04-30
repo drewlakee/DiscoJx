@@ -9,9 +9,9 @@ import java.util.Objects;
 
 public class DefaultInventoryUploadApi implements InventoryUploadApi {
 
-    protected final AbstractHttpClient<HttpEntity> client;
+    protected final AbstractHttpClient client;
 
-    public DefaultInventoryUploadApi(AbstractHttpClient<HttpEntity> client) {
+    public DefaultInventoryUploadApi(AbstractHttpClient client) {
         this.client = client;
     }
 

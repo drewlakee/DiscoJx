@@ -10,20 +10,20 @@ import org.apache.http.client.methods.HttpDelete;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-public class DefaultReleaseRatingDeleteByUserRequest extends AbstractRequest<HttpEntity>
+public class DefaultReleaseRatingDeleteByUserRequest extends AbstractRequest
         implements ReleaseRatingDeleteByUserRequest {
 
     public DefaultReleaseRatingDeleteByUserRequest(Builder builder) {
         super(builder);
     }
 
-    public static class Builder extends AbstractRequestBuilder<HttpEntity>
+    public static class Builder extends AbstractRequestBuilder
             implements ReleaseRatingDeleteByUserRequestBuilder {
 
         private long releaseId;
         private String username;
 
-        public Builder(AbstractHttpClient<HttpEntity> client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 

@@ -14,14 +14,14 @@ import org.apache.http.entity.StringEntity;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-public class DefaultChangeReleaseRatingRequest extends AbstractJsonParameterizedRequest<HttpEntity, ObjectNode>
+public class DefaultChangeReleaseRatingRequest extends AbstractJsonParameterizedRequest<ObjectNode>
         implements ChangeReleaseRatingRequest {
 
-    public DefaultChangeReleaseRatingRequest(AbstractJsonParameterizedRequestBuilder<HttpEntity, ObjectNode> builder) {
+    public DefaultChangeReleaseRatingRequest(AbstractJsonParameterizedRequestBuilder<ObjectNode> builder) {
         super(builder);
     }
 
-    public static class Builder extends AbstractJsonParameterizedRequestBuilder<HttpEntity, ObjectNode>
+    public static class Builder extends AbstractJsonParameterizedRequestBuilder<ObjectNode>
             implements ChangeReleaseRatingRequestBuilder {
 
         private String username;
@@ -31,7 +31,7 @@ public class DefaultChangeReleaseRatingRequest extends AbstractJsonParameterized
         private long instanceId;
         private int rating;
 
-        public Builder(AbstractHttpClient<HttpEntity> client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 

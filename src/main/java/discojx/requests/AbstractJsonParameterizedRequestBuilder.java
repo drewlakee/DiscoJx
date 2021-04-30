@@ -6,11 +6,11 @@ import discojx.clients.AbstractHttpClient;
 
 import java.util.Objects;
 
-public abstract class AbstractJsonParameterizedRequestBuilder<T, J extends JsonNode> extends AbstractRequestBuilder<T> {
+public abstract class AbstractJsonParameterizedRequestBuilder<J extends JsonNode> extends AbstractRequestBuilder {
 
     protected J jsonObject;
 
-    public AbstractJsonParameterizedRequestBuilder(AbstractHttpClient<T> client) {
+    public AbstractJsonParameterizedRequestBuilder(AbstractHttpClient client) {
         super(client);
     }
 
@@ -30,7 +30,7 @@ public abstract class AbstractJsonParameterizedRequestBuilder<T, J extends JsonN
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        AbstractJsonParameterizedRequestBuilder<?, ?> that = (AbstractJsonParameterizedRequestBuilder<?, ?>) o;
+        AbstractJsonParameterizedRequestBuilder<?> that = (AbstractJsonParameterizedRequestBuilder<?>) o;
         return Objects.equals(jsonObject, that.jsonObject);
     }
 

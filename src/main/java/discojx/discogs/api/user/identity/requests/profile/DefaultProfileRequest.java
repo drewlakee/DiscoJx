@@ -7,6 +7,7 @@ import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 
 import java.io.IOException;
@@ -15,19 +16,19 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultProfileRequest extends AbstractRequest<HttpEntity>
+public class DefaultProfileRequest extends AbstractRequest
         implements ProfileRequest {
 
     public DefaultProfileRequest(Builder builder) {
         super(builder);
     }
 
-    public static class Builder extends AbstractRequestBuilder<HttpEntity>
+    public static class Builder extends AbstractRequestBuilder
             implements ProfileRequestBuilder {
 
         private String username;
 
-        public Builder(AbstractHttpClient<HttpEntity> client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 
@@ -72,12 +73,11 @@ public class DefaultProfileRequest extends AbstractRequest<HttpEntity>
     @Override
     public CompletableFuture<Profile> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
-            HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
+            HttpResponse response = client.execute(new HttpGet(queryUrl));
 
             Profile profile;
             try {
-                profile = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), Profile.class);
+                profile = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), Profile.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

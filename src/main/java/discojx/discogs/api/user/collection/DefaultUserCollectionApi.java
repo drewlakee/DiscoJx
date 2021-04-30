@@ -33,9 +33,9 @@ import java.util.Objects;
 
 public class DefaultUserCollectionApi implements UserCollectionApi {
 
-    protected final AbstractHttpClient<HttpEntity> client;
+    protected final AbstractHttpClient client;
 
-    public DefaultUserCollectionApi(AbstractHttpClient<HttpEntity> client) {
+    public DefaultUserCollectionApi(AbstractHttpClient client) {
         this.client = client;
     }
 
@@ -113,7 +113,6 @@ public class DefaultUserCollectionApi implements UserCollectionApi {
 
     @Override
     public boolean equals(Object o) {
-
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultUserCollectionApi that = (DefaultUserCollectionApi) o;

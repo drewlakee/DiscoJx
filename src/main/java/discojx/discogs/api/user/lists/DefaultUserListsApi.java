@@ -11,9 +11,9 @@ import java.util.Objects;
 
 public class DefaultUserListsApi implements UserListsApi {
 
-    private final AbstractHttpClient<HttpEntity> client;
+    private final AbstractHttpClient client;
 
-    public DefaultUserListsApi(AbstractHttpClient<HttpEntity> client) {
+    public DefaultUserListsApi(AbstractHttpClient client) {
         this.client = client;
     }
 

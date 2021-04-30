@@ -10,20 +10,20 @@ import org.apache.http.client.methods.HttpDelete;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-public class DefaultDeleteUserFolderRequest extends AbstractRequest<HttpEntity>
+public class DefaultDeleteUserFolderRequest extends AbstractRequest
         implements DeleteUserFolderRequest {
 
     public DefaultDeleteUserFolderRequest(Builder builder) {
         super(builder);
     }
 
-    public static class Builder extends AbstractRequestBuilder<HttpEntity>
+    public static class Builder extends AbstractRequestBuilder
             implements DeleteUserFolderRequestBuilder {
 
         private String username;
         private long folderId;
 
-        public Builder(AbstractHttpClient<HttpEntity> client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 

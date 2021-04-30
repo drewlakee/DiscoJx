@@ -9,6 +9,7 @@ import discojx.utils.json.JsonUtils;
 import discojx.utils.requests.RequestPathParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestPathParametersConstructor;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 
 import java.io.IOException;
@@ -17,14 +18,14 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultLabelReleasesRequest extends AbstractRequest<HttpEntity>
+public class DefaultLabelReleasesRequest extends AbstractRequest
         implements LabelReleasesRequest {
 
     public DefaultLabelReleasesRequest(Builder builder) {
         super(builder);
     }
 
-    public static class Builder extends AbstractPathParameterizedRequestBuilder<HttpEntity, RequestPathParametersConstructor>
+    public static class Builder extends AbstractPathParameterizedRequestBuilder<RequestPathParametersConstructor>
             implements LabelReleasesRequestBuilder {
 
         private int page;
@@ -33,7 +34,7 @@ public class DefaultLabelReleasesRequest extends AbstractRequest<HttpEntity>
         private String sortOrder;
         private long labelId;
 
-        public Builder(AbstractHttpClient<HttpEntity> client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 
@@ -119,12 +120,11 @@ public class DefaultLabelReleasesRequest extends AbstractRequest<HttpEntity>
     @Override
     public CompletableFuture<LabelReleases> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
-            HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
+            HttpResponse response = client.execute(new HttpGet(queryUrl));
 
             LabelReleases labelReleases;
             try {
-                labelReleases = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), LabelReleases.class);
+                labelReleases = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), LabelReleases.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

@@ -4,13 +4,13 @@ import discojx.clients.AbstractHttpClient;
 
 import java.util.Objects;
 
-public abstract class AbstractRequestBuilder<T> {
+public abstract class AbstractRequestBuilder {
 
-    protected final AbstractHttpClient<T> client;
+    protected final AbstractHttpClient client;
 
     protected String queryUrl;
 
-    public AbstractRequestBuilder(AbstractHttpClient<T> client) {
+    public AbstractRequestBuilder(AbstractHttpClient client) {
         this.client = client;
     }
 
@@ -26,7 +26,7 @@ public abstract class AbstractRequestBuilder<T> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AbstractRequestBuilder<?> that = (AbstractRequestBuilder<?>) o;
+        AbstractRequestBuilder that = (AbstractRequestBuilder) o;
         return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 

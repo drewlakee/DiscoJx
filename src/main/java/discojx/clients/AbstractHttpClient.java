@@ -1,10 +1,11 @@
 package discojx.clients;
 
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;
 
 import java.util.Optional;
 
-public abstract class AbstractHttpClient<T> {
+public abstract class AbstractHttpClient {
 
-    public abstract Optional<T> execute(HttpUriRequest request);
+    public abstract HttpResponse execute(HttpUriRequest request);
 }

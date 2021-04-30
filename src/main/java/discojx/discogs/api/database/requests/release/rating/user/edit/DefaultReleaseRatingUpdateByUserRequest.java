@@ -9,6 +9,7 @@ import discojx.requests.AbstractJsonParameterizedRequest;
 import discojx.requests.AbstractJsonParameterizedRequestBuilder;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.entity.StringEntity;
 
@@ -18,21 +19,21 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultReleaseRatingUpdateByUserRequest extends AbstractJsonParameterizedRequest<HttpEntity, ObjectNode>
+public class DefaultReleaseRatingUpdateByUserRequest extends AbstractJsonParameterizedRequest<ObjectNode>
         implements ReleaseRatingUpdateByUserRequest {
 
     public DefaultReleaseRatingUpdateByUserRequest(Builder builder) {
         super(builder);
     }
 
-    public static class Builder extends AbstractJsonParameterizedRequestBuilder<HttpEntity, ObjectNode>
+    public static class Builder extends AbstractJsonParameterizedRequestBuilder<ObjectNode>
             implements ReleaseRatingUpdateByUserRequestBuilder {
 
         private long releaseId;
         private String username;
         private int rating;
 
-        public Builder(AbstractHttpClient<HttpEntity> client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 
@@ -106,13 +107,11 @@ public class DefaultReleaseRatingUpdateByUserRequest extends AbstractJsonParamet
             HttpPut request = new HttpPut(queryUrl);
             request.setHeader("Content-Type", "application/json");
             request.setEntity(new StringEntity(jsonObject.toString(), "UTF-8"));
-
-            Optional<HttpEntity> execute = client.execute(request);
-            HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
+            HttpResponse response = client.execute(request);
 
             ReleaseRating releaseRating;
             try {
-                releaseRating = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), ReleaseRating.class);
+                releaseRating = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), ReleaseRating.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

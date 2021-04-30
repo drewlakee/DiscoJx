@@ -8,6 +8,7 @@ import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 
 import java.io.IOException;
@@ -16,19 +17,19 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultListCustomFieldsRequest extends AbstractRequest<HttpEntity>
+public class DefaultListCustomFieldsRequest extends AbstractRequest
         implements ListCustomFieldsRequest {
 
-    public DefaultListCustomFieldsRequest(AbstractRequestBuilder<HttpEntity> builder) {
+    public DefaultListCustomFieldsRequest(AbstractRequestBuilder builder) {
         super(builder);
     }
 
-    public static class Builder extends AbstractRequestBuilder<HttpEntity>
+    public static class Builder extends AbstractRequestBuilder
             implements ListCustomFieldsRequestBuilder {
 
         private String username;
 
-        public Builder(AbstractHttpClient<HttpEntity> client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 
@@ -72,12 +73,11 @@ public class DefaultListCustomFieldsRequest extends AbstractRequest<HttpEntity>
     @Override
     public CompletableFuture<ListCustomFields> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
-            HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
+            HttpResponse response = client.execute(new HttpGet(queryUrl));
 
             ListCustomFields listCustomFields;
             try {
-                listCustomFields = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), ListCustomFields.class);
+                listCustomFields = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), ListCustomFields.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

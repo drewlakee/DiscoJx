@@ -4,9 +4,9 @@ import discojx.clients.AbstractHttpClient;
 import discojx.utils.requests.RequestPathParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestPathParametersConstructor;
 
-public abstract class AbstractPathParameterizedRequestBuilder<T, P extends RequestPathParametersConstructor> extends AbstractRequestBuilder<T> {
+public abstract class AbstractPathParameterizedRequestBuilder<P extends RequestPathParametersConstructor> extends AbstractRequestBuilder {
 
-    public AbstractPathParameterizedRequestBuilder(AbstractHttpClient<T> client) {
+    public AbstractPathParameterizedRequestBuilder(AbstractHttpClient client) {
         super(client);
     }
 

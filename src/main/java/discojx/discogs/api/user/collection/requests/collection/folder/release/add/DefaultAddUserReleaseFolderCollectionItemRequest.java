@@ -7,6 +7,7 @@ import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 
@@ -16,21 +17,21 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultAddUserReleaseFolderCollectionItemRequest extends AbstractRequest<HttpEntity>
+public class DefaultAddUserReleaseFolderCollectionItemRequest extends AbstractRequest
         implements AddUserReleaseFolderCollectionItemRequest {
 
-    public DefaultAddUserReleaseFolderCollectionItemRequest(AbstractRequestBuilder<HttpEntity> builder) {
+    public DefaultAddUserReleaseFolderCollectionItemRequest(AbstractRequestBuilder builder) {
         super(builder);
     }
 
-    public static class Builder extends AbstractRequestBuilder<HttpEntity>
+    public static class Builder extends AbstractRequestBuilder
             implements AddUserReleaseFolderCollectionItemRequestBuilder {
 
         private String username;
         private long folderId;
         private long releaseId;
 
-        public Builder(AbstractHttpClient<HttpEntity> client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 
@@ -90,12 +91,11 @@ public class DefaultAddUserReleaseFolderCollectionItemRequest extends AbstractRe
     @Override
     public CompletableFuture<UserReleaseCollectionItems.Release.Short> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpPost(queryUrl));
-            HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
+            HttpResponse response = client.execute(new HttpPost(queryUrl));
 
             UserReleaseCollectionItems.Release.Short userReleaseCollectionFolderItem;
             try {
-                userReleaseCollectionFolderItem = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), UserReleaseCollectionItems.Release.Short.class);
+                userReleaseCollectionFolderItem = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), UserReleaseCollectionItems.Release.Short.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

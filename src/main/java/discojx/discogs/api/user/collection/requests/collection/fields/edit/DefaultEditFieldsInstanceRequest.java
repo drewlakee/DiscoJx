@@ -13,14 +13,14 @@ import org.apache.http.entity.StringEntity;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-public class DefaultEditFieldsInstanceRequest extends AbstractJsonParameterizedRequest<HttpEntity, ObjectNode>
+public class DefaultEditFieldsInstanceRequest extends AbstractJsonParameterizedRequest<ObjectNode>
         implements EditFieldsInstanceRequest {
 
-    public DefaultEditFieldsInstanceRequest(AbstractJsonParameterizedRequestBuilder<HttpEntity, ObjectNode> builder) {
+    public DefaultEditFieldsInstanceRequest(AbstractJsonParameterizedRequestBuilder<ObjectNode> builder) {
         super(builder);
     }
 
-    public static class Builder extends AbstractJsonParameterizedRequestBuilder<HttpEntity, ObjectNode>
+    public static class Builder extends AbstractJsonParameterizedRequestBuilder<ObjectNode>
             implements EditFieldsInstanceRequestBuilder {
 
         private String username;
@@ -30,7 +30,7 @@ public class DefaultEditFieldsInstanceRequest extends AbstractJsonParameterizedR
         private long instanceId;
         private long fieldId;
 
-        public Builder(AbstractHttpClient<HttpEntity> client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 

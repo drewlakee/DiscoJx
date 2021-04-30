@@ -29,11 +29,13 @@ import discojx.discogs.api.database.requests.search.DefaultSearchRequest;
 import discojx.discogs.api.database.requests.search.SearchRequestBuilder;
 import org.apache.http.HttpEntity;
 
+import java.util.Objects;
+
 public class DefaultDatabaseApi implements DatabaseApi {
 
-    private final AbstractHttpClient<HttpEntity> client;
+    private final AbstractHttpClient client;
 
-    public DefaultDatabaseApi(AbstractHttpClient<HttpEntity> client) {
+    public DefaultDatabaseApi(AbstractHttpClient client) {
         this.client = client;
     }
 
@@ -107,5 +109,18 @@ public class DefaultDatabaseApi implements DatabaseApi {
         return "DefaultDatabaseApi{" +
                 "client=" + client +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        DefaultDatabaseApi that = (DefaultDatabaseApi) o;
+        return Objects.equals(client, that.client);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(client);
     }
 }

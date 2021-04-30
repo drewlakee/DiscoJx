@@ -20,7 +20,7 @@ public class DefaultUserApi implements UserApi {
     private final UserWantListApi userWantListApi;
     private final UserCollectionApi userCollectionApi;
 
-    public DefaultUserApi(AbstractHttpClient<HttpEntity> client) {
+    public DefaultUserApi(AbstractHttpClient client) {
         this.identityApi = new DefaultIdentityApi(client);
         this.userListsApi = new DefaultUserListsApi(client);
         this.userWantListApi = new DefaultUserWantListApi(client);

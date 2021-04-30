@@ -7,6 +7,7 @@ import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 
 import java.io.IOException;
@@ -15,20 +16,20 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultUserFolderRequest extends AbstractRequest<HttpEntity>
+public class DefaultUserFolderRequest extends AbstractRequest
         implements UserFolderRequest {
 
     public DefaultUserFolderRequest(Builder builder) {
         super(builder);
     }
 
-    public static class Builder extends AbstractRequestBuilder<HttpEntity>
+    public static class Builder extends AbstractRequestBuilder
             implements UserFolderRequestBuilder {
 
         private String username;
         private long folderId;
 
-        public Builder(AbstractHttpClient<HttpEntity> client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 
@@ -82,12 +83,11 @@ public class DefaultUserFolderRequest extends AbstractRequest<HttpEntity>
     @Override
     public CompletableFuture<UserFolders.UserFolder> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
-            HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
+            HttpResponse response = client.execute(new HttpGet(queryUrl));
 
             UserFolders.UserFolder userFolder;
             try {
-                userFolder = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), UserFolders.UserFolder.class);
+                userFolder = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), UserFolders.UserFolder.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

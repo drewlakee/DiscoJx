@@ -23,7 +23,7 @@ public class DefaultApiDiscoJxFactory implements DiscoJxFactory {
 
     @Override
     public DiscogsApi create() {
-        DefaultLazyHttpClient client = new DefaultLazyHttpClient().setHeaders(defaultHttpClientHeaders);
+        DefaultLazyHttpClient client = new DefaultLazyHttpClient().setCustomRequestHeaders(defaultHttpClientHeaders);
         return new DefaultDiscogsApi(client);
     }
 

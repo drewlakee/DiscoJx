@@ -17,9 +17,9 @@ import java.util.Objects;
 
 public class DefaultIdentityApi implements IdentityApi {
 
-    private final AbstractHttpClient<HttpEntity> client;
+    private final AbstractHttpClient client;
 
-    public DefaultIdentityApi(AbstractHttpClient<HttpEntity> client) {
+    public DefaultIdentityApi(AbstractHttpClient client) {
         this.client = client;
     }
 
@@ -46,6 +46,13 @@ public class DefaultIdentityApi implements IdentityApi {
     @Override
     public UserContributionsRequestBuilder contributions() {
         return new DefaultUserContributionsRequest.Builder(client);
+    }
+
+    @Override
+    public String toString() {
+        return "DefaultIdentityApi{" +
+                "client=" + client +
+                '}';
     }
 
     @Override

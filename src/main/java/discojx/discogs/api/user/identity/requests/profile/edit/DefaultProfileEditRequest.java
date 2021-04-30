@@ -10,6 +10,7 @@ import discojx.requests.AbstractJsonParameterizedRequest;
 import discojx.requests.AbstractJsonParameterizedRequestBuilder;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 
@@ -19,14 +20,14 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultProfileEditRequest extends AbstractJsonParameterizedRequest<HttpEntity, ObjectNode>
+public class DefaultProfileEditRequest extends AbstractJsonParameterizedRequest<ObjectNode>
         implements ProfileEditRequest {
 
     public DefaultProfileEditRequest(Builder builder) {
         super(builder);
     }
 
-    public static class Builder extends AbstractJsonParameterizedRequestBuilder<HttpEntity, ObjectNode>
+    public static class Builder extends AbstractJsonParameterizedRequestBuilder<ObjectNode>
             implements ProfileEditRequestBuilder {
 
         private String username;
@@ -36,7 +37,7 @@ public class DefaultProfileEditRequest extends AbstractJsonParameterizedRequest<
         private String profile;
         private MarketplaceCurrencies currAbbr;
 
-        public Builder(AbstractHttpClient<HttpEntity> client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 
@@ -134,12 +135,11 @@ public class DefaultProfileEditRequest extends AbstractJsonParameterizedRequest<
             HttpPost request = new HttpPost(queryUrl);
             request.addHeader("Content-Type", "application/json");
             request.setEntity(new StringEntity(jsonObject.toString(), "UTF-8"));
-            Optional<HttpEntity> execute = client.execute(request);
-            HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
+            HttpResponse response = client.execute(request);
 
             Profile profile;
             try {
-                profile = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), Profile.class);
+                profile = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), Profile.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

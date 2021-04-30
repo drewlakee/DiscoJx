@@ -17,7 +17,7 @@ public class DefaultDiscogsApi implements DiscogsApi {
     protected final DatabaseApi databaseApi;
     protected final InventoryApi inventoryApi;
 
-    public DefaultDiscogsApi(AbstractHttpClient<HttpEntity> client) {
+    public DefaultDiscogsApi(AbstractHttpClient client) {
         this.userApi = new DefaultUserApi(client);
         this.databaseApi = new DefaultDatabaseApi(client);
         this.inventoryApi = new DefaultInventoryApi(client);

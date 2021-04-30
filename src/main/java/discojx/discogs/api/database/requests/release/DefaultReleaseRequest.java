@@ -10,6 +10,7 @@ import discojx.utils.json.JsonUtils;
 import discojx.utils.requests.RequestPathParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestPathParametersConstructor;
 import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
 
 import java.io.IOException;
@@ -18,20 +19,20 @@ import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionException;
 
-public class DefaultReleaseRequest extends AbstractRequest<HttpEntity>
+public class DefaultReleaseRequest extends AbstractRequest
         implements ReleaseRequest {
 
     public DefaultReleaseRequest(Builder builder) {
         super(builder);
     }
 
-    public static class Builder extends AbstractPathParameterizedRequestBuilder<HttpEntity, RequestPathParametersConstructor>
+    public static class Builder extends AbstractPathParameterizedRequestBuilder<RequestPathParametersConstructor>
             implements ReleaseRequestBuilder {
 
         private long releaseId;
         private MarketplaceCurrencies currAbbr;
 
-        public Builder(AbstractHttpClient<HttpEntity> client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 
@@ -92,12 +93,11 @@ public class DefaultReleaseRequest extends AbstractRequest<HttpEntity>
     @Override
     public CompletableFuture<Release> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
-            Optional<HttpEntity> execute = client.execute(new HttpGet(queryUrl));
-            HttpEntity httpEntity = execute.orElseThrow(() -> new CompletionException(new NullPointerException("HttpEntity expected.")));
+            HttpResponse response = client.execute(new HttpGet(queryUrl));
 
             Release release;
             try {
-                release = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(httpEntity.getContent(), Release.class);
+                release = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), Release.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

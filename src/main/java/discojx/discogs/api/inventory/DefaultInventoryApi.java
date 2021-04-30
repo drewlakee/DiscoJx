@@ -11,7 +11,7 @@ public class DefaultInventoryApi implements InventoryApi {
 
     protected final InventoryUploadApi uploadApi;
 
-    public DefaultInventoryApi(AbstractHttpClient<HttpEntity> client) {
+    public DefaultInventoryApi(AbstractHttpClient client) {
         this.uploadApi = new DefaultInventoryUploadApi(client);
     }
 

@@ -12,7 +12,7 @@ import org.apache.http.client.methods.HttpRequestBase;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
 
-public class DefaultDeleteInstanceFromFolderRequest extends AbstractRequest<HttpEntity>
+public class DefaultDeleteInstanceFromFolderRequest extends AbstractRequest
         implements DeleteInstanceFromFolderRequest {
 
     private final boolean isUncategorized;
@@ -22,7 +22,7 @@ public class DefaultDeleteInstanceFromFolderRequest extends AbstractRequest<Http
         this.isUncategorized = builder.isUncategorized;
     }
 
-    public static class Builder extends AbstractRequestBuilder<HttpEntity>
+    public static class Builder extends AbstractRequestBuilder
             implements DeleteInstanceFromFolderRequestBuilder {
 
         private String username;
@@ -31,7 +31,7 @@ public class DefaultDeleteInstanceFromFolderRequest extends AbstractRequest<Http
         private long instanceId;
         private boolean isUncategorized;
 
-        public Builder(AbstractHttpClient<HttpEntity> client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 

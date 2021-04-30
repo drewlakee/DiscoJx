@@ -4,13 +4,13 @@ import discojx.clients.AbstractHttpClient;
 
 import java.util.Objects;
 
-public abstract class AbstractRequest<T> {
+public abstract class AbstractRequest {
 
-    protected final AbstractHttpClient<T> client;
+    protected final AbstractHttpClient client;
 
     protected final String queryUrl;
 
-    public AbstractRequest(AbstractRequestBuilder<T> builder) {
+    public AbstractRequest(AbstractRequestBuilder builder) {
         this.client = builder.client;
         this.queryUrl = builder.queryUrl;
     }
@@ -27,7 +27,7 @@ public abstract class AbstractRequest<T> {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        AbstractRequest<?> that = (AbstractRequest<?>) o;
+        AbstractRequest that = (AbstractRequest) o;
         return Objects.equals(client, that.client) && Objects.equals(queryUrl, that.queryUrl);
     }
 
@@ -35,5 +35,4 @@ public abstract class AbstractRequest<T> {
     public int hashCode() {
         return Objects.hash(client, queryUrl);
     }
-
 }
