@@ -39,6 +39,8 @@ public enum DiscogsApiEndpoints {
     INVENTORY_EXPORT_GET_EXPORT                 (ROOT.endpoint + "/inventory/export/{id}"),
     INVENTORY_EXPORT_DOWNLOAD_EXPORT            (ROOT.endpoint + "/inventory/export/{id}/download"),
 
+    MARKETPLACE_INVENTORY                       (ROOT.endpoint + "/users/{username}/inventory"),
+
     DATABASE_RELEASE                            (ROOT.endpoint + "/releases/{release_id}"),
     DATABASE_RELEASE_RATING_BY_USER             (ROOT.endpoint + "/releases/{release_id}/rating/{username}"),
     DATABASE_COMMUNITY_RELEASE_RATING           (ROOT.endpoint + "/releases/{release_id}/rating"),

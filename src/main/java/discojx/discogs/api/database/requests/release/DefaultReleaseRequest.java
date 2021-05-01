@@ -2,7 +2,7 @@ package discojx.discogs.api.database.requests.release;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.MarketplaceCurrencies;
+import discojx.discogs.objects.MarketplaceCurrency;
 import discojx.discogs.objects.Release;
 import discojx.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.requests.AbstractRequest;
@@ -28,7 +28,7 @@ public class DefaultReleaseRequest extends AbstractRequest
             implements ReleaseRequestBuilder {
 
         private long releaseId;
-        private MarketplaceCurrencies currAbbr;
+        private MarketplaceCurrency currAbbr;
 
         public Builder(AbstractHttpClient client) {
             super(client);
@@ -41,7 +41,7 @@ public class DefaultReleaseRequest extends AbstractRequest
         }
 
         @Override
-        public ReleaseRequestBuilder currAbbr(MarketplaceCurrencies currAbbr) {
+        public ReleaseRequestBuilder currAbbr(MarketplaceCurrency currAbbr) {
             this.currAbbr = currAbbr;
             return this;
         }

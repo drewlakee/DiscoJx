@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.MarketplaceCurrencies;
+import discojx.discogs.objects.MarketplaceCurrency;
 import discojx.discogs.objects.Profile;
 import discojx.requests.AbstractJsonParameterizedRequest;
 import discojx.requests.AbstractJsonParameterizedRequestBuilder;
@@ -33,7 +33,7 @@ public class DefaultProfileEditRequest extends AbstractJsonParameterizedRequest<
         private String homePage;
         private String location;
         private String profile;
-        private MarketplaceCurrencies currAbbr;
+        private MarketplaceCurrency currAbbr;
 
         public Builder(AbstractHttpClient client) {
             super(client);
@@ -70,7 +70,7 @@ public class DefaultProfileEditRequest extends AbstractJsonParameterizedRequest<
         }
 
         @Override
-        public ProfileEditRequestBuilder currAbbr(MarketplaceCurrencies currAbbr) {
+        public ProfileEditRequestBuilder currAbbr(MarketplaceCurrency currAbbr) {
             this.currAbbr = currAbbr;
             return this;
         }
