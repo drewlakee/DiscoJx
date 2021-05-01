@@ -1,8 +1,10 @@
 package discojx.discogs.api.inventory.export;
 
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.inventory.export.requests.DefaultExportYourInventoryRequest;
-import discojx.discogs.api.inventory.export.requests.ExportYourInventoryRequest;
+import discojx.discogs.api.inventory.export.requests.recent.DefaultGetRecentExportsRequest;
+import discojx.discogs.api.inventory.export.requests.recent.GetRecentExportsRequestBuilder;
+import discojx.discogs.api.inventory.export.requests.your.DefaultExportYourInventoryRequest;
+import discojx.discogs.api.inventory.export.requests.your.ExportYourInventoryRequest;
 
 import java.util.Objects;
 
@@ -17,6 +19,11 @@ public class DefaultInventoryExportApi implements InventoryExportApi {
     @Override
     public ExportYourInventoryRequest yourInventory() {
         return new DefaultExportYourInventoryRequest(client);
+    }
+
+    @Override
+    public GetRecentExportsRequestBuilder getRecentExports() {
+        return new DefaultGetRecentExportsRequest.Builder(client);
     }
 
     @Override

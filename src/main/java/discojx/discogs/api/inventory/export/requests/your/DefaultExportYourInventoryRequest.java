@@ -1,4 +1,4 @@
-package discojx.discogs.api.inventory.export.requests;
+package discojx.discogs.api.inventory.export.requests.your;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
