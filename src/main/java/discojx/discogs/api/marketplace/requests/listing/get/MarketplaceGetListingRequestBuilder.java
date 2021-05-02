@@ -1,4 +1,4 @@
-package discojx.discogs.api.marketplace.requests.listing;
+package discojx.discogs.api.marketplace.requests.listing.get;
 
 import discojx.discogs.objects.MarketplaceCurrency;
 import discojx.requests.RequestBuilder;

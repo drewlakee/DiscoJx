@@ -3,8 +3,8 @@ package discojx.discogs.api.marketplace;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.marketplace.requests.inventory.DefaultMarketplaceInventoryRequest;
 import discojx.discogs.api.marketplace.requests.inventory.MarketplaceInventoryRequestBuilder;
-import discojx.discogs.api.marketplace.requests.listing.DefaultMarketplaceGetListingRequest;
-import discojx.discogs.api.marketplace.requests.listing.MarketplaceGetListingRequestBuilder;
+import discojx.discogs.api.marketplace.requests.listing.get.DefaultMarketplaceGetListingRequest;
+import discojx.discogs.api.marketplace.requests.listing.get.MarketplaceGetListingRequestBuilder;
 
 import java.util.Objects;
 

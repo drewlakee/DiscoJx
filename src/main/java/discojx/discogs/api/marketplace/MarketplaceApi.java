@@ -1,7 +1,7 @@
 package discojx.discogs.api.marketplace;
 
 import discojx.discogs.api.marketplace.requests.inventory.MarketplaceInventoryRequestBuilder;
-import discojx.discogs.api.marketplace.requests.listing.MarketplaceGetListingRequestBuilder;
+import discojx.discogs.api.marketplace.requests.listing.get.MarketplaceGetListingRequestBuilder;
 
 public interface MarketplaceApi {
 

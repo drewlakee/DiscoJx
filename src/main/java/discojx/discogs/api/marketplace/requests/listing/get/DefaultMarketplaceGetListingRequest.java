@@ -1,4 +1,4 @@
-package discojx.discogs.api.marketplace.requests.listing;
+package discojx.discogs.api.marketplace.requests.listing.get;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
