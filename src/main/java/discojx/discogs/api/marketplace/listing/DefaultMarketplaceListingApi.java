@@ -1,6 +1,8 @@
 package discojx.discogs.api.marketplace.listing;
 
 import discojx.clients.AbstractHttpClient;
+import discojx.discogs.api.marketplace.listing.requests.create.DefaultMarketplaceNewListingRequest;
+import discojx.discogs.api.marketplace.listing.requests.create.MarketplaceNewListingRequestBuilder;
 import discojx.discogs.api.marketplace.listing.requests.delete.DefaultMarketplaceDeleteListingRequest;
 import discojx.discogs.api.marketplace.listing.requests.delete.MarketplaceDeleteListingRequestBuilder;
 import discojx.discogs.api.marketplace.listing.requests.edit.DefaultMarketplaceEditListingRequest;
@@ -31,6 +33,11 @@ public class DefaultMarketplaceListingApi implements MarketplaceListingApi {
     @Override
     public MarketplaceDeleteListingRequestBuilder delete() {
         return new DefaultMarketplaceDeleteListingRequest.Builder(client);
+    }
+
+    @Override
+    public MarketplaceNewListingRequestBuilder newListing() {
+        return new DefaultMarketplaceNewListingRequest.Builder(client);
     }
 
     @Override
