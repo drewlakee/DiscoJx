@@ -25,13 +25,13 @@ public class DefaultMarketplaceGetListingRequest extends AbstractRequest
         super(builder);
     }
 
-    public static class BuilderGet extends AbstractPathParameterizedRequestBuilder<RequestPathParametersConstructor>
+    public static class Builder extends AbstractPathParameterizedRequestBuilder<RequestPathParametersConstructor>
             implements MarketplaceGetListingRequestBuilder {
 
         private long listingId;
         private MarketplaceCurrency currAbbr;
 
-        public BuilderGet(AbstractHttpClient client) {
+        public Builder(AbstractHttpClient client) {
             super(client);
         }
 
@@ -50,7 +50,7 @@ public class DefaultMarketplaceGetListingRequest extends AbstractRequest
         @Override
         public MarketplaceGetListingRequest build() {
             this.queryUrl = DiscogsApiEndpoints
-                    .MARKETPLACE_INVENTORY
+                    .MARKETPLACE_GET_LISTING
                     .getEndpointWith(constructPathParameters().toParametersString())
                     .replace("{listing_id}", String.valueOf(listingId));
             return new DefaultMarketplaceGetListingRequest(this);
@@ -79,7 +79,7 @@ public class DefaultMarketplaceGetListingRequest extends AbstractRequest
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             if (!super.equals(o)) return false;
-            BuilderGet builder = (BuilderGet) o;
+            Builder builder = (Builder) o;
             return listingId == builder.listingId && currAbbr == builder.currAbbr;
         }
 
