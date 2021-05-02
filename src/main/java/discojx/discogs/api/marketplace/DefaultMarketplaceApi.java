@@ -1,8 +1,10 @@
 package discojx.discogs.api.marketplace;
 
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.marketplace.requests.DefaultMarketplaceInventoryRequest;
-import discojx.discogs.api.marketplace.requests.MarketplaceInventoryRequestBuilder;
+import discojx.discogs.api.marketplace.requests.inventory.DefaultMarketplaceInventoryRequest;
+import discojx.discogs.api.marketplace.requests.inventory.MarketplaceInventoryRequestBuilder;
+import discojx.discogs.api.marketplace.requests.listing.DefaultMarketplaceGetListingRequest;
+import discojx.discogs.api.marketplace.requests.listing.MarketplaceGetListingRequestBuilder;
 
 import java.util.Objects;
 
@@ -17,6 +19,11 @@ public class DefaultMarketplaceApi implements MarketplaceApi{
     @Override
     public MarketplaceInventoryRequestBuilder inventory() {
         return new DefaultMarketplaceInventoryRequest.Builder(client);
+    }
+
+    @Override
+    public MarketplaceGetListingRequestBuilder getListing() {
+        return new DefaultMarketplaceGetListingRequest.BuilderGet(client);
     }
 
     @Override

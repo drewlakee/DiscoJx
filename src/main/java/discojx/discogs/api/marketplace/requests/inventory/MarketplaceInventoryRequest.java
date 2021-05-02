@@ -1,4 +1,4 @@
-package discojx.discogs.api.marketplace.requests;
+package discojx.discogs.api.marketplace.requests.inventory;
 
 import discojx.discogs.objects.MarketplaceInventory;
 import discojx.requests.AsyncExecutableRequest;

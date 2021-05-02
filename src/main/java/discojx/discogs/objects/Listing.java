@@ -10,14 +10,14 @@ import java.util.Objects;
 public class Listing {
 
     public static class Price {
-        private int value;
+        private double value;
         private MarketplaceCurrency currency;
 
-        public int getValue() {
+        public double getValue() {
             return value;
         }
 
-        public void setValue(int value) {
+        public void setValue(double value) {
             this.value = value;
         }
 
@@ -115,6 +115,112 @@ public class Listing {
         }
     }
 
+    public static class ShippingPrice {
+        private MarketplaceCurrency currency;
+        private double value;
+
+        public MarketplaceCurrency getCurrency() {
+            return currency;
+        }
+
+        public void setCurrency(MarketplaceCurrency currency) {
+            this.currency = currency;
+        }
+
+        public double getValue() {
+            return value;
+        }
+
+        public void setValue(double value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return "ShippingPrice{" +
+                    "currency=" + currency +
+                    ", value=" + value +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            ShippingPrice that = (ShippingPrice) o;
+            return Double.compare(that.value, value) == 0 && currency == that.currency;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(currency, value);
+        }
+    }
+
+    public static class OriginalShippingPrice {
+        @JsonProperty("curr_abbr")
+        private MarketplaceCurrency currAbbr;
+        @JsonProperty("curr_id")
+        private long currId;
+        private String formatted;
+        private double value;
+
+        public MarketplaceCurrency getCurrAbbr() {
+            return currAbbr;
+        }
+
+        public void setCurrAbbr(MarketplaceCurrency currAbbr) {
+            this.currAbbr = currAbbr;
+        }
+
+        public long getCurrId() {
+            return currId;
+        }
+
+        public void setCurrId(long currId) {
+            this.currId = currId;
+        }
+
+        public String getFormatted() {
+            return formatted;
+        }
+
+        public void setFormatted(String formatted) {
+            this.formatted = formatted;
+        }
+
+        public double getValue() {
+            return value;
+        }
+
+        public void setValue(double value) {
+            this.value = value;
+        }
+
+        @Override
+        public String toString() {
+            return "OriginalShippingPrice{" +
+                    "currAbbr=" + currAbbr +
+                    ", currId=" + currId +
+                    ", formatted='" + formatted + '\'' +
+                    ", value=" + value +
+                    '}';
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            OriginalShippingPrice that = (OriginalShippingPrice) o;
+            return currId == that.currId && Double.compare(that.value, value) == 0 && currAbbr == that.currAbbr && Objects.equals(formatted, that.formatted);
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(currAbbr, currId, formatted, value);
+        }
+    }
+
     private long id;
     @JsonProperty("resource_url")
     private URL resourceUrl;
@@ -134,7 +240,17 @@ public class Listing {
     @JsonProperty("original_price")
     private OriginalPrice originalPrice;
     private Seller seller;
+    @JsonProperty("shipping_price")
+    private ShippingPrice shippingPrice;
+    @JsonProperty("original_shipping_price")
+    private OriginalShippingPrice originalShippingPrice;
     private MarketplaceInventoryRelease release;
+    @JsonProperty("external_id")
+    private long externalId;
+    private String location;
+    @JsonProperty("format_quantity")
+    private String formatQuantity;
+    private double weight;
 
     public long getId() {
         return id;
@@ -248,12 +364,60 @@ public class Listing {
         this.seller = seller;
     }
 
+    public ShippingPrice getShippingPrice() {
+        return shippingPrice;
+    }
+
+    public void setShippingPrice(ShippingPrice shippingPrice) {
+        this.shippingPrice = shippingPrice;
+    }
+
+    public OriginalShippingPrice getOriginalShippingPrice() {
+        return originalShippingPrice;
+    }
+
+    public void setOriginalShippingPrice(OriginalShippingPrice originalShippingPrice) {
+        this.originalShippingPrice = originalShippingPrice;
+    }
+
     public MarketplaceInventoryRelease getRelease() {
         return release;
     }
 
     public void setRelease(MarketplaceInventoryRelease release) {
         this.release = release;
+    }
+
+    public long getExternalId() {
+        return externalId;
+    }
+
+    public void setExternalId(long externalId) {
+        this.externalId = externalId;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getFormatQuantity() {
+        return formatQuantity;
+    }
+
+    public void setFormatQuantity(String formatQuantity) {
+        this.formatQuantity = formatQuantity;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 
     @Override
@@ -273,7 +437,13 @@ public class Listing {
                 ", price=" + price +
                 ", originalPrice=" + originalPrice +
                 ", seller=" + seller +
+                ", shippingPrice=" + shippingPrice +
+                ", originalShippingPrice=" + originalShippingPrice +
                 ", release=" + release +
+                ", externalId=" + externalId +
+                ", location='" + location + '\'' +
+                ", formatQuantity='" + formatQuantity + '\'' +
+                ", weight=" + weight +
                 '}';
     }
 
@@ -282,11 +452,11 @@ public class Listing {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Listing listing = (Listing) o;
-        return id == listing.id && allowOffers == listing.allowOffers && audio == listing.audio && Objects.equals(resourceUrl, listing.resourceUrl) && Objects.equals(uri, listing.uri) && Objects.equals(status, listing.status) && Objects.equals(condition, listing.condition) && Objects.equals(sleeveCondition, listing.sleeveCondition) && Objects.equals(comments, listing.comments) && Objects.equals(shipsFrom, listing.shipsFrom) && Objects.equals(posted, listing.posted) && Objects.equals(price, listing.price) && Objects.equals(originalPrice, listing.originalPrice) && Objects.equals(seller, listing.seller) && Objects.equals(release, listing.release);
+        return id == listing.id && allowOffers == listing.allowOffers && audio == listing.audio && externalId == listing.externalId && Double.compare(listing.weight, weight) == 0 && Objects.equals(resourceUrl, listing.resourceUrl) && Objects.equals(uri, listing.uri) && Objects.equals(status, listing.status) && Objects.equals(condition, listing.condition) && Objects.equals(sleeveCondition, listing.sleeveCondition) && Objects.equals(comments, listing.comments) && Objects.equals(shipsFrom, listing.shipsFrom) && Objects.equals(posted, listing.posted) && Objects.equals(price, listing.price) && Objects.equals(originalPrice, listing.originalPrice) && Objects.equals(seller, listing.seller) && Objects.equals(shippingPrice, listing.shippingPrice) && Objects.equals(originalShippingPrice, listing.originalShippingPrice) && Objects.equals(release, listing.release) && Objects.equals(location, listing.location) && Objects.equals(formatQuantity, listing.formatQuantity);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, resourceUrl, uri, status, condition, sleeveCondition, comments, shipsFrom, posted, allowOffers, audio, price, originalPrice, seller, release);
+        return Objects.hash(id, resourceUrl, uri, status, condition, sleeveCondition, comments, shipsFrom, posted, allowOffers, audio, price, originalPrice, seller, shippingPrice, originalShippingPrice, release, externalId, location, formatQuantity, weight);
     }
 }
