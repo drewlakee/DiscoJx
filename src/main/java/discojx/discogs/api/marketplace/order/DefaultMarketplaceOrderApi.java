@@ -1,6 +1,8 @@
 package discojx.discogs.api.marketplace.order;
 
 import discojx.clients.AbstractHttpClient;
+import discojx.discogs.api.marketplace.order.requests.edit.DefaultMarketplaceEditOrderRequest;
+import discojx.discogs.api.marketplace.order.requests.edit.MarketplaceEditOrderRequestBuilder;
 import discojx.discogs.api.marketplace.order.requests.get.DefaultMarketplaceGetOrderRequest;
 import discojx.discogs.api.marketplace.order.requests.get.MarketplaceGetOrderRequestBuilder;
 
@@ -17,6 +19,11 @@ public class DefaultMarketplaceOrderApi implements MarketplaceOrderApi {
     @Override
     public MarketplaceGetOrderRequestBuilder get() {
         return new DefaultMarketplaceGetOrderRequest.Builder(client);
+    }
+
+    @Override
+    public MarketplaceEditOrderRequestBuilder edit() {
+        return new DefaultMarketplaceEditOrderRequest.Builder(client);
     }
 
     @Override
