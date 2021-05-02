@@ -1,49 +1,38 @@
 package discojx.discogs.api.marketplace;
 
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.marketplace.requests.inventory.DefaultMarketplaceInventoryRequest;
-import discojx.discogs.api.marketplace.requests.inventory.MarketplaceInventoryRequestBuilder;
-import discojx.discogs.api.marketplace.requests.listing.delete.DefaultMarketplaceDeleteListingRequest;
-import discojx.discogs.api.marketplace.requests.listing.delete.MarketplaceDeleteListingRequestBuilder;
-import discojx.discogs.api.marketplace.requests.listing.edit.DefaultMarketplaceEditListingRequest;
-import discojx.discogs.api.marketplace.requests.listing.edit.MarketplaceEditListingRequestBuilder;
-import discojx.discogs.api.marketplace.requests.listing.get.DefaultMarketplaceGetListingRequest;
-import discojx.discogs.api.marketplace.requests.listing.get.MarketplaceGetListingRequestBuilder;
+import discojx.discogs.api.marketplace.inventory.DefaultMarketplaceInventoryApi;
+import discojx.discogs.api.marketplace.inventory.MarketplaceInventoryApi;
+import discojx.discogs.api.marketplace.listing.DefaultMarketplaceListingApi;
+import discojx.discogs.api.marketplace.listing.MarketplaceListingApi;
 
 import java.util.Objects;
 
-public class DefaultMarketplaceApi implements MarketplaceApi{
+public class DefaultMarketplaceApi implements MarketplaceApi {
 
-    protected final AbstractHttpClient client;
+    protected final MarketplaceInventoryApi marketplaceInventoryApi;
+    protected final MarketplaceListingApi marketplaceListingApi;
 
     public DefaultMarketplaceApi(AbstractHttpClient client) {
-        this.client = client;
+        this.marketplaceInventoryApi = new DefaultMarketplaceInventoryApi(client);
+        this.marketplaceListingApi = new DefaultMarketplaceListingApi(client);
     }
 
     @Override
-    public MarketplaceInventoryRequestBuilder inventory() {
-        return new DefaultMarketplaceInventoryRequest.Builder(client);
+    public MarketplaceInventoryApi inventory() {
+        return marketplaceInventoryApi;
     }
 
     @Override
-    public MarketplaceGetListingRequestBuilder getListing() {
-        return new DefaultMarketplaceGetListingRequest.Builder(client);
-    }
-
-    @Override
-    public MarketplaceEditListingRequestBuilder editListing() {
-        return new DefaultMarketplaceEditListingRequest.Builder(client);
-    }
-
-    @Override
-    public MarketplaceDeleteListingRequestBuilder deleteListing() {
-        return new DefaultMarketplaceDeleteListingRequest.Builder(client);
+    public MarketplaceListingApi listing() {
+        return marketplaceListingApi;
     }
 
     @Override
     public String toString() {
         return "DefaultMarketplaceApi{" +
-                "client=" + client +
+                "marketplaceInventoryApi=" + marketplaceInventoryApi +
+                ", marketplaceListingApi=" + marketplaceListingApi +
                 '}';
     }
 
@@ -52,11 +41,11 @@ public class DefaultMarketplaceApi implements MarketplaceApi{
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultMarketplaceApi that = (DefaultMarketplaceApi) o;
-        return Objects.equals(client, that.client);
+        return Objects.equals(marketplaceInventoryApi, that.marketplaceInventoryApi) && Objects.equals(marketplaceListingApi, that.marketplaceListingApi);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client);
+        return Objects.hash(marketplaceInventoryApi, marketplaceListingApi);
     }
 }

@@ -1,4 +1,4 @@
-package discojx.discogs.api.marketplace.requests.listing.delete;
+package discojx.discogs.api.marketplace.listing.requests.delete;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;

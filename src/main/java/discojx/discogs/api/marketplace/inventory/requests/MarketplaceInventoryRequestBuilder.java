@@ -1,4 +1,4 @@
-package discojx.discogs.api.marketplace.requests.inventory;
+package discojx.discogs.api.marketplace.inventory.requests;
 
 import discojx.requests.PaginationableRequest;
 import discojx.requests.RequestBuilder;

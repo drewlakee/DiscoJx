@@ -1,4 +1,4 @@
-package discojx.discogs.api.marketplace.requests.listing.edit;
+package discojx.discogs.api.marketplace.listing.requests.edit;
 
 import discojx.requests.RequestBuilder;
 
