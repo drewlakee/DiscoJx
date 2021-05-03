@@ -5,6 +5,8 @@ import discojx.discogs.api.marketplace.order.requests.edit.DefaultMarketplaceEdi
 import discojx.discogs.api.marketplace.order.requests.edit.MarketplaceEditOrderRequestBuilder;
 import discojx.discogs.api.marketplace.order.requests.get.DefaultMarketplaceGetOrderRequest;
 import discojx.discogs.api.marketplace.order.requests.get.MarketplaceGetOrderRequestBuilder;
+import discojx.discogs.api.marketplace.order.requests.list.DefaultMarketplaceListOrdersRequest;
+import discojx.discogs.api.marketplace.order.requests.list.MarketplaceListOrdersRequestBuilder;
 
 import java.util.Objects;
 
@@ -24,6 +26,11 @@ public class DefaultMarketplaceOrderApi implements MarketplaceOrderApi {
     @Override
     public MarketplaceEditOrderRequestBuilder edit() {
         return new DefaultMarketplaceEditOrderRequest.Builder(client);
+    }
+
+    @Override
+    public MarketplaceListOrdersRequestBuilder list() {
+        return new DefaultMarketplaceListOrdersRequest.Builder(client);
     }
 
     @Override
