@@ -3,7 +3,10 @@ package discojx.utils.files;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.Objects;
 
