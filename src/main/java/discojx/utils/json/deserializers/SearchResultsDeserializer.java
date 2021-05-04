@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchResultDeserializer extends JsonDeserializer<List<AbstractTypedSearchResult>> {
+public class SearchResultsDeserializer extends JsonDeserializer<List<AbstractTypedObject>> {
 
     @Override
-    public List<AbstractTypedSearchResult> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
+    public List<AbstractTypedObject> deserialize(JsonParser p, DeserializationContext ctxt) throws IOException {
         TreeNode treeNode = JsonUtils.DefaultObjectMapperHolder.mapper.readTree(p);
-        ArrayList<AbstractTypedSearchResult> searchResults = new ArrayList<>();
+        ArrayList<AbstractTypedObject> searchResults = new ArrayList<>();
         for (int i = 0; i < treeNode.size(); i++) {
             TreeNode maybeObjectTree = treeNode.get(i);
             if (maybeObjectTree.isObject()) {
@@ -28,13 +28,13 @@ public class SearchResultDeserializer extends JsonDeserializer<List<AbstractType
         return searchResults;
     }
 
-    private AbstractTypedSearchResult parseTypedResult(ObjectNode objectNode) throws IOException {
+    private AbstractTypedObject parseTypedResult(ObjectNode objectNode) throws IOException {
         return switch (objectNode.get("type").asText()) {
             case "master" -> JsonUtils.DefaultObjectMapperHolder.mapper.readValue(objectNode.traverse(), MasterSearchResult.class);
             case "release" -> JsonUtils.DefaultObjectMapperHolder.mapper.readValue(objectNode.traverse(), ReleaseSearchResult.class);
             case "artist" -> JsonUtils.DefaultObjectMapperHolder.mapper.readValue(objectNode.traverse(), ArtistSearchResult.class);
             case "label" -> JsonUtils.DefaultObjectMapperHolder.mapper.readValue(objectNode.traverse(), LabelSearchResult.class);
-            default -> new UndefinedObjectSearchResultWrapper(objectNode);
+            default -> new UndefinedTypedObjectWrapper(objectNode);
         };
     }
 }

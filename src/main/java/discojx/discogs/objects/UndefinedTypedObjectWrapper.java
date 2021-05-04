@@ -4,11 +4,11 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import java.util.Objects;
 
-public class UndefinedObjectSearchResultWrapper extends AbstractTypedSearchResult {
+public class UndefinedTypedObjectWrapper extends AbstractTypedObject {
 
-    private ObjectNode undefinedJsonObject;
+    protected ObjectNode undefinedJsonObject;
 
-    public UndefinedObjectSearchResultWrapper(ObjectNode undefinedJsonObject) {
+    public UndefinedTypedObjectWrapper(ObjectNode undefinedJsonObject) {
         this.setType(undefinedJsonObject.get("type").isEmpty() ? "undefined" : undefinedJsonObject.get("type").asText());
         this.undefinedJsonObject = undefinedJsonObject;
     }
@@ -23,7 +23,7 @@ public class UndefinedObjectSearchResultWrapper extends AbstractTypedSearchResul
 
     @Override
     public String toString() {
-        return "UndefinedObjectSearchResultWrapper{" +
+        return "UndefinedTypedObjectWrapper{" +
                 "undefinedJsonObject=" + undefinedJsonObject +
                 '}';
     }
@@ -33,7 +33,7 @@ public class UndefinedObjectSearchResultWrapper extends AbstractTypedSearchResul
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        UndefinedObjectSearchResultWrapper that = (UndefinedObjectSearchResultWrapper) o;
+        UndefinedTypedObjectWrapper that = (UndefinedTypedObjectWrapper) o;
         return Objects.equals(undefinedJsonObject, that.undefinedJsonObject);
     }
 

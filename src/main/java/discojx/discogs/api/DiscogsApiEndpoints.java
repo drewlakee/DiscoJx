@@ -47,6 +47,7 @@ public enum DiscogsApiEndpoints {
     MARKETPLACE_GET_ORDER                       (ROOT.endpoint + "/marketplace/orders/{order_id}"),
     MARKETPLACE_EDIT_ORDER                      (ROOT.endpoint + "/marketplace/orders/{order_id}"),
     MARKETPLACE_LIST_ORDERS                     (ROOT.endpoint + "/marketplace/purchases"),
+    MARKETPLACE_LIST_ORDER_MESSAGES             (ROOT.endpoint + "/marketplace/orders/{order_id}/messages"),
 
     DATABASE_RELEASE                            (ROOT.endpoint + "/releases/{release_id}"),
     DATABASE_RELEASE_RATING_BY_USER             (ROOT.endpoint + "/releases/{release_id}/rating/{username}"),

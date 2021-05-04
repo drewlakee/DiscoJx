@@ -1,16 +1,16 @@
 package discojx.discogs.objects;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import discojx.utils.json.deserializers.SearchResultsDeserializer;
+import discojx.utils.json.deserializers.OrderMessagesDeserializer;
 
 import java.util.List;
 import java.util.Objects;
 
-public class SearchResult {
+public class ListOrderMessages {
 
     private Pagination pagination;
-    @JsonDeserialize(using = SearchResultsDeserializer.class)
-    private List<AbstractTypedObject> results;
+    @JsonDeserialize(using = OrderMessagesDeserializer.class)
+    private List<AbstractTypedObject> messages;
 
     public Pagination getPagination() {
         return pagination;
@@ -20,19 +20,19 @@ public class SearchResult {
         this.pagination = pagination;
     }
 
-    public List<AbstractTypedObject> getResults() {
-        return results;
+    public List<AbstractTypedObject> getMessages() {
+        return messages;
     }
 
-    public void setResults(List<AbstractTypedObject> results) {
-        this.results = results;
+    public void setMessages(List<AbstractTypedObject> messages) {
+        this.messages = messages;
     }
 
     @Override
     public String toString() {
-        return "SearchResult{" +
+        return "ListOrderMessages{" +
                 "pagination=" + pagination +
-                ", results=" + results +
+                ", messages=" + messages +
                 '}';
     }
 
@@ -40,12 +40,12 @@ public class SearchResult {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SearchResult that = (SearchResult) o;
-        return Objects.equals(pagination, that.pagination) && Objects.equals(results, that.results);
+        ListOrderMessages that = (ListOrderMessages) o;
+        return Objects.equals(pagination, that.pagination) && Objects.equals(messages, that.messages);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(pagination, results);
+        return Objects.hash(pagination, messages);
     }
 }
