@@ -9,6 +9,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 
+import java.io.InputStream;
 import java.nio.file.Path;
 import java.util.Objects;
 import java.util.concurrent.CompletableFuture;
@@ -16,17 +17,20 @@ import java.util.concurrent.CompletableFuture;
 public class DefaultAddInventoryRequest extends AbstractRequest
         implements AddInventoryRequest {
 
-    private final Path pathToCsvFile;
+    protected final Path pathToCsvFile;
+    protected final InputStream csvFileInputStream;
 
     public DefaultAddInventoryRequest(Builder builder) {
         super(builder);
         this.pathToCsvFile = builder.pathToCsvFile;
+        this.csvFileInputStream = builder.csvFileInputStream;
     }
 
     public static class Builder extends AbstractRequestBuilder
             implements AddInventoryRequestBuilder {
 
         private Path pathToCsvFile;
+        private InputStream csvFileInputStream;
 
         public Builder(AbstractHttpClient client) {
             super(client);
@@ -34,7 +38,15 @@ public class DefaultAddInventoryRequest extends AbstractRequest
 
         @Override
         public AddInventoryRequestBuilder csvFile(Path pathToCsvFile) {
+            this.csvFileInputStream = null;
             this.pathToCsvFile = pathToCsvFile;
+            return this;
+        }
+
+        @Override
+        public AddInventoryRequestBuilder csvFile(InputStream csvFileInputStream) {
+            this.pathToCsvFile = null;
+            this.csvFileInputStream = csvFileInputStream;
             return this;
         }
 
@@ -50,6 +62,7 @@ public class DefaultAddInventoryRequest extends AbstractRequest
         public String toString() {
             return "Builder{" +
                     "pathToCsvFile=" + pathToCsvFile +
+                    ", csvFileInputStream=" + csvFileInputStream +
                     '}';
         }
 
@@ -59,12 +72,12 @@ public class DefaultAddInventoryRequest extends AbstractRequest
             if (o == null || getClass() != o.getClass()) return false;
             if (!super.equals(o)) return false;
             Builder builder = (Builder) o;
-            return Objects.equals(pathToCsvFile, builder.pathToCsvFile);
+            return Objects.equals(pathToCsvFile, builder.pathToCsvFile) && Objects.equals(csvFileInputStream, builder.csvFileInputStream);
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(super.hashCode(), pathToCsvFile);
+            return Objects.hash(super.hashCode(), pathToCsvFile, csvFileInputStream);
         }
     }
 
@@ -73,7 +86,13 @@ public class DefaultAddInventoryRequest extends AbstractRequest
         return CompletableFuture.supplyAsync(() -> {
             HttpPost request = new HttpPost(queryUrl);
             MultipartEntityBuilder multipartEntityBuilder = MultipartEntityBuilder.create();
-            multipartEntityBuilder.addBinaryBody("upload", pathToCsvFile.toFile());
+
+            if (pathToCsvFile != null) {
+                multipartEntityBuilder.addBinaryBody("upload", pathToCsvFile.toFile());
+            } else {
+                multipartEntityBuilder.addBinaryBody("upload", csvFileInputStream);
+            }
+
             HttpEntity fileEntity = multipartEntityBuilder.build();
             request.setEntity(fileEntity);
             return client.execute(request);
@@ -84,8 +103,7 @@ public class DefaultAddInventoryRequest extends AbstractRequest
     public String toString() {
         return "DefaultAddInventoryRequest{" +
                 "pathToCsvFile=" + pathToCsvFile +
-                ", client=" + client +
-                ", queryUrl='" + queryUrl + '\'' +
+                ", csvFileInputStream=" + csvFileInputStream +
                 '}';
     }
 
@@ -95,11 +113,11 @@ public class DefaultAddInventoryRequest extends AbstractRequest
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         DefaultAddInventoryRequest that = (DefaultAddInventoryRequest) o;
-        return Objects.equals(pathToCsvFile, that.pathToCsvFile);
+        return Objects.equals(pathToCsvFile, that.pathToCsvFile) && Objects.equals(csvFileInputStream, that.csvFileInputStream);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), pathToCsvFile);
+        return Objects.hash(super.hashCode(), pathToCsvFile, csvFileInputStream);
     }
 }
