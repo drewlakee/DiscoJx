@@ -1,9 +1,8 @@
-package discojx.discogs.api.marketplace.requests;
+package discojx.discogs.api.marketplace.requests.fee;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.Fee;
-import discojx.discogs.objects.MarketplaceOrder;
 import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;
 import discojx.utils.json.JsonUtils;

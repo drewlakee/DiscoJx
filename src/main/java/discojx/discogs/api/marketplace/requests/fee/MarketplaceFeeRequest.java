@@ -1,4 +1,4 @@
-package discojx.discogs.api.marketplace.requests;
+package discojx.discogs.api.marketplace.requests.fee;
 
 import discojx.discogs.objects.Fee;
 import discojx.requests.AsyncExecutableRequest;

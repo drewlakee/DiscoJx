@@ -7,8 +7,10 @@ import discojx.discogs.api.marketplace.listing.DefaultMarketplaceListingApi;
 import discojx.discogs.api.marketplace.listing.MarketplaceListingApi;
 import discojx.discogs.api.marketplace.order.DefaultMarketplaceOrderApi;
 import discojx.discogs.api.marketplace.order.MarketplaceOrderApi;
-import discojx.discogs.api.marketplace.requests.DefaultMarketplaceFeeRequest;
-import discojx.discogs.api.marketplace.requests.MarketplaceFeeRequestBuilder;
+import discojx.discogs.api.marketplace.requests.fee.DefaultMarketplaceFeeRequest;
+import discojx.discogs.api.marketplace.requests.fee.MarketplaceFeeRequestBuilder;
+import discojx.discogs.api.marketplace.requests.fee.currency.DefaultMarketplaceFeeWithCurrencyRequest;
+import discojx.discogs.api.marketplace.requests.fee.currency.MarketplaceFeeWithCurrencyRequestBuilder;
 
 import java.util.Objects;
 
@@ -45,6 +47,11 @@ public class DefaultMarketplaceApi implements MarketplaceApi {
     @Override
     public MarketplaceFeeRequestBuilder fee() {
         return new DefaultMarketplaceFeeRequest.Builder(client);
+    }
+
+    @Override
+    public MarketplaceFeeWithCurrencyRequestBuilder feeWithCurrency() {
+        return new DefaultMarketplaceFeeWithCurrencyRequest.Builder(client);
     }
 
     @Override
