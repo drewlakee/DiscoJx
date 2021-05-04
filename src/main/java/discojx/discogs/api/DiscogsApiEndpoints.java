@@ -51,6 +51,7 @@ public enum DiscogsApiEndpoints {
     MARKETPLACE_ADD_NEW_ORDER_MESSAGE           (ROOT.endpoint + "/marketplace/orders/{order_id}/messages"),
     MARKETPLACE_FEE                             (ROOT.endpoint + "/marketplace/fee/{price}"),
     MARKETPLACE_FEE_WITH_CURRENCY               (ROOT.endpoint + "/marketplace/fee/{price}/{currency}"),
+    MARKETPLACE_PRICE_SUGGESTIONS               (ROOT.endpoint + "/marketplace/price_suggestions/{release_id}"),
 
     DATABASE_RELEASE                            (ROOT.endpoint + "/releases/{release_id}"),
     DATABASE_RELEASE_RATING_BY_USER             (ROOT.endpoint + "/releases/{release_id}/rating/{username}"),
