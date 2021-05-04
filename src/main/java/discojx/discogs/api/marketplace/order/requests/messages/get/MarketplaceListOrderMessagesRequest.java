@@ -1,4 +1,4 @@
-package discojx.discogs.api.marketplace.order.requests.messages;
+package discojx.discogs.api.marketplace.order.requests.messages.get;
 
 import discojx.discogs.objects.ListOrderMessages;
 import discojx.requests.AsyncExecutableRequest;

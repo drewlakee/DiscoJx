@@ -7,8 +7,10 @@ import discojx.discogs.api.marketplace.order.requests.get.DefaultMarketplaceGetO
 import discojx.discogs.api.marketplace.order.requests.get.MarketplaceGetOrderRequestBuilder;
 import discojx.discogs.api.marketplace.order.requests.list.DefaultMarketplaceListOrdersRequest;
 import discojx.discogs.api.marketplace.order.requests.list.MarketplaceListOrdersRequestBuilder;
-import discojx.discogs.api.marketplace.order.requests.messages.DefaultMarketplaceListOrderMessagesRequest;
-import discojx.discogs.api.marketplace.order.requests.messages.MarketplaceListOrderMessagesRequestBuilder;
+import discojx.discogs.api.marketplace.order.requests.messages.add.DefaultMarketplaceAddNewOrderMessageRequest;
+import discojx.discogs.api.marketplace.order.requests.messages.add.MarketplaceAddNewOrderMessageRequestBuilder;
+import discojx.discogs.api.marketplace.order.requests.messages.get.DefaultMarketplaceListOrderMessagesRequest;
+import discojx.discogs.api.marketplace.order.requests.messages.get.MarketplaceListOrderMessagesRequestBuilder;
 
 import java.util.Objects;
 
@@ -38,6 +40,11 @@ public class DefaultMarketplaceOrderApi implements MarketplaceOrderApi {
     @Override
     public MarketplaceListOrderMessagesRequestBuilder getOrderMessages() {
         return new DefaultMarketplaceListOrderMessagesRequest.Builder(client);
+    }
+
+    @Override
+    public MarketplaceAddNewOrderMessageRequestBuilder addNewOrderMessage() {
+        return new DefaultMarketplaceAddNewOrderMessageRequest.Builder(client);
     }
 
     @Override
