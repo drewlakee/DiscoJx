@@ -7,16 +7,21 @@ import discojx.discogs.api.marketplace.listing.DefaultMarketplaceListingApi;
 import discojx.discogs.api.marketplace.listing.MarketplaceListingApi;
 import discojx.discogs.api.marketplace.order.DefaultMarketplaceOrderApi;
 import discojx.discogs.api.marketplace.order.MarketplaceOrderApi;
+import discojx.discogs.api.marketplace.requests.DefaultMarketplaceFeeRequest;
+import discojx.discogs.api.marketplace.requests.MarketplaceFeeRequestBuilder;
 
 import java.util.Objects;
 
 public class DefaultMarketplaceApi implements MarketplaceApi {
 
+    protected AbstractHttpClient client;
+
     protected final MarketplaceInventoryApi marketplaceInventoryApi;
     protected final MarketplaceListingApi marketplaceListingApi;
-    private final MarketplaceOrderApi marketplaceOrderApi;
+    protected final MarketplaceOrderApi marketplaceOrderApi;
 
     public DefaultMarketplaceApi(AbstractHttpClient client) {
+        this.client = client;
         this.marketplaceInventoryApi = new DefaultMarketplaceInventoryApi(client);
         this.marketplaceListingApi = new DefaultMarketplaceListingApi(client);
         this.marketplaceOrderApi = new DefaultMarketplaceOrderApi(client);
@@ -38,9 +43,15 @@ public class DefaultMarketplaceApi implements MarketplaceApi {
     }
 
     @Override
+    public MarketplaceFeeRequestBuilder fee() {
+        return new DefaultMarketplaceFeeRequest.Builder(client);
+    }
+
+    @Override
     public String toString() {
         return "DefaultMarketplaceApi{" +
-                "marketplaceInventoryApi=" + marketplaceInventoryApi +
+                "client=" + client +
+                ", marketplaceInventoryApi=" + marketplaceInventoryApi +
                 ", marketplaceListingApi=" + marketplaceListingApi +
                 ", marketplaceOrderApi=" + marketplaceOrderApi +
                 '}';
@@ -51,11 +62,11 @@ public class DefaultMarketplaceApi implements MarketplaceApi {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultMarketplaceApi that = (DefaultMarketplaceApi) o;
-        return Objects.equals(marketplaceInventoryApi, that.marketplaceInventoryApi) && Objects.equals(marketplaceListingApi, that.marketplaceListingApi) && Objects.equals(marketplaceOrderApi, that.marketplaceOrderApi);
+        return Objects.equals(client, that.client) && Objects.equals(marketplaceInventoryApi, that.marketplaceInventoryApi) && Objects.equals(marketplaceListingApi, that.marketplaceListingApi) && Objects.equals(marketplaceOrderApi, that.marketplaceOrderApi);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(marketplaceInventoryApi, marketplaceListingApi, marketplaceOrderApi);
+        return Objects.hash(client, marketplaceInventoryApi, marketplaceListingApi, marketplaceOrderApi);
     }
 }
