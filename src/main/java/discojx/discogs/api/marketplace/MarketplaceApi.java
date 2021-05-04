@@ -6,6 +6,7 @@ import discojx.discogs.api.marketplace.order.MarketplaceOrderApi;
 import discojx.discogs.api.marketplace.requests.fee.MarketplaceFeeRequestBuilder;
 import discojx.discogs.api.marketplace.requests.fee.currency.MarketplaceFeeWithCurrencyRequestBuilder;
 import discojx.discogs.api.marketplace.requests.price.MarketplacePriceSuggestionsRequestBuilder;
+import discojx.discogs.api.marketplace.requests.release.MarketplaceReleaseStatisticsRequestBuilder;
 
 public interface MarketplaceApi {
 
@@ -15,4 +16,5 @@ public interface MarketplaceApi {
     MarketplaceFeeRequestBuilder fee();
     MarketplaceFeeWithCurrencyRequestBuilder feeWithCurrency();
     MarketplacePriceSuggestionsRequestBuilder priceSuggestions();
+    MarketplaceReleaseStatisticsRequestBuilder releaseStatistics();
 }
