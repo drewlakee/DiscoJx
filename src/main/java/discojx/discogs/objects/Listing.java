@@ -2,8 +2,6 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URI;
-import java.net.URL;
 import java.util.Date;
 import java.util.Objects;
 
@@ -223,8 +221,8 @@ public class Listing {
 
     private long id;
     @JsonProperty("resource_url")
-    private URL resourceUrl;
-    private URI uri;
+    private String resourceUrl;
+    private String uri;
     private String status;
     private String condition;
     @JsonProperty("sleeve_condition")
@@ -260,19 +258,19 @@ public class Listing {
         this.id = id;
     }
 
-    public URL getResourceUrl() {
+    public String getResourceUrl() {
         return resourceUrl;
     }
 
-    public void setResourceUrl(URL resourceUrl) {
+    public void setResourceUrl(String resourceUrl) {
         this.resourceUrl = resourceUrl;
     }
 
-    public URI getUri() {
+    public String getUri() {
         return uri;
     }
 
-    public void setUri(URI uri) {
+    public void setUri(String uri) {
         this.uri = uri;
     }
 

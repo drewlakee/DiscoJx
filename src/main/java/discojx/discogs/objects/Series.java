@@ -2,7 +2,6 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URL;
 import java.util.Objects;
 
 public class Series {
@@ -15,7 +14,7 @@ public class Series {
     private String entityTypeName;
     private long id;
     @JsonProperty("resource_url")
-    private URL resource_url;
+    private String resource_url;
 
     public String getName() {
         return name;
@@ -57,11 +56,11 @@ public class Series {
         this.id = id;
     }
 
-    public URL getResource_url() {
+    public String getResource_url() {
         return resource_url;
     }
 
-    public void setResource_url(URL resource_url) {
+    public void setResource_url(String resource_url) {
         this.resource_url = resource_url;
     }
 

@@ -2,7 +2,6 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -15,7 +14,7 @@ public class UserReleaseCollectionItems {
             @JsonProperty("instance_id")
             private long instanceId;
             @JsonProperty("resource_url")
-            private URL resourceUrl;
+            private String resourceUrl;
 
             public long getInstanceId() {
                 return instanceId;
@@ -25,11 +24,11 @@ public class UserReleaseCollectionItems {
                 this.instanceId = instanceId;
             }
 
-            public URL getResourceUrl() {
+            public String getResourceUrl() {
                 return resourceUrl;
             }
 
-            public void setResourceUrl(URL resourceUrl) {
+            public void setResourceUrl(String resourceUrl) {
                 this.resourceUrl = resourceUrl;
             }
 
@@ -60,15 +59,15 @@ public class UserReleaseCollectionItems {
             @JsonProperty("master_id")
             private long masterId;
             @JsonProperty("resource_url")
-            private URL resourceUrl;
+            private String resourceUrl;
             private String title;
             private int year;
             private List<Format> formats;
             private List<Label.Short> labels;
             private List<Artist.Short> artists;
-            private URL thumb;
+            private String thumb;
             @JsonProperty("cover_image")
-            private URL coverImage;
+            private String coverImage;
             private List<String> genres;
             private List<String> styles;
 
@@ -88,11 +87,11 @@ public class UserReleaseCollectionItems {
                 this.masterId = masterId;
             }
 
-            public URL getResourceUrl() {
+            public String getResourceUrl() {
                 return resourceUrl;
             }
 
-            public void setResourceUrl(URL resourceUrl) {
+            public void setResourceUrl(String resourceUrl) {
                 this.resourceUrl = resourceUrl;
             }
 
@@ -136,19 +135,19 @@ public class UserReleaseCollectionItems {
                 this.artists = artists;
             }
 
-            public URL getThumb() {
+            public String getThumb() {
                 return thumb;
             }
 
-            public void setThumb(URL thumb) {
+            public void setThumb(String thumb) {
                 this.thumb = thumb;
             }
 
-            public URL getCoverImage() {
+            public String getCoverImage() {
                 return coverImage;
             }
 
-            public void setCoverImage(URL coverImage) {
+            public void setCoverImage(String coverImage) {
                 this.coverImage = coverImage;
             }
 

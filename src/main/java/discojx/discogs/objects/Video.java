@@ -1,21 +1,20 @@
 package discojx.discogs.objects;
 
-import java.net.URI;
 import java.util.Objects;
 
 public class Video {
 
-    private URI uri;
+    private String uri;
     private String title;
     private String description;
     private int duration;
     private boolean embed;
 
-    public URI getUri() {
+    public String getUri() {
         return uri;
     }
 
-    public void setUri(URI uri) {
+    public void setUri(String uri) {
         this.uri = uri;
     }
 

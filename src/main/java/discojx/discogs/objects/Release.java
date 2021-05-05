@@ -2,8 +2,6 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URI;
-import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -96,11 +94,11 @@ public class Release {
         private String label;
         private String title;
         @JsonProperty("resource_url")
-        private URL resourceUrl;
+        private String resourceUrl;
         private String role;
         private String artist;
         private int year;
-        private URL thumb;
+        private String thumb;
         private Stats stats;
 
         public long getId() {
@@ -151,11 +149,11 @@ public class Release {
             this.title = title;
         }
 
-        public URL getResourceUrl() {
+        public String getResourceUrl() {
             return resourceUrl;
         }
 
-        public void setResourceUrl(URL resourceUrl) {
+        public void setResourceUrl(String resourceUrl) {
             this.resourceUrl = resourceUrl;
         }
 
@@ -183,11 +181,11 @@ public class Release {
             this.year = year;
         }
 
-        public URL getThumb() {
+        public String getThumb() {
             return thumb;
         }
 
-        public void setThumb(URL thumb) {
+        public void setThumb(String thumb) {
             this.thumb = thumb;
         }
 
@@ -241,8 +239,8 @@ public class Release {
         private String catno;
         private int year;
         @JsonProperty("resource_url")
-        private URL resourceUrl;
-        private URL thumb;
+        private String resourceUrl;
+        private String thumb;
 
         public long getId() {
             return id;
@@ -300,19 +298,19 @@ public class Release {
             this.year = year;
         }
 
-        public URL getResourceUrl() {
+        public String getResourceUrl() {
             return resourceUrl;
         }
 
-        public void setResourceUrl(URL resourceUrl) {
+        public void setResourceUrl(String resourceUrl) {
             this.resourceUrl = resourceUrl;
         }
 
-        public URL getThumb() {
+        public String getThumb() {
             return thumb;
         }
 
-        public void setThumb(URL thumb) {
+        public void setThumb(String thumb) {
             this.thumb = thumb;
         }
 
@@ -349,8 +347,8 @@ public class Release {
     private String status;
     private int year;
     @JsonProperty("resource_url")
-    private URL resourceUrl;
-    private URI uri;
+    private String resourceUrl;
+    private String uri;
     private List<discojx.discogs.objects.Artist.Short> artists;
     @JsonProperty("artists_sort")
     private String artistsSort;
@@ -374,7 +372,7 @@ public class Release {
     @JsonProperty("master_id")
     private long masterId;
     @JsonProperty("master_url")
-    private URL masterUrl;
+    private String masterUrl;
     private String title;
     private String country;
     private Date released;
@@ -384,7 +382,7 @@ public class Release {
     private List<String> genres;
     private List<String> styles;
     private List<Image> images;
-    private URL thumb;
+    private String thumb;
     @JsonProperty("estimated_weight")
     private int estimatedWeight;
     private String notes;
@@ -419,19 +417,19 @@ public class Release {
         this.year = year;
     }
 
-    public URL getResourceUrl() {
+    public String getResourceUrl() {
         return resourceUrl;
     }
 
-    public void setResourceUrl(URL resourceUrl) {
+    public void setResourceUrl(String resourceUrl) {
         this.resourceUrl = resourceUrl;
     }
 
-    public URI getUri() {
+    public String getUri() {
         return uri;
     }
 
-    public void setUri(URI uri) {
+    public void setUri(String uri) {
         this.uri = uri;
     }
 
@@ -547,11 +545,11 @@ public class Release {
         this.masterId = masterId;
     }
 
-    public URL getMasterUrl() {
+    public String getMasterUrl() {
         return masterUrl;
     }
 
-    public void setMasterUrl(URL masterUrl) {
+    public void setMasterUrl(String masterUrl) {
         this.masterUrl = masterUrl;
     }
 
@@ -619,11 +617,11 @@ public class Release {
         this.images = images;
     }
 
-    public URL getThumb() {
+    public String getThumb() {
         return thumb;
     }
 
-    public void setThumb(URL thumb) {
+    public void setThumb(String thumb) {
         this.thumb = thumb;
     }
 

@@ -2,7 +2,6 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 
@@ -98,8 +97,8 @@ public class MasterReleaseVersions {
         private String released;
         private String status;
         @JsonProperty("resource_url")
-        private URL resourceUrl;
-        private URL thumb;
+        private String resourceUrl;
+        private String thumb;
         private Stats stats;
 
         public long getId() {
@@ -174,19 +173,19 @@ public class MasterReleaseVersions {
             this.status = status;
         }
 
-        public URL getResourceUrl() {
+        public String getResourceUrl() {
             return resourceUrl;
         }
 
-        public void setResourceUrl(URL resourceUrl) {
+        public void setResourceUrl(String resourceUrl) {
             this.resourceUrl = resourceUrl;
         }
 
-        public URL getThumb() {
+        public String getThumb() {
             return thumb;
         }
 
-        public void setThumb(URL thumb) {
+        public void setThumb(String thumb) {
             this.thumb = thumb;
         }
 

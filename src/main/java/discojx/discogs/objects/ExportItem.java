@@ -2,7 +2,6 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URL;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,8 +11,8 @@ public class ExportItem {
     private String status;
     private String filename;
     @JsonProperty("download_url")
-    private URL downloadUrl;
-    private URL url;
+    private String downloadUrl;
+    private String url;
     @JsonProperty("created_ts")
     private Date createdTs;
     @JsonProperty("finished_ts")
@@ -43,19 +42,19 @@ public class ExportItem {
         this.filename = filename;
     }
 
-    public URL getDownloadUrl() {
+    public String getDownloadUrl() {
         return downloadUrl;
     }
 
-    public void setDownloadUrl(URL downloadUrl) {
+    public void setDownloadUrl(String downloadUrl) {
         this.downloadUrl = downloadUrl;
     }
 
-    public URL getUrl() {
+    public String getUrl() {
         return url;
     }
 
-    public void setUrl(URL url) {
+    public void setUrl(String url) {
         this.url = url;
     }
 

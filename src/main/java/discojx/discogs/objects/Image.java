@@ -2,17 +2,15 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URI;
-import java.net.URL;
 import java.util.Objects;
 
 public class Image {
 
     private String type;
-    private URI uri;
+    private String uri;
     @JsonProperty("resource_url")
-    private URL resourceUrl;
-    private URI uri150;
+    private String resourceUrl;
+    private String uri150;
     private int width;
     private int height;
 
@@ -24,27 +22,27 @@ public class Image {
         this.type = type;
     }
 
-    public URI getUri() {
+    public String getUri() {
         return uri;
     }
 
-    public void setUri(URI uri) {
+    public void setUri(String uri) {
         this.uri = uri;
     }
 
-    public URL getResourceUrl() {
+    public String getResourceUrl() {
         return resourceUrl;
     }
 
-    public void setResourceUrl(URL resourceUrl) {
+    public void setResourceUrl(String resourceUrl) {
         this.resourceUrl = resourceUrl;
     }
 
-    public URI getUri150() {
+    public String getUri150() {
         return uri150;
     }
 
-    public void setUri150(URI uri150) {
+    public void setUri150(String uri150) {
         this.uri150 = uri150;
     }
 

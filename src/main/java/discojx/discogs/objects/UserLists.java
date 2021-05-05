@@ -2,8 +2,6 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URI;
-import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -15,10 +13,10 @@ public class UserLists {
         public static class User {
             private long id;
             @JsonProperty("avatar_url")
-            private URL avatarUrl;
+            private String avatarUrl;
             private String username;
             @JsonProperty("resource_url")
-            private URL resourceUrl;
+            private String resourceUrl;
 
             public long getId() {
                 return id;
@@ -28,11 +26,11 @@ public class UserLists {
                 this.id = id;
             }
 
-            public URL getAvatarUrl() {
+            public String getAvatarUrl() {
                 return avatarUrl;
             }
 
-            public void setAvatarUrl(URL avatarUrl) {
+            public void setAvatarUrl(String avatarUrl) {
                 this.avatarUrl = avatarUrl;
             }
 
@@ -44,11 +42,11 @@ public class UserLists {
                 this.username = username;
             }
 
-            public URL getResourceUrl() {
+            public String getResourceUrl() {
                 return resourceUrl;
             }
 
-            public void setResourceUrl(URL resourceUrl) {
+            public void setResourceUrl(String resourceUrl) {
                 this.resourceUrl = resourceUrl;
             }
 
@@ -82,15 +80,15 @@ public class UserLists {
         private Date dateChanged;
         private String name;
         private long id;
-        private URI uri;
+        private String uri;
         @JsonProperty("resource_url")
-        private URL resourceUrl;
+        private String resourceUrl;
         @JsonProperty("public")
         private boolean isPublic;
         private String description;
         private User user;
         @JsonProperty("image_url")
-        private URL imageUrl;
+        private String imageUrl;
 
         public Date getDateAdded() {
             return dateAdded;
@@ -124,19 +122,19 @@ public class UserLists {
             this.id = id;
         }
 
-        public URI getUri() {
+        public String getUri() {
             return uri;
         }
 
-        public void setUri(URI uri) {
+        public void setUri(String uri) {
             this.uri = uri;
         }
 
-        public URL getResourceUrl() {
+        public String getResourceUrl() {
             return resourceUrl;
         }
 
-        public void setResourceUrl(URL resourceUrl) {
+        public void setResourceUrl(String resourceUrl) {
             this.resourceUrl = resourceUrl;
         }
 
@@ -164,11 +162,11 @@ public class UserLists {
             this.user = user;
         }
 
-        public URL getImageUrl() {
+        public String getImageUrl() {
             return imageUrl;
         }
 
-        public void setImageUrl(URL imageUrl) {
+        public void setImageUrl(String imageUrl) {
             this.imageUrl = imageUrl;
         }
 

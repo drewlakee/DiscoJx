@@ -2,14 +2,13 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URL;
 import java.util.Objects;
 
 public class Submitter {
 
     private String username;
     @JsonProperty("resource_url")
-    private URL resourceUrl;
+    private String resourceUrl;
 
     public String getUsername() {
         return username;
@@ -19,11 +18,11 @@ public class Submitter {
         this.username = username;
     }
 
-    public URL getResourceUrl() {
+    public String getResourceUrl() {
         return resourceUrl;
     }
 
-    public void setResourceUrl(URL resourceUrl) {
+    public void setResourceUrl(String resourceUrl) {
         this.resourceUrl = resourceUrl;
     }
 

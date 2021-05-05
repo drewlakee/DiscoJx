@@ -2,46 +2,45 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URL;
 import java.util.Objects;
 
 public class Pagination {
 
     public static class Urls {
-        private URL last;
-        private URL next;
-        private URL first;
-        private URL prev;
+        private String last;
+        private String next;
+        private String first;
+        private String prev;
 
-        public URL getLast() {
+        public String getLast() {
             return last;
         }
 
-        public void setLast(URL last) {
+        public void setLast(String last) {
             this.last = last;
         }
 
-        public URL getNext() {
+        public String getNext() {
             return next;
         }
 
-        public void setNext(URL next) {
+        public void setNext(String next) {
             this.next = next;
         }
 
-        public URL getFirst() {
+        public String getFirst() {
             return first;
         }
 
-        public void setFirst(URL first) {
+        public void setFirst(String first) {
             this.first = first;
         }
 
-        public URL getPrev() {
+        public String getPrev() {
             return prev;
         }
 
-        public void setPrev(URL prev) {
+        public void setPrev(String prev) {
             this.prev = prev;
         }
 

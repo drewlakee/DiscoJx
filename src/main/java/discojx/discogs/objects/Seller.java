@@ -2,7 +2,6 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URL;
 import java.util.Objects;
 
 public class Seller {
@@ -10,14 +9,14 @@ public class Seller {
     private long id;
     private String username;
     @JsonProperty("avatar_url")
-    private URL avatarUrl;
+    private String avatarUrl;
     private SellerStats stats;
     @JsonProperty("min_order_total")
     private int minOrderTotal;
     @JsonProperty("html_url")
-    private URL htmlUrl;
+    private String htmlUrl;
     private long uid;
-    private URL url;
+    private String url;
     private String payment;
     private String shipping;
     @JsonProperty("resource_url")
@@ -39,11 +38,11 @@ public class Seller {
         this.username = username;
     }
 
-    public URL getAvatarUrl() {
+    public String getAvatarUrl() {
         return avatarUrl;
     }
 
-    public void setAvatarUrl(URL avatarUrl) {
+    public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
     }
 
@@ -63,11 +62,11 @@ public class Seller {
         this.minOrderTotal = minOrderTotal;
     }
 
-    public URL getHtmlUrl() {
+    public String getHtmlUrl() {
         return htmlUrl;
     }
 
-    public void setHtmlUrl(URL htmlUrl) {
+    public void setHtmlUrl(String htmlUrl) {
         this.htmlUrl = htmlUrl;
     }
 
@@ -79,11 +78,11 @@ public class Seller {
         this.uid = uid;
     }
 
-    public URL getUrl() {
+    public String getUrl() {
         return url;
     }
 
-    public void setUrl(URL url) {
+    public void setUrl(String url) {
         this.url = url;
     }
 

@@ -2,7 +2,6 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 
@@ -13,7 +12,7 @@ public class UserFolders {
         private String name;
         private int count;
         @JsonProperty("resource_url")
-        private URL resourceUrl;
+        private String resourceUrl;
 
         public long getId() {
             return id;
@@ -39,11 +38,11 @@ public class UserFolders {
             this.count = count;
         }
 
-        public URL getResourceUrl() {
+        public String getResourceUrl() {
             return resourceUrl;
         }
 
-        public void setResourceUrl(URL resourceUrl) {
+        public void setResourceUrl(String resourceUrl) {
             this.resourceUrl = resourceUrl;
         }
 

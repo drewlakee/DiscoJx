@@ -2,14 +2,13 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URL;
 import java.util.Objects;
 
 public class CreatedListingInfo {
 
     private long listingId;
     @JsonProperty("resource_url")
-    private URL resourceUrl;
+    private String resourceUrl;
 
     public long getListingId() {
         return listingId;
@@ -19,11 +18,11 @@ public class CreatedListingInfo {
         this.listingId = listingId;
     }
 
-    public URL getResourceUrl() {
+    public String getResourceUrl() {
         return resourceUrl;
     }
 
-    public void setResourceUrl(URL resourceUrl) {
+    public void setResourceUrl(String resourceUrl) {
         this.resourceUrl = resourceUrl;
     }
 

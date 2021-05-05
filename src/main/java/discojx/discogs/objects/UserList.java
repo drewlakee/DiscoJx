@@ -2,8 +2,6 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URI;
-import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -13,10 +11,10 @@ public class UserList {
     public static class User {
         private long id;
         @JsonProperty("avatar_url")
-        private URL avatarUrl;
+        private String avatarUrl;
         private String username;
         @JsonProperty("resource_url")
-        private URL resourceUrl;
+        private String resourceUrl;
 
         public long getId() {
             return id;
@@ -26,11 +24,11 @@ public class UserList {
             this.id = id;
         }
 
-        public URL getAvatarUrl() {
+        public String getAvatarUrl() {
             return avatarUrl;
         }
 
-        public void setAvatarUrl(URL avatarUrl) {
+        public void setAvatarUrl(String avatarUrl) {
             this.avatarUrl = avatarUrl;
         }
 
@@ -42,11 +40,11 @@ public class UserList {
             this.username = username;
         }
 
-        public URL getResourceUrl() {
+        public String getResourceUrl() {
             return resourceUrl;
         }
 
-        public void setResourceUrl(URL resourceUrl) {
+        public void setResourceUrl(String resourceUrl) {
             this.resourceUrl = resourceUrl;
         }
 
@@ -157,11 +155,11 @@ public class UserList {
         private String type;
         private long id;
         private String comment;
-        private URI uri;
+        private String uri;
         @JsonProperty("resource_url")
-        private URL resourceUrl;
+        private String resourceUrl;
         @JsonProperty("image_url")
-        private URL imageUrl;
+        private String imageUrl;
         @JsonProperty("display_title")
         private String displayTitle;
         private Stats stats;
@@ -190,27 +188,27 @@ public class UserList {
             this.comment = comment;
         }
 
-        public URI getUri() {
+        public String getUri() {
             return uri;
         }
 
-        public void setUri(URI uri) {
+        public void setUri(String uri) {
             this.uri = uri;
         }
 
-        public URL getResourceUrl() {
+        public String getResourceUrl() {
             return resourceUrl;
         }
 
-        public void setResourceUrl(URL resourceUrl) {
+        public void setResourceUrl(String resourceUrl) {
             this.resourceUrl = resourceUrl;
         }
 
-        public URL getImageUrl() {
+        public String getImageUrl() {
             return imageUrl;
         }
 
-        public void setImageUrl(URL imageUrl) {
+        public void setImageUrl(String imageUrl) {
             this.imageUrl = imageUrl;
         }
 
@@ -268,11 +266,11 @@ public class UserList {
     private Date dateAdded;
     @JsonProperty("date_changed")
     private Date dateChanged;
-    private URI uri;
+    private String uri;
     @JsonProperty("resource_url")
-    private URL resourceUrl;
+    private String resourceUrl;
     @JsonProperty("image_url")
-    private URL imageUrl;
+    private String imageUrl;
     private List<Item> items;
 
     public long getId() {
@@ -331,27 +329,27 @@ public class UserList {
         this.dateChanged = dateChanged;
     }
 
-    public URI getUri() {
+    public String getUri() {
         return uri;
     }
 
-    public void setUri(URI uri) {
+    public void setUri(String uri) {
         this.uri = uri;
     }
 
-    public URL getResourceUrl() {
+    public String getResourceUrl() {
         return resourceUrl;
     }
 
-    public void setResourceUrl(URL resourceUrl) {
+    public void setResourceUrl(String resourceUrl) {
         this.resourceUrl = resourceUrl;
     }
 
-    public URL getImageUrl() {
+    public String getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(URL imageUrl) {
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 

@@ -2,8 +2,6 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URI;
-import java.net.URL;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -225,7 +223,7 @@ public class MarketplaceOrder {
         private long id;
         private String username;
         @JsonProperty("resource_url")
-        private URL resourceUrl;
+        private String resourceUrl;
 
         public long getId() {
             return id;
@@ -243,11 +241,11 @@ public class MarketplaceOrder {
             this.username = username;
         }
 
-        public URL getResourceUrl() {
+        public String getResourceUrl() {
             return resourceUrl;
         }
 
-        public void setResourceUrl(URL resourceUrl) {
+        public void setResourceUrl(String resourceUrl) {
             this.resourceUrl = resourceUrl;
         }
 
@@ -278,7 +276,7 @@ public class MarketplaceOrder {
         private long id;
         private String username;
         @JsonProperty("resource_url")
-        private URL resourceUrl;
+        private String resourceUrl;
 
         public long getId() {
             return id;
@@ -296,11 +294,11 @@ public class MarketplaceOrder {
             this.username = username;
         }
 
-        public URL getResourceUrl() {
+        public String getResourceUrl() {
             return resourceUrl;
         }
 
-        public void setResourceUrl(URL resourceUrl) {
+        public void setResourceUrl(String resourceUrl) {
             this.resourceUrl = resourceUrl;
         }
 
@@ -371,10 +369,10 @@ public class MarketplaceOrder {
 
     private String id;
     @JsonProperty("resource_url")
-    private URL resourceUrl;
+    private String resourceUrl;
     @JsonProperty("messages_url")
-    private URL messagesUrl;
-    private URI uri;
+    private String messagesUrl;
+    private String uri;
     private String status;
     @JsonProperty("next_status")
     private List<String> nextStatuses;
@@ -401,27 +399,27 @@ public class MarketplaceOrder {
         this.id = id;
     }
 
-    public URL getResourceUrl() {
+    public String getResourceUrl() {
         return resourceUrl;
     }
 
-    public void setResourceUrl(URL resourceUrl) {
+    public void setResourceUrl(String resourceUrl) {
         this.resourceUrl = resourceUrl;
     }
 
-    public URL getMessagesUrl() {
+    public String getMessagesUrl() {
         return messagesUrl;
     }
 
-    public void setMessagesUrl(URL messagesUrl) {
+    public void setMessagesUrl(String messagesUrl) {
         this.messagesUrl = messagesUrl;
     }
 
-    public URI getUri() {
+    public String getUri() {
         return uri;
     }
 
-    public void setUri(URI uri) {
+    public void setUri(String uri) {
         this.uri = uri;
     }
 

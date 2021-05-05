@@ -2,8 +2,6 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URI;
-import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,10 +12,10 @@ public class Artist {
         private String name;
         private long id;
         @JsonProperty("resource_url")
-        private URL resourceUrl;
-        private URI uri;
+        private String resourceUrl;
+        private String uri;
         @JsonProperty("releases_url")
-        private URL releasesUrl;
+        private String releasesUrl;
         private List<Image> images;
         private String realname;
         private String profile;
@@ -42,27 +40,27 @@ public class Artist {
             this.id = id;
         }
 
-        public URL getResourceUrl() {
+        public String getResourceUrl() {
             return resourceUrl;
         }
 
-        public void setResourceUrl(URL resourceUrl) {
+        public void setResourceUrl(String resourceUrl) {
             this.resourceUrl = resourceUrl;
         }
 
-        public URI getUri() {
+        public String getUri() {
             return uri;
         }
 
-        public void setUri(URI uri) {
+        public void setUri(String uri) {
             this.uri = uri;
         }
 
-        public URL getReleasesUrl() {
+        public String getReleasesUrl() {
             return releasesUrl;
         }
 
-        public void setReleasesUrl(URL releasesUrl) {
+        public void setReleasesUrl(String releasesUrl) {
             this.releasesUrl = releasesUrl;
         }
 
@@ -146,7 +144,7 @@ public class Artist {
         private String tracks;
         private long id;
         @JsonProperty("resource_url")
-        private URL resourceUrl;
+        private String resourceUrl;
 
         public String getName() {
             return name;
@@ -196,11 +194,11 @@ public class Artist {
             this.id = id;
         }
 
-        public URL getResourceUrl() {
+        public String getResourceUrl() {
             return resourceUrl;
         }
 
-        public void setResourceUrl(URL resourceUrl) {
+        public void setResourceUrl(String resourceUrl) {
             this.resourceUrl = resourceUrl;
         }
 
@@ -234,10 +232,10 @@ public class Artist {
     private String name;
     private long id;
     @JsonProperty("resource_url")
-    private URL resourceUrl;
-    private URI uri;
+    private String resourceUrl;
+    private String uri;
     @JsonProperty("releases_url")
-    private URL releasesUrl;
+    private String releasesUrl;
     private List<Image> images;
     private String profile;
     private List<String> urls;
@@ -263,27 +261,27 @@ public class Artist {
         this.id = id;
     }
 
-    public URL getResourceUrl() {
+    public String getResourceUrl() {
         return resourceUrl;
     }
 
-    public void setResourceUrl(URL resourceUrl) {
+    public void setResourceUrl(String resourceUrl) {
         this.resourceUrl = resourceUrl;
     }
 
-    public URI getUri() {
+    public String getUri() {
         return uri;
     }
 
-    public void setUri(URI uri) {
+    public void setUri(String uri) {
         this.uri = uri;
     }
 
-    public URL getReleasesUrl() {
+    public String getReleasesUrl() {
         return releasesUrl;
     }
 
-    public void setReleasesUrl(URL releasesUrl) {
+    public void setReleasesUrl(String releasesUrl) {
         this.releasesUrl = releasesUrl;
     }
 

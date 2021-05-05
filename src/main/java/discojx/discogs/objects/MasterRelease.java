@@ -2,8 +2,6 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URI;
-import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 
@@ -15,14 +13,14 @@ public class MasterRelease {
     @JsonProperty("most_recent_release")
     private long mostRecentRelease;
     @JsonProperty("resource_url")
-    private URL resourceUrl;
-    private URI uri;
+    private String resourceUrl;
+    private String uri;
     @JsonProperty("versions_url")
-    private URL versionsUrl;
+    private String versionsUrl;
     @JsonProperty("main_release_url")
-    private URL mainReleaseUrl;
+    private String mainReleaseUrl;
     @JsonProperty("most_recent_release_url")
-    private URL mostRecentReleaseUrl;
+    private String mostRecentReleaseUrl;
     @JsonProperty("num_for_sale")
     private int numForSale;
     @JsonProperty("lowest_price")
@@ -63,43 +61,43 @@ public class MasterRelease {
         this.mostRecentRelease = mostRecentRelease;
     }
 
-    public URL getResourceUrl() {
+    public String getResourceUrl() {
         return resourceUrl;
     }
 
-    public void setResourceUrl(URL resourceUrl) {
+    public void setResourceUrl(String resourceUrl) {
         this.resourceUrl = resourceUrl;
     }
 
-    public URI getUri() {
+    public String getUri() {
         return uri;
     }
 
-    public void setUri(URI uri) {
+    public void setUri(String uri) {
         this.uri = uri;
     }
 
-    public URL getVersionsUrl() {
+    public String getVersionsUrl() {
         return versionsUrl;
     }
 
-    public void setVersionsUrl(URL versionsUrl) {
+    public void setVersionsUrl(String versionsUrl) {
         this.versionsUrl = versionsUrl;
     }
 
-    public URL getMainReleaseUrl() {
+    public String getMainReleaseUrl() {
         return mainReleaseUrl;
     }
 
-    public void setMainReleaseUrl(URL mainReleaseUrl) {
+    public void setMainReleaseUrl(String mainReleaseUrl) {
         this.mainReleaseUrl = mainReleaseUrl;
     }
 
-    public URL getMostRecentReleaseUrl() {
+    public String getMostRecentReleaseUrl() {
         return mostRecentReleaseUrl;
     }
 
-    public void setMostRecentReleaseUrl(URL mostRecentReleaseUrl) {
+    public void setMostRecentReleaseUrl(String mostRecentReleaseUrl) {
         this.mostRecentReleaseUrl = mostRecentReleaseUrl;
     }
 

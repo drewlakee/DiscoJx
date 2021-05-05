@@ -2,19 +2,18 @@ package discojx.discogs.objects;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.net.URL;
 import java.util.List;
 import java.util.Objects;
 
 public class MarketplaceInventoryRelease {
 
-    private URL thumbnail;
+    private String thumbnail;
     private String description;
     private List<Image> images;
     private String artist;
     private String format;
     @JsonProperty("resource_url")
-    private URL resourceUrl;
+    private String resourceUrl;
     private String title;
     private int year;
     private long id;
@@ -22,11 +21,11 @@ public class MarketplaceInventoryRelease {
     private String catalogNumber;
     private ReleaseDefaultStats stats;
 
-    public URL getThumbnail() {
+    public String getThumbnail() {
         return thumbnail;
     }
 
-    public void setThumbnail(URL thumbnail) {
+    public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
     }
 
@@ -62,11 +61,11 @@ public class MarketplaceInventoryRelease {
         this.format = format;
     }
 
-    public URL getResourceUrl() {
+    public String getResourceUrl() {
         return resourceUrl;
     }
 
-    public void setResourceUrl(URL resourceUrl) {
+    public void setResourceUrl(String resourceUrl) {
         this.resourceUrl = resourceUrl;
     }
 
