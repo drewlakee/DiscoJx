@@ -2,8 +2,6 @@
 
 That client library provides simple access to Discogs API on Java with asynchronous processing that build on Completable Futures.
 
-Watch out releases to see some implemented API versions and features.
-
 ## Quick Start
 
 ```java
@@ -21,3 +19,5 @@ searchResults.getResults().forEach(System.out::println);
 
 // ...
 ```
+
+Watch out releases to see some implemented API versions and features.
