@@ -21,17 +21,17 @@ public class DefaultMarketplaceListingApi implements MarketplaceListingApi {
     }
 
     @Override
-    public MarketplaceGetListingRequestBuilder get() {
+    public MarketplaceGetListingRequestBuilder getListing() {
         return new DefaultMarketplaceGetListingRequest.Builder(client);
     }
 
     @Override
-    public MarketplaceEditListingRequestBuilder edit() {
+    public MarketplaceEditListingRequestBuilder editListing() {
         return new DefaultMarketplaceEditListingRequest.Builder(client);
     }
 
     @Override
-    public MarketplaceDeleteListingRequestBuilder delete() {
+    public MarketplaceDeleteListingRequestBuilder deleteListing() {
         return new DefaultMarketplaceDeleteListingRequest.Builder(client);
     }
 

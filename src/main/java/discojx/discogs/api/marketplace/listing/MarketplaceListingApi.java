@@ -7,8 +7,8 @@ import discojx.discogs.api.marketplace.listing.requests.get.MarketplaceGetListin
 
 public interface MarketplaceListingApi {
 
-    MarketplaceGetListingRequestBuilder get();
-    MarketplaceEditListingRequestBuilder edit();
-    MarketplaceDeleteListingRequestBuilder delete();
+    MarketplaceGetListingRequestBuilder getListing();
+    MarketplaceEditListingRequestBuilder editListing();
+    MarketplaceDeleteListingRequestBuilder deleteListing();
     MarketplaceNewListingRequestBuilder newListing();
 }

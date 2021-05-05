@@ -16,17 +16,17 @@ import discojx.discogs.api.database.requests.search.SearchRequestBuilder;
 
 public interface DatabaseApi {
 
-    ReleaseRequestBuilder release();
-    ReleaseStatsRequestBuilder releaseStats();
-    ReleaseRatingByUserRequestBuilder releaseRatingByUser();
-    ReleaseRatingUpdateByUserRequestBuilder releaseRatingUpdateByUser();
-    ReleaseRatingDeleteByUserRequestBuilder releaseRatingDeleteByUser();
-    CommunityReleaseRatingRequestBuilder communityReleaseRating();
-    MasterReleaseRequestBuilder masterRelease();
-    MasterReleaseVersionsRequestBuilder masterReleaseVersions();
-    ArtistRequestBuilder artist();
-    ArtistReleasesRequestBuilder artistReleases();
-    LabelRequestBuilder label();
-    LabelReleasesRequestBuilder labelReleases();
+    ReleaseRequestBuilder getRelease();
+    ReleaseStatsRequestBuilder getReleaseStats();
+    ReleaseRatingByUserRequestBuilder getReleaseRatingByUser();
+    ReleaseRatingUpdateByUserRequestBuilder updateReleaseRatingByUser();
+    ReleaseRatingDeleteByUserRequestBuilder deleteReleaseRatingByUser();
+    CommunityReleaseRatingRequestBuilder getCommunityReleaseRating();
+    MasterReleaseRequestBuilder getMasterRelease();
+    MasterReleaseVersionsRequestBuilder getMasterReleaseVersions();
+    ArtistRequestBuilder getArtist();
+    ArtistReleasesRequestBuilder getArtistReleases();
+    LabelRequestBuilder getLabel();
+    LabelReleasesRequestBuilder getLabelReleases();
     SearchRequestBuilder search();
 }

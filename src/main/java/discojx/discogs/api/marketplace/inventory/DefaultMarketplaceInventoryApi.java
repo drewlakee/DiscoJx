@@ -15,7 +15,7 @@ public class DefaultMarketplaceInventoryApi implements MarketplaceInventoryApi {
     }
 
     @Override
-    public MarketplaceInventoryRequestBuilder get() {
+    public MarketplaceInventoryRequestBuilder getMarketplaceInventory() {
         return new DefaultMarketplaceInventoryRequest.Builder(client);
     }
 

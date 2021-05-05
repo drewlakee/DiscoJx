@@ -13,8 +13,9 @@ public interface MarketplaceApi {
     MarketplaceInventoryApi inventory();
     MarketplaceListingApi listing();
     MarketplaceOrderApi order();
-    MarketplaceFeeRequestBuilder fee();
-    MarketplaceFeeWithCurrencyRequestBuilder feeWithCurrency();
-    MarketplacePriceSuggestionsRequestBuilder priceSuggestions();
-    MarketplaceReleaseStatisticsRequestBuilder releaseStatistics();
+
+    MarketplaceFeeRequestBuilder getFee();
+    MarketplaceFeeWithCurrencyRequestBuilder getFeeWithCurrency();
+    MarketplacePriceSuggestionsRequestBuilder getPriceSuggestions();
+    MarketplaceReleaseStatisticsRequestBuilder getReleaseStatistics();
 }

@@ -49,22 +49,22 @@ public class DefaultMarketplaceApi implements MarketplaceApi {
     }
 
     @Override
-    public MarketplaceFeeRequestBuilder fee() {
+    public MarketplaceFeeRequestBuilder getFee() {
         return new DefaultMarketplaceFeeRequest.Builder(client);
     }
 
     @Override
-    public MarketplaceFeeWithCurrencyRequestBuilder feeWithCurrency() {
+    public MarketplaceFeeWithCurrencyRequestBuilder getFeeWithCurrency() {
         return new DefaultMarketplaceFeeWithCurrencyRequest.Builder(client);
     }
 
     @Override
-    public MarketplacePriceSuggestionsRequestBuilder priceSuggestions() {
+    public MarketplacePriceSuggestionsRequestBuilder getPriceSuggestions() {
         return new DefaultMarketplacePriceSuggestionsRequest.Builder(client);
     }
 
     @Override
-    public MarketplaceReleaseStatisticsRequestBuilder releaseStatistics() {
+    public MarketplaceReleaseStatisticsRequestBuilder getReleaseStatistics() {
         return new DefaultMarketplaceReleaseStatisticsRequest.Builder(client);
     }
 

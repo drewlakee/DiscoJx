@@ -17,12 +17,12 @@ public class DefaultUserListsApi implements UserListsApi {
     }
 
     @Override
-    public UserListsRequestBuilder get() {
+    public UserListsRequestBuilder getLists() {
         return new DefaultUserListsRequest.Builder(client);
     }
 
     @Override
-    public UserListRequestBuilder list() {
+    public UserListRequestBuilder getList() {
         return new DefaultUserListRequest.Builder(client);
     }
 

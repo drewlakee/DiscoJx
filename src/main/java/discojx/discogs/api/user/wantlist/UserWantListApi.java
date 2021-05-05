@@ -7,7 +7,7 @@ import discojx.discogs.api.user.wantlist.requests.edit.EditUserWantListRequestBu
 
 public interface UserWantListApi {
 
-    UserWantListRequestBuilder get();
+    UserWantListRequestBuilder getWantList();
     AddUserWantListRequestBuilder addWantList();
     EditUserWantListRequestBuilder editWantList();
     DeleteUserWantListRequestBuilder deleteWantList();

@@ -21,7 +21,7 @@ public class DefaultUserWantListApi implements UserWantListApi {
     }
 
     @Override
-    public UserWantListRequestBuilder get() {
+    public UserWantListRequestBuilder getWantList() {
         return new DefaultUserWantListRequest.Builder(client);
     }
 

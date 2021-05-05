@@ -23,27 +23,27 @@ public class DefaultIdentityApi implements IdentityApi {
     }
 
     @Override
-    public UserIdentityRequest self() {
+    public UserIdentityRequest identifyYourself() {
         return new DefaultUserIdentityRequest(client);
     }
 
     @Override
-    public ProfileRequestBuilder profile() {
+    public ProfileRequestBuilder getProfile() {
         return new DefaultProfileRequest.Builder(client);
     }
 
     @Override
-    public ProfileEditRequestBuilder profileEdit() {
+    public ProfileEditRequestBuilder editProfile() {
         return new DefaultProfileEditRequest.Builder(client);
     }
 
     @Override
-    public UserSubmissionsRequestBuilder submissions() {
+    public UserSubmissionsRequestBuilder getSubmissions() {
         return new DefaultUserSubmissionsRequest.Builder(client);
     }
 
     @Override
-    public UserContributionsRequestBuilder contributions() {
+    public UserContributionsRequestBuilder getContributions() {
         return new DefaultUserContributionsRequest.Builder(client);
     }
 

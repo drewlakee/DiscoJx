@@ -8,9 +8,9 @@ import discojx.discogs.api.user.identity.requests.submissions.UserSubmissionsReq
 
 public interface IdentityApi {
 
-    UserIdentityRequest self();
-    ProfileRequestBuilder profile();
-    ProfileEditRequestBuilder profileEdit();
-    UserSubmissionsRequestBuilder submissions();
-    UserContributionsRequestBuilder contributions();
+    UserIdentityRequest identifyYourself();
+    ProfileRequestBuilder getProfile();
+    ProfileEditRequestBuilder editProfile();
+    UserSubmissionsRequestBuilder getSubmissions();
+    UserContributionsRequestBuilder getContributions();
 }

@@ -8,9 +8,9 @@ import discojx.discogs.api.inventory.upload.requests.recent.get.GetUploadRequest
 
 public interface InventoryUploadApi {
 
-    AddInventoryRequestBuilder add();
-    ChangeInventoryRequestBuilder change();
-    DeleteInventoryRequestBuilder delete();
+    AddInventoryRequestBuilder addInventory();
+    ChangeInventoryRequestBuilder changeInventory();
+    DeleteInventoryRequestBuilder deleteInventory();
     GetRecentUploadsRequestBuilder getRecentUploads();
     GetUploadRequestBuilder getUpload();
 }

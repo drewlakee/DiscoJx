@@ -39,62 +39,62 @@ public class DefaultDatabaseApi implements DatabaseApi {
     }
 
     @Override
-    public ReleaseRequestBuilder release() {
+    public ReleaseRequestBuilder getRelease() {
         return new DefaultReleaseRequest.Builder(client);
     }
 
     @Override
-    public ReleaseStatsRequestBuilder releaseStats() {
+    public ReleaseStatsRequestBuilder getReleaseStats() {
         return new DefaultReleaseStatsRequest.Builder(client);
     }
 
     @Override
-    public ReleaseRatingByUserRequestBuilder releaseRatingByUser() {
+    public ReleaseRatingByUserRequestBuilder getReleaseRatingByUser() {
         return new DefaultReleaseRatingByUserRequest.Builder(client);
     }
 
     @Override
-    public ReleaseRatingUpdateByUserRequestBuilder releaseRatingUpdateByUser() {
+    public ReleaseRatingUpdateByUserRequestBuilder updateReleaseRatingByUser() {
         return new DefaultReleaseRatingUpdateByUserRequest.Builder(client);
     }
 
     @Override
-    public ReleaseRatingDeleteByUserRequestBuilder releaseRatingDeleteByUser() {
+    public ReleaseRatingDeleteByUserRequestBuilder deleteReleaseRatingByUser() {
         return new DefaultReleaseRatingDeleteByUserRequest.Builder(client);
     }
 
     @Override
-    public CommunityReleaseRatingRequestBuilder communityReleaseRating() {
+    public CommunityReleaseRatingRequestBuilder getCommunityReleaseRating() {
         return new DefaultCommunityReleaseRatingRequest.Builder(client);
     }
 
     @Override
-    public MasterReleaseRequestBuilder masterRelease() {
+    public MasterReleaseRequestBuilder getMasterRelease() {
         return new DefaultMasterReleaseRequest.Builder(client);
     }
 
     @Override
-    public MasterReleaseVersionsRequestBuilder masterReleaseVersions() {
+    public MasterReleaseVersionsRequestBuilder getMasterReleaseVersions() {
         return new DefaultMasterReleaseVersionsRequest.Builder(client);
     }
 
     @Override
-    public ArtistRequestBuilder artist() {
+    public ArtistRequestBuilder getArtist() {
         return new DefaultArtistRequest.Builder(client);
     }
 
     @Override
-    public ArtistReleasesRequestBuilder artistReleases() {
+    public ArtistReleasesRequestBuilder getArtistReleases() {
         return new DefaultArtistReleasesRequest.Builder(client);
     }
 
     @Override
-    public LabelRequestBuilder label() {
+    public LabelRequestBuilder getLabel() {
         return new DefaultLabelRequest.Builder(client);
     }
 
     @Override
-    public LabelReleasesRequestBuilder labelReleases() {
+    public LabelReleasesRequestBuilder getLabelReleases() {
         return new DefaultLabelReleasesRequest.Builder(client);
     }
 

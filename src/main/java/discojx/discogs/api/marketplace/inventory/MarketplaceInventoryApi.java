@@ -4,5 +4,5 @@ import discojx.discogs.api.marketplace.inventory.requests.MarketplaceInventoryRe
 
 public interface MarketplaceInventoryApi {
 
-    MarketplaceInventoryRequestBuilder get();
+    MarketplaceInventoryRequestBuilder getMarketplaceInventory();
 }

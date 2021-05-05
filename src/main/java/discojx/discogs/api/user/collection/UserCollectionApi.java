@@ -16,17 +16,17 @@ import discojx.discogs.api.user.collection.requests.collection.value.UserCollect
 
 public interface UserCollectionApi {
 
-    UserFolderRequestBuilder folder();
-    UserFoldersRequestBuilder folders();
+    UserFolderRequestBuilder getFolder();
+    UserFoldersRequestBuilder getFolders();
     EditUserFolderRequestBuilder editFolder();
     CreateUserFolderRequestBuilder createFolder();
     DeleteUserFolderRequestBuilder deleteFolder();
-    UserReleaseCollectionItemsRequestBuilder collectionItemsByRelease();
-    UserReleaseFolderCollectionItemsRequestBuilder collectionItemsByFolder();
+    UserReleaseCollectionItemsRequestBuilder getCollectionItemsByRelease();
+    UserReleaseFolderCollectionItemsRequestBuilder getCollectionItemsByFolder();
     AddUserReleaseFolderCollectionItemRequestBuilder addReleaseItemToCollectionFolder();
     ChangeReleaseRatingRequestBuilder changeRatingOfRelease();
     DeleteInstanceFromFolderRequestBuilder deleteInstanceFromFolder();
-    ListCustomFieldsRequestBuilder listCustomFields();
+    ListCustomFieldsRequestBuilder getListCustomFields();
     EditFieldsInstanceRequestBuilder editFieldsInstance();
-    UserCollectionValueRequestBuilder collectionValue();
+    UserCollectionValueRequestBuilder getCollectionValue();
 }

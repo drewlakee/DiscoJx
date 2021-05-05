@@ -23,17 +23,17 @@ public class DefaultInventoryUploadApi implements InventoryUploadApi {
     }
 
     @Override
-    public AddInventoryRequestBuilder add() {
+    public AddInventoryRequestBuilder addInventory() {
         return new DefaultAddInventoryRequest.Builder(client);
     }
 
     @Override
-    public ChangeInventoryRequestBuilder change() {
+    public ChangeInventoryRequestBuilder changeInventory() {
         return new DefaultChangeInventoryRequest.Builder(client);
     }
 
     @Override
-    public DeleteInventoryRequestBuilder delete() {
+    public DeleteInventoryRequestBuilder deleteInventory() {
         return new DefaultDeleteInventoryRequest.Builder(client);
     }
 

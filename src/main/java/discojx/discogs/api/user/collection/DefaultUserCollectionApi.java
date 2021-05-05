@@ -39,12 +39,12 @@ public class DefaultUserCollectionApi implements UserCollectionApi {
     }
 
     @Override
-    public UserFolderRequestBuilder folder() {
+    public UserFolderRequestBuilder getFolder() {
         return new DefaultUserFolderRequest.Builder(client);
     }
 
     @Override
-    public UserFoldersRequestBuilder folders() {
+    public UserFoldersRequestBuilder getFolders() {
         return new DefaultUserFoldersRequest.Builder(client);
     }
 
@@ -64,12 +64,12 @@ public class DefaultUserCollectionApi implements UserCollectionApi {
     }
 
     @Override
-    public UserReleaseCollectionItemsRequestBuilder collectionItemsByRelease() {
+    public UserReleaseCollectionItemsRequestBuilder getCollectionItemsByRelease() {
         return new DefaultUserReleaseCollectionItemsRequest.Builder(client);
     }
 
     @Override
-    public UserReleaseFolderCollectionItemsRequestBuilder collectionItemsByFolder() {
+    public UserReleaseFolderCollectionItemsRequestBuilder getCollectionItemsByFolder() {
         return new DefaultUserReleaseFolderCollectionItemsRequest.Builder(client);
     }
 
@@ -89,7 +89,7 @@ public class DefaultUserCollectionApi implements UserCollectionApi {
     }
 
     @Override
-    public ListCustomFieldsRequestBuilder listCustomFields() {
+    public ListCustomFieldsRequestBuilder getListCustomFields() {
         return new DefaultListCustomFieldsRequest.Builder(client);
     }
 
@@ -99,7 +99,7 @@ public class DefaultUserCollectionApi implements UserCollectionApi {
     }
 
     @Override
-    public UserCollectionValueRequestBuilder collectionValue() {
+    public UserCollectionValueRequestBuilder getCollectionValue() {
         return new DefaultUserCollectionValueRequest.Builder(client);
     }
 
