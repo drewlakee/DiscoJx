@@ -1,14 +1,14 @@
 package discojx.discogs.api;
 
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.database.DatabaseApi;
-import discojx.discogs.api.database.DefaultDatabaseApi;
-import discojx.discogs.api.inventory.DefaultInventoryApi;
-import discojx.discogs.api.inventory.InventoryApi;
-import discojx.discogs.api.marketplace.DefaultMarketplaceApi;
-import discojx.discogs.api.marketplace.MarketplaceApi;
-import discojx.discogs.api.user.DefaultUserApi;
-import discojx.discogs.api.user.UserApi;
+import discojx.discogs.api.endpoints.database.DatabaseApi;
+import discojx.discogs.api.endpoints.database.DefaultDatabaseApi;
+import discojx.discogs.api.endpoints.inventory.DefaultInventoryApi;
+import discojx.discogs.api.endpoints.inventory.InventoryApi;
+import discojx.discogs.api.endpoints.marketplace.DefaultMarketplaceApi;
+import discojx.discogs.api.endpoints.marketplace.MarketplaceApi;
+import discojx.discogs.api.endpoints.user.DefaultUserApi;
+import discojx.discogs.api.endpoints.user.UserApi;
 
 import java.util.Objects;
 
