@@ -1,7 +1,6 @@
 package discojx.clients;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import discojx.clients.authentication.PersonalAccessToken;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpException;
@@ -19,7 +18,7 @@ import java.util.concurrent.CompletionException;
 
 public class DefaultLazyHttpClient extends AbstractHttpClient {
 
-    protected PersonalAccessToken token;
+    protected String token;
     protected List<Header> customRequestHeaders;
 
     protected static class Holder {
@@ -32,7 +31,7 @@ public class DefaultLazyHttpClient extends AbstractHttpClient {
         );
     }
 
-    public DefaultLazyHttpClient(PersonalAccessToken token) {
+    public DefaultLazyHttpClient(String token) {
         this.token = token;
         this.customRequestHeaders = List.of(
                 new BasicHeader("User-Agent", "discojx/1.0.0 An Asynchronous DiscogsAPI Client Library"),
@@ -40,7 +39,7 @@ public class DefaultLazyHttpClient extends AbstractHttpClient {
         );
     }
 
-    public DefaultLazyHttpClient(PersonalAccessToken token, List<Header> customRequestHeaders) {
+    public DefaultLazyHttpClient(String token, List<Header> customRequestHeaders) {
         this.token = token;
         this.customRequestHeaders = customRequestHeaders;
     }
