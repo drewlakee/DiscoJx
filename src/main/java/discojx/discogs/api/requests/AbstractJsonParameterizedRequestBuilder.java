@@ -1,7 +1,6 @@
 package discojx.discogs.api.requests;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import discojx.clients.AbstractHttpClient;
 
 import java.util.Objects;
@@ -14,9 +13,7 @@ public abstract class AbstractJsonParameterizedRequestBuilder<J extends JsonNode
         super(client);
     }
 
-    protected J constructJsonParameters() {
-        return (J) JsonNodeFactory.instance.objectNode();
-    }
+    protected abstract J constructJsonParameters();
 
     @Override
     public String toString() {

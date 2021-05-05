@@ -10,7 +10,5 @@ public abstract class AbstractPathParameterizedRequestBuilder<P extends RequestP
         super(client);
     }
 
-    public P constructPathParameters() {
-        return (P) new StringBuilderSequentialRequestPathParametersConstructor();
-    }
+    protected abstract P constructPathParameters();
 }
