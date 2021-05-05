@@ -22,7 +22,7 @@ public class DefaultLazyHttpClient extends AbstractHttpClient {
     protected PersonalAccessToken token;
     protected List<Header> customRequestHeaders;
 
-    private static class Holder {
+    protected static class Holder {
         public static final CloseableHttpClient client = HttpClients.createDefault();
     }
 
@@ -40,16 +40,13 @@ public class DefaultLazyHttpClient extends AbstractHttpClient {
         );
     }
 
-    public DefaultLazyHttpClient setCustomRequestHeaders(List<Header> customRequestHeaders) {
-        if (customRequestHeaders != null) {
-            this.customRequestHeaders = customRequestHeaders;
-        }
-
-        return this;
+    public DefaultLazyHttpClient(PersonalAccessToken token, List<Header> customRequestHeaders) {
+        this.token = token;
+        this.customRequestHeaders = customRequestHeaders;
     }
 
-    public List<Header> getCustomRequestHeaders() {
-        return customRequestHeaders;
+    public DefaultLazyHttpClient(List<Header> customRequestHeaders) {
+        this.customRequestHeaders = customRequestHeaders;
     }
 
     @Override
@@ -66,10 +63,10 @@ public class DefaultLazyHttpClient extends AbstractHttpClient {
         }
     }
 
-    private HttpResponse validateAndGetOrThrowException(HttpResponse response) throws HttpException, IOException {
+    protected HttpResponse validateAndGetOrThrowException(HttpResponse response) throws HttpException, IOException {
         if (response.getStatusLine().getStatusCode() > 299) {
             if (response.getEntity() != null && response.containsHeader("Content-Type")
-                                             && response.getHeaders("Content-Type")[0].getValue().equals("application/json")) {
+                                             && response.getFirstHeader("Content-Type").getValue().equals("application/json")) {
                 JsonNode jsonNode = JsonUtils.DefaultObjectMapperHolder.mapper.readTree(response.getEntity().getContent());
 
                 throw new HttpException(response.getStatusLine().toString() + " " + jsonNode.toString());
@@ -79,6 +76,13 @@ public class DefaultLazyHttpClient extends AbstractHttpClient {
         }
 
         return response;
+    }
+
+    @Override
+    public String toString() {
+        return "DefaultLazyHttpClient{" +
+                "customRequestHeaders=" + customRequestHeaders +
+                '}';
     }
 
     @Override

@@ -10,27 +10,31 @@ import java.util.Objects;
 
 public class DefaultApiDiscoJxFactory implements DiscoJxFactory {
 
-    private List<Header> defaultHttpClientHeaders;
+    protected List<Header> defaultCustomHttpClientHeaders;
 
-    public DefaultApiDiscoJxFactory setDefaultHttpClientHeaders(List<Header> defaultHttpClientHeaders) {
-        this.defaultHttpClientHeaders = defaultHttpClientHeaders;
-        return this;
-    }
+    public DefaultApiDiscoJxFactory() {}
 
-    public List<Header> getDefaultHttpClientHeaders() {
-        return defaultHttpClientHeaders;
+    public DefaultApiDiscoJxFactory(List<Header> defaultCustomHttpClientHeaders) {
+        this.defaultCustomHttpClientHeaders = defaultCustomHttpClientHeaders;
     }
 
     @Override
     public DiscogsApi create() {
-        DefaultLazyHttpClient client = new DefaultLazyHttpClient().setCustomRequestHeaders(defaultHttpClientHeaders);
+        DefaultLazyHttpClient client;
+
+        if (defaultCustomHttpClientHeaders != null) {
+            client = new DefaultLazyHttpClient(defaultCustomHttpClientHeaders);
+        } else {
+            client = new DefaultLazyHttpClient();
+        }
+
         return new DefaultDiscogsApi(client);
     }
 
     @Override
     public String toString() {
         return "DefaultApiDiscoJxFactory{" +
-                "defaultHttpClientHeaders=" + defaultHttpClientHeaders +
+                "defaultHttpClientHeaders=" + defaultCustomHttpClientHeaders +
                 '}';
     }
 
@@ -39,11 +43,11 @@ public class DefaultApiDiscoJxFactory implements DiscoJxFactory {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DefaultApiDiscoJxFactory that = (DefaultApiDiscoJxFactory) o;
-        return Objects.equals(defaultHttpClientHeaders, that.defaultHttpClientHeaders);
+        return Objects.equals(defaultCustomHttpClientHeaders, that.defaultCustomHttpClientHeaders);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(defaultHttpClientHeaders);
+        return Objects.hash(defaultCustomHttpClientHeaders);
     }
 }
