@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
-public class ArtistSearchResult extends AbstractTypedSearchResult {
+public class SearchResult extends AbstractTypedObject {
 
     public static class UserData {
         @JsonProperty("in_wantlist")
@@ -50,20 +50,20 @@ public class ArtistSearchResult extends AbstractTypedSearchResult {
         }
     }
 
-    private long id;
+    protected long id;
     @JsonProperty("user_data")
-    private UserData userData;
+    protected UserData userData;
     @JsonProperty("master_id")
-    private long masterId;
+    protected long masterId;
     @JsonProperty("master_url")
-    private String masterUrl;
-    private String uri;
-    private String title;
-    private String thumb;
-    @JsonProperty("cover_image")
-    private String coverImage;
+    protected String masterUrl;
     @JsonProperty("resource_url")
-    private String resourceUrl;
+    protected String resourceUrl;
+    @JsonProperty("cover_image")
+    protected String coverImage;
+    protected String uri;
+    protected String thumb;
+    protected String title;
 
     public long getId() {
         return id;
@@ -97,28 +97,12 @@ public class ArtistSearchResult extends AbstractTypedSearchResult {
         this.masterUrl = masterUrl;
     }
 
-    public String getUri() {
-        return uri;
+    public String getResourceUrl() {
+        return resourceUrl;
     }
 
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getThumb() {
-        return thumb;
-    }
-
-    public void setThumb(String thumb) {
-        this.thumb = thumb;
+    public void setResourceUrl(String resourceUrl) {
+        this.resourceUrl = resourceUrl;
     }
 
     public String getCoverImage() {
@@ -129,26 +113,42 @@ public class ArtistSearchResult extends AbstractTypedSearchResult {
         this.coverImage = coverImage;
     }
 
-    public String getResourceUrl() {
-        return resourceUrl;
+    public String getUri() {
+        return uri;
     }
 
-    public void setResourceUrl(String resourceUrl) {
-        this.resourceUrl = resourceUrl;
+    public void setUri(String uri) {
+        this.uri = uri;
+    }
+
+    public String getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @Override
     public String toString() {
-        return "ArtistSearchResult{" +
+        return "AbstractSearchResult{" +
                 "id=" + id +
                 ", userData=" + userData +
                 ", masterId=" + masterId +
-                ", masterUrl=" + masterUrl +
-                ", uri=" + uri +
+                ", masterUrl='" + masterUrl + '\'' +
+                ", resourceUrl='" + resourceUrl + '\'' +
+                ", coverImage='" + coverImage + '\'' +
+                ", uri='" + uri + '\'' +
+                ", thumb='" + thumb + '\'' +
                 ", title='" + title + '\'' +
-                ", thumb=" + thumb +
-                ", coverImage=" + coverImage +
-                ", resourceUrl=" + resourceUrl +
                 '}';
     }
 
@@ -156,12 +156,13 @@ public class ArtistSearchResult extends AbstractTypedSearchResult {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ArtistSearchResult that = (ArtistSearchResult) o;
-        return id == that.id && masterId == that.masterId && Objects.equals(userData, that.userData) && Objects.equals(masterUrl, that.masterUrl) && Objects.equals(uri, that.uri) && Objects.equals(title, that.title) && Objects.equals(thumb, that.thumb) && Objects.equals(coverImage, that.coverImage) && Objects.equals(resourceUrl, that.resourceUrl);
+        if (!super.equals(o)) return false;
+        SearchResult that = (SearchResult) o;
+        return id == that.id && masterId == that.masterId && Objects.equals(userData, that.userData) && Objects.equals(masterUrl, that.masterUrl) && Objects.equals(resourceUrl, that.resourceUrl) && Objects.equals(coverImage, that.coverImage) && Objects.equals(uri, that.uri) && Objects.equals(thumb, that.thumb) && Objects.equals(title, that.title);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, userData, masterId, masterUrl, uri, title, thumb, coverImage, resourceUrl);
+        return Objects.hash(super.hashCode(), id, userData, masterId, masterUrl, resourceUrl, coverImage, uri, thumb, title);
     }
 }

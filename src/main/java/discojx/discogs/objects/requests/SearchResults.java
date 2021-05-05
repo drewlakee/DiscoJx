@@ -1,17 +1,17 @@
 package discojx.discogs.objects.requests;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import discojx.discogs.objects.models.AbstractTypedObject;
+import discojx.discogs.objects.models.SearchResult;
 import discojx.utils.json.deserializers.SearchResultsDeserializer;
 
 import java.util.List;
 import java.util.Objects;
 
-public class SearchResult {
+public class SearchResults {
 
     private Pagination pagination;
     @JsonDeserialize(using = SearchResultsDeserializer.class)
-    private List<AbstractTypedObject> results;
+    private List<SearchResult> results;
 
     public Pagination getPagination() {
         return pagination;
@@ -21,11 +21,11 @@ public class SearchResult {
         this.pagination = pagination;
     }
 
-    public List<AbstractTypedObject> getResults() {
+    public List<SearchResult> getResults() {
         return results;
     }
 
-    public void setResults(List<AbstractTypedObject> results) {
+    public void setResults(List<SearchResult> results) {
         this.results = results;
     }
 
@@ -41,7 +41,7 @@ public class SearchResult {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        SearchResult that = (SearchResult) o;
+        SearchResults that = (SearchResults) o;
         return Objects.equals(pagination, that.pagination) && Objects.equals(results, that.results);
     }
 

@@ -1,7 +1,7 @@
 package discojx.discogs.objects.requests;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import discojx.discogs.objects.models.AbstractTypedObject;
+import discojx.discogs.objects.models.CommonOrderMessage;
 import discojx.utils.json.deserializers.OrderMessagesDeserializer;
 
 import java.util.List;
@@ -11,7 +11,7 @@ public class ListOrderMessages {
 
     private Pagination pagination;
     @JsonDeserialize(using = OrderMessagesDeserializer.class)
-    private List<AbstractTypedObject> messages;
+    private List<CommonOrderMessage> messages;
 
     public Pagination getPagination() {
         return pagination;
@@ -21,11 +21,11 @@ public class ListOrderMessages {
         this.pagination = pagination;
     }
 
-    public List<AbstractTypedObject> getMessages() {
+    public List<CommonOrderMessage> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<AbstractTypedObject> messages) {
+    public void setMessages(List<CommonOrderMessage> messages) {
         this.messages = messages;
     }
 

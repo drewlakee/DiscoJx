@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
-public class TrackingOrderMessage extends AbstractOrderMessage {
+public class TrackingOrderMessage extends CommonOrderMessage {
 
     public static class Actor {
         private long id;

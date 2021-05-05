@@ -24,7 +24,8 @@ public class UndefinedTypedObjectWrapper extends AbstractTypedObject {
     @Override
     public String toString() {
         return "UndefinedTypedObjectWrapper{" +
-                "undefinedJsonObject=" + undefinedJsonObject +
+                "type='" + type + '\'' +
+                ", undefinedJsonObject=" + undefinedJsonObject +
                 '}';
     }
 

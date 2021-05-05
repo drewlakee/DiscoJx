@@ -5,51 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Objects;
 
-public class ReleaseSearchResult extends AbstractTypedSearchResult {
-
-    public static class UserData {
-        @JsonProperty("in_wantlist")
-        private boolean inWantList;
-        @JsonProperty("in_collection")
-        private boolean inCollection;
-
-        public boolean isInWantList() {
-            return inWantList;
-        }
-
-        public void setInWantList(boolean inWantList) {
-            this.inWantList = inWantList;
-        }
-
-        public boolean isInCollection() {
-            return inCollection;
-        }
-
-        public void setInCollection(boolean inCollection) {
-            this.inCollection = inCollection;
-        }
-
-        @Override
-        public String toString() {
-            return "UserData{" +
-                    "inWantList=" + inWantList +
-                    ", inCollection=" + inCollection +
-                    '}';
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            UserData userData = (UserData) o;
-            return inWantList == userData.inWantList && inCollection == userData.inCollection;
-        }
-
-        @Override
-        public int hashCode() {
-            return Objects.hash(inWantList, inCollection);
-        }
-    }
+public class ReleaseSearchResult extends SearchResult {
 
     public static class Community {
         private int want;
@@ -103,23 +59,9 @@ public class ReleaseSearchResult extends AbstractTypedSearchResult {
     private List<String> genres;
     @JsonProperty("style")
     private List<String> styles;
-    private long id;
-    private String title;
     @JsonProperty("barcode")
     private List<String> barcodes;
-    @JsonProperty("user_data")
-    private UserData userData;
-    @JsonProperty("master_id")
-    private long masterId;
-    @JsonProperty("master_url")
-    private String masterUrl;
-    private String uri;
     private String catno;
-    private String thumb;
-    @JsonProperty("cover_image")
-    private String coverImage;
-    @JsonProperty("resource_url")
-    private String resourceUrl;
     private Community community;
     @JsonProperty("format_quantity")
     private int formatQuantity;
@@ -173,14 +115,6 @@ public class ReleaseSearchResult extends AbstractTypedSearchResult {
         this.styles = styles;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     public String getTitle() {
         return title;
     }
@@ -197,68 +131,12 @@ public class ReleaseSearchResult extends AbstractTypedSearchResult {
         this.barcodes = barcodes;
     }
 
-    public UserData getUserData() {
-        return userData;
-    }
-
-    public void setUserData(UserData userData) {
-        this.userData = userData;
-    }
-
-    public long getMasterId() {
-        return masterId;
-    }
-
-    public void setMasterId(long masterId) {
-        this.masterId = masterId;
-    }
-
-    public String getMasterUrl() {
-        return masterUrl;
-    }
-
-    public void setMasterUrl(String masterUrl) {
-        this.masterUrl = masterUrl;
-    }
-
-    public String getUri() {
-        return uri;
-    }
-
-    public void setUri(String uri) {
-        this.uri = uri;
-    }
-
     public String getCatno() {
         return catno;
     }
 
     public void setCatno(String catno) {
         this.catno = catno;
-    }
-
-    public String getThumb() {
-        return thumb;
-    }
-
-    public void setThumb(String thumb) {
-        this.thumb = thumb;
-    }
-
-    public String getCoverImage() {
-        return coverImage;
-    }
-
-    public void setCoverImage(String coverImage) {
-        this.coverImage = coverImage;
-    }
-
-    public String getResourceUrl() {
-        return resourceUrl;
-    }
-
-    public void setResourceUrl(String resourceUrl) {
-        this.resourceUrl = resourceUrl;
     }
 
     public Community getCommunity() {
@@ -288,23 +166,24 @@ public class ReleaseSearchResult extends AbstractTypedSearchResult {
     @Override
     public String toString() {
         return "ReleaseSearchResult{" +
-                "country='" + country + '\'' +
+                "type='" + type + '\'' +
+                ", id=" + id +
+                ", userData=" + userData +
+                ", masterId=" + masterId +
+                ", masterUrl='" + masterUrl + '\'' +
+                ", resourceUrl='" + resourceUrl + '\'' +
+                ", coverImage='" + coverImage + '\'' +
+                ", uri='" + uri + '\'' +
+                ", thumb='" + thumb + '\'' +
+                ", country='" + country + '\'' +
                 ", year=" + year +
                 ", plainFormats=" + plainFormats +
                 ", labels=" + labels +
                 ", genres=" + genres +
                 ", styles=" + styles +
-                ", id=" + id +
                 ", title='" + title + '\'' +
                 ", barcodes=" + barcodes +
-                ", userData=" + userData +
-                ", masterId=" + masterId +
-                ", masterUrl=" + masterUrl +
-                ", uri=" + uri +
                 ", catno='" + catno + '\'' +
-                ", thumb=" + thumb +
-                ", coverImage=" + coverImage +
-                ", resourceUrl=" + resourceUrl +
                 ", community=" + community +
                 ", formatQuantity=" + formatQuantity +
                 ", formats=" + formats +
@@ -317,11 +196,11 @@ public class ReleaseSearchResult extends AbstractTypedSearchResult {
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         ReleaseSearchResult that = (ReleaseSearchResult) o;
-        return year == that.year && id == that.id && masterId == that.masterId && formatQuantity == that.formatQuantity && Objects.equals(country, that.country) && Objects.equals(plainFormats, that.plainFormats) && Objects.equals(labels, that.labels) && Objects.equals(genres, that.genres) && Objects.equals(styles, that.styles) && Objects.equals(title, that.title) && Objects.equals(barcodes, that.barcodes) && Objects.equals(userData, that.userData) && Objects.equals(masterUrl, that.masterUrl) && Objects.equals(uri, that.uri) && Objects.equals(catno, that.catno) && Objects.equals(thumb, that.thumb) && Objects.equals(coverImage, that.coverImage) && Objects.equals(resourceUrl, that.resourceUrl) && Objects.equals(community, that.community) && Objects.equals(formats, that.formats);
+        return year == that.year && formatQuantity == that.formatQuantity && Objects.equals(country, that.country) && Objects.equals(plainFormats, that.plainFormats) && Objects.equals(labels, that.labels) && Objects.equals(genres, that.genres) && Objects.equals(styles, that.styles) && Objects.equals(title, that.title) && Objects.equals(barcodes, that.barcodes) && Objects.equals(catno, that.catno) && Objects.equals(community, that.community) && Objects.equals(formats, that.formats);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), country, year, plainFormats, labels, genres, styles, id, title, barcodes, userData, masterId, masterUrl, uri, catno, thumb, coverImage, resourceUrl, community, formatQuantity, formats);
+        return Objects.hash(super.hashCode(), country, year, plainFormats, labels, genres, styles, title, barcodes, catno, community, formatQuantity, formats);
     }
 }

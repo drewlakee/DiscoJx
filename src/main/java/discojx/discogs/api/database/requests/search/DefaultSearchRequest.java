@@ -2,7 +2,7 @@ package discojx.discogs.api.database.requests.search;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.requests.SearchResult;
+import discojx.discogs.objects.requests.SearchResults;
 import discojx.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.requests.AbstractRequest;
 import discojx.utils.json.JsonUtils;
@@ -251,18 +251,18 @@ public class DefaultSearchRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<SearchResult> executeAsync() {
+    public CompletableFuture<SearchResults> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
-            SearchResult searchResult;
+            SearchResults searchResults;
             try {
-                searchResult = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), SearchResult.class);
+                searchResults = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), SearchResults.class);
             } catch (IOException e) {
                 throw new CompletionException(e);
             }
 
-            return searchResult;
+            return searchResults;
         });
     }
 }

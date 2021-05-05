@@ -1,6 +1,5 @@
 package discojx.discogs.api.inventory.upload.requests.add;
 
-import discojx.discogs.api.inventory.upload.requests.change.ChangeInventoryRequestBuilder;
 import discojx.requests.RequestBuilder;
 
 import java.io.InputStream;

@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Date;
 import java.util.Objects;
 
-public class AbstractOrderMessage extends AbstractTypedObject {
+public class CommonOrderMessage extends AbstractTypedObject {
 
     public static class Order {
         private String id;
@@ -102,7 +102,7 @@ public class AbstractOrderMessage extends AbstractTypedObject {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-        AbstractOrderMessage that = (AbstractOrderMessage) o;
+        CommonOrderMessage that = (CommonOrderMessage) o;
         return Objects.equals(order, that.order) && Objects.equals(timestamp, that.timestamp) && Objects.equals(subject, that.subject) && Objects.equals(message, that.message);
     }
 

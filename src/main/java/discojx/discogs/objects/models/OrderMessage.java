@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Objects;
 
-public class OrderMessage extends AbstractOrderMessage {
+public class OrderMessage extends CommonOrderMessage {
 
     public static class From {
         private long id;
