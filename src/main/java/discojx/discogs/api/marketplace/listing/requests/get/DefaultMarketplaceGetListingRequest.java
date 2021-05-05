@@ -3,7 +3,6 @@ package discojx.discogs.api.marketplace.listing.requests.get;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.objects.Listing;
-import discojx.discogs.objects.MarketplaceCurrency;
 import discojx.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;
@@ -29,7 +28,7 @@ public class DefaultMarketplaceGetListingRequest extends AbstractRequest
             implements MarketplaceGetListingRequestBuilder {
 
         private long listingId;
-        private MarketplaceCurrency currAbbr;
+        private String currAbbr;
 
         public Builder(AbstractHttpClient client) {
             super(client);
@@ -42,7 +41,7 @@ public class DefaultMarketplaceGetListingRequest extends AbstractRequest
         }
 
         @Override
-        public MarketplaceGetListingRequestBuilder currAbbr(MarketplaceCurrency currAbbr) {
+        public MarketplaceGetListingRequestBuilder currAbbr(String currAbbr) {
             this.currAbbr = currAbbr;
             return this;
         }
@@ -61,7 +60,7 @@ public class DefaultMarketplaceGetListingRequest extends AbstractRequest
             StringBuilderSequentialRequestPathParametersConstructor parameters =
                     new StringBuilderSequentialRequestPathParametersConstructor();
 
-            if (currAbbr != null) parameters.append("curr_abbr", currAbbr.name());
+            if (currAbbr != null) parameters.append("curr_abbr", currAbbr);
 
             return parameters;
         }
@@ -80,7 +79,7 @@ public class DefaultMarketplaceGetListingRequest extends AbstractRequest
             if (o == null || getClass() != o.getClass()) return false;
             if (!super.equals(o)) return false;
             Builder builder = (Builder) o;
-            return listingId == builder.listingId && currAbbr == builder.currAbbr;
+            return listingId == builder.listingId && currAbbr.equals(builder.currAbbr);
         }
 
         @Override

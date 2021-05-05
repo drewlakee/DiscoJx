@@ -55,14 +55,14 @@ public class MarketplaceOrder {
         }
 
         public static class Price {
-            private MarketplaceCurrency currency;
+            private String currency;
             private double value;
 
-            public MarketplaceCurrency getCurrency() {
+            public String getCurrency() {
                 return currency;
             }
 
-            public void setCurrency(MarketplaceCurrency currency) {
+            public void setCurrency(String currency) {
                 this.currency = currency;
             }
 
@@ -87,7 +87,7 @@ public class MarketplaceOrder {
                 if (this == o) return true;
                 if (o == null || getClass() != o.getClass()) return false;
                 Price price = (Price) o;
-                return Double.compare(price.value, value) == 0 && currency == price.currency;
+                return Double.compare(price.value, value) == 0 && currency.equals(price.currency);
             }
 
             @Override
@@ -170,15 +170,15 @@ public class MarketplaceOrder {
     }
 
     public static class Shipping {
-        private MarketplaceCurrency currency;
+        private String currency;
         private String method;
         private double value;
 
-        public MarketplaceCurrency getCurrency() {
+        public String getCurrency() {
             return currency;
         }
 
-        public void setCurrency(MarketplaceCurrency currency) {
+        public void setCurrency(String currency) {
             this.currency = currency;
         }
 
@@ -212,7 +212,7 @@ public class MarketplaceOrder {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Shipping shipping = (Shipping) o;
-            return Double.compare(shipping.value, value) == 0 && currency == shipping.currency && Objects.equals(method, shipping.method);
+            return Double.compare(shipping.value, value) == 0 && currency.equals(shipping.currency) && Objects.equals(method, shipping.method);
         }
 
         @Override
@@ -328,14 +328,14 @@ public class MarketplaceOrder {
     }
 
     public static class Total {
-        private MarketplaceCurrency currency;
+        private String currency;
         private double value;
 
-        public MarketplaceCurrency getCurrency() {
+        public String getCurrency() {
             return currency;
         }
 
-        public void setCurrency(MarketplaceCurrency currency) {
+        public void setCurrency(String currency) {
             this.currency = currency;
         }
 
@@ -360,7 +360,7 @@ public class MarketplaceOrder {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Total total = (Total) o;
-            return Double.compare(total.value, value) == 0 && currency == total.currency;
+            return Double.compare(total.value, value) == 0 && currency.equals(total.currency);
         }
 
         @Override

@@ -11,7 +11,7 @@ public class Listing {
 
     public static class Price {
         private double value;
-        private MarketplaceCurrency currency;
+        private String currency;
 
         public double getValue() {
             return value;
@@ -21,11 +21,11 @@ public class Listing {
             this.value = value;
         }
 
-        public MarketplaceCurrency getCurrency() {
+        public String getCurrency() {
             return currency;
         }
 
-        public void setCurrency(MarketplaceCurrency currency) {
+        public void setCurrency(String currency) {
             this.currency = currency;
         }
 
@@ -42,7 +42,7 @@ public class Listing {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Price price = (Price) o;
-            return value == price.value && currency == price.currency;
+            return value == price.value && currency.equals(price.currency);
         }
 
         @Override
@@ -53,17 +53,17 @@ public class Listing {
 
     public static class OriginalPrice {
         @JsonProperty("curr_abbr")
-        private MarketplaceCurrency currAbbr;
+        private String currAbbr;
         @JsonProperty("curr_id")
         private long currId;
         private String formatted;
         private int value;
 
-        public MarketplaceCurrency getCurrAbbr() {
+        public String getCurrAbbr() {
             return currAbbr;
         }
 
-        public void setCurrAbbr(MarketplaceCurrency currAbbr) {
+        public void setCurrAbbr(String currAbbr) {
             this.currAbbr = currAbbr;
         }
 
@@ -106,7 +106,7 @@ public class Listing {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             OriginalPrice that = (OriginalPrice) o;
-            return currId == that.currId && value == that.value && currAbbr == that.currAbbr && Objects.equals(formatted, that.formatted);
+            return currId == that.currId && value == that.value && currAbbr.equals(that.currAbbr) && Objects.equals(formatted, that.formatted);
         }
 
         @Override
@@ -116,14 +116,14 @@ public class Listing {
     }
 
     public static class ShippingPrice {
-        private MarketplaceCurrency currency;
+        private String currency;
         private double value;
 
-        public MarketplaceCurrency getCurrency() {
+        public String getCurrency() {
             return currency;
         }
 
-        public void setCurrency(MarketplaceCurrency currency) {
+        public void setCurrency(String currency) {
             this.currency = currency;
         }
 
@@ -148,7 +148,7 @@ public class Listing {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             ShippingPrice that = (ShippingPrice) o;
-            return Double.compare(that.value, value) == 0 && currency == that.currency;
+            return Double.compare(that.value, value) == 0 && currency.equals(that.currency);
         }
 
         @Override
@@ -159,17 +159,17 @@ public class Listing {
 
     public static class OriginalShippingPrice {
         @JsonProperty("curr_abbr")
-        private MarketplaceCurrency currAbbr;
+        private String currAbbr;
         @JsonProperty("curr_id")
         private long currId;
         private String formatted;
         private double value;
 
-        public MarketplaceCurrency getCurrAbbr() {
+        public String getCurrAbbr() {
             return currAbbr;
         }
 
-        public void setCurrAbbr(MarketplaceCurrency currAbbr) {
+        public void setCurrAbbr(String currAbbr) {
             this.currAbbr = currAbbr;
         }
 
@@ -212,7 +212,7 @@ public class Listing {
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             OriginalShippingPrice that = (OriginalShippingPrice) o;
-            return currId == that.currId && Double.compare(that.value, value) == 0 && currAbbr == that.currAbbr && Objects.equals(formatted, that.formatted);
+            return currId == that.currId && Double.compare(that.value, value) == 0 && currAbbr.equals(that.currAbbr) && Objects.equals(formatted, that.formatted);
         }
 
         @Override

@@ -4,14 +4,14 @@ import java.util.Objects;
 
 public class Fee {
 
-    private MarketplaceCurrency currency;
+    private String currency;
     private double value;
 
-    public MarketplaceCurrency getCurrency() {
+    public String getCurrency() {
         return currency;
     }
 
-    public void setCurrency(MarketplaceCurrency currency) {
+    public void setCurrency(String currency) {
         this.currency = currency;
     }
 
@@ -36,7 +36,7 @@ public class Fee {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Fee fee = (Fee) o;
-        return Double.compare(fee.value, value) == 0 && currency == fee.currency;
+        return Double.compare(fee.value, value) == 0 && currency.equals(fee.currency);
     }
 
     @Override

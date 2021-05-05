@@ -4,7 +4,6 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.MarketplaceCurrency;
 import discojx.discogs.objects.Profile;
 import discojx.requests.AbstractJsonParameterizedRequest;
 import discojx.requests.AbstractJsonParameterizedRequestBuilder;
@@ -33,7 +32,7 @@ public class DefaultProfileEditRequest extends AbstractJsonParameterizedRequest<
         private String homePage;
         private String location;
         private String profile;
-        private MarketplaceCurrency currAbbr;
+        private String currAbbr;
 
         public Builder(AbstractHttpClient client) {
             super(client);
@@ -70,7 +69,7 @@ public class DefaultProfileEditRequest extends AbstractJsonParameterizedRequest<
         }
 
         @Override
-        public ProfileEditRequestBuilder currAbbr(MarketplaceCurrency currAbbr) {
+        public ProfileEditRequestBuilder currAbbr(String currAbbr) {
             this.currAbbr = currAbbr;
             return this;
         }
@@ -93,7 +92,7 @@ public class DefaultProfileEditRequest extends AbstractJsonParameterizedRequest<
             if (homePage != null) jsonObject.put("home_page", homePage);
             if (location != null) jsonObject.put("location", location);
             if (profile != null) jsonObject.put("profile", profile);
-            if (currAbbr != null) jsonObject.put("curr_abbr", currAbbr.name());
+            if (currAbbr != null) jsonObject.put("curr_abbr", currAbbr);
 
             return jsonObject;
         }
@@ -118,7 +117,7 @@ public class DefaultProfileEditRequest extends AbstractJsonParameterizedRequest<
             if (this == o) return true;
             if (o == null || getClass() != o.getClass()) return false;
             Builder builder = (Builder) o;
-            return Objects.equals(client, builder.client) && Objects.equals(username, builder.username) && Objects.equals(name, builder.name) && Objects.equals(homePage, builder.homePage) && Objects.equals(location, builder.location) && Objects.equals(profile, builder.profile) && currAbbr == builder.currAbbr && Objects.equals(queryUrl, builder.queryUrl) && Objects.equals(jsonObject, builder.jsonObject);
+            return Objects.equals(client, builder.client) && Objects.equals(username, builder.username) && Objects.equals(name, builder.name) && Objects.equals(homePage, builder.homePage) && Objects.equals(location, builder.location) && Objects.equals(profile, builder.profile) && currAbbr.equals(builder.currAbbr) && Objects.equals(queryUrl, builder.queryUrl) && Objects.equals(jsonObject, builder.jsonObject);
         }
 
         @Override

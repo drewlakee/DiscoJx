@@ -2,7 +2,6 @@ package discojx.discogs.api.database.requests.release;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.MarketplaceCurrency;
 import discojx.discogs.objects.Release;
 import discojx.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.requests.AbstractRequest;
@@ -28,7 +27,7 @@ public class DefaultReleaseRequest extends AbstractRequest
             implements ReleaseRequestBuilder {
 
         private long releaseId;
-        private MarketplaceCurrency currAbbr;
+        private String currAbbr;
 
         public Builder(AbstractHttpClient client) {
             super(client);
@@ -41,7 +40,7 @@ public class DefaultReleaseRequest extends AbstractRequest
         }
 
         @Override
-        public ReleaseRequestBuilder currAbbr(MarketplaceCurrency currAbbr) {
+        public ReleaseRequestBuilder currAbbr(String currAbbr) {
             this.currAbbr = currAbbr;
             return this;
         }
@@ -60,7 +59,7 @@ public class DefaultReleaseRequest extends AbstractRequest
             StringBuilderSequentialRequestPathParametersConstructor parameters =
                     new StringBuilderSequentialRequestPathParametersConstructor();
 
-            if (currAbbr != null) parameters.append("curr_abbr", currAbbr.name());
+            if (currAbbr != null) parameters.append("curr_abbr", currAbbr);
 
             return parameters;
         }
@@ -79,7 +78,7 @@ public class DefaultReleaseRequest extends AbstractRequest
             if (o == null || getClass() != o.getClass()) return false;
             if (!super.equals(o)) return false;
             Builder builder = (Builder) o;
-            return releaseId == builder.releaseId && currAbbr == builder.currAbbr;
+            return releaseId == builder.releaseId && currAbbr.equals(builder.currAbbr);
         }
 
         @Override
