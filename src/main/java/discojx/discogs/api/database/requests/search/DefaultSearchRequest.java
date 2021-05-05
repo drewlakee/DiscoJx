@@ -2,7 +2,7 @@ package discojx.discogs.api.database.requests.search;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.SearchResult;
+import discojx.discogs.objects.requests.SearchResult;
 import discojx.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.requests.AbstractRequest;
 import discojx.utils.json.JsonUtils;

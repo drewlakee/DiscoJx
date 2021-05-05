@@ -5,7 +5,7 @@ import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import discojx.discogs.objects.*;
+import discojx.discogs.objects.models.*;
 import discojx.utils.json.JsonUtils;
 
 import java.io.IOException;

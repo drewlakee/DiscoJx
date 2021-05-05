@@ -2,7 +2,7 @@ package discojx.discogs.api.database.requests.release.stats;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.ReleaseStats;
+import discojx.discogs.objects.models.ReleaseStats;
 import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;
 import discojx.utils.json.JsonUtils;

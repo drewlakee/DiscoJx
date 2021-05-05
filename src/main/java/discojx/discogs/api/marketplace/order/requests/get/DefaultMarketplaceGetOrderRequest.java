@@ -2,7 +2,7 @@ package discojx.discogs.api.marketplace.order.requests.get;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.MarketplaceOrder;
+import discojx.discogs.objects.models.MarketplaceOrder;
 import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;
 import discojx.utils.json.JsonUtils;

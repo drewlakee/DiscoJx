@@ -2,7 +2,7 @@ package discojx.discogs.api.marketplace.requests.fee.currency;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.Fee;
+import discojx.discogs.objects.models.Fee;
 import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;
 import discojx.utils.json.JsonUtils;

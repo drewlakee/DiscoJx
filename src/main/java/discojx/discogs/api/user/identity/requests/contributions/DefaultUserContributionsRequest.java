@@ -2,7 +2,7 @@ package discojx.discogs.api.user.identity.requests.contributions;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.Contributions;
+import discojx.discogs.objects.requests.Contributions;
 import discojx.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.requests.AbstractRequest;
 import discojx.utils.json.JsonUtils;

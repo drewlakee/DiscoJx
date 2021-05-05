@@ -2,7 +2,7 @@ package discojx.discogs.api.user.wantlist.requests;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.UserWantList;
+import discojx.discogs.objects.requests.UserWantList;
 import discojx.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.requests.AbstractRequest;
 import discojx.utils.json.JsonUtils;

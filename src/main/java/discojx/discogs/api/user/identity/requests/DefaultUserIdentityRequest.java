@@ -2,7 +2,7 @@ package discojx.discogs.api.user.identity.requests;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.UserIdentity;
+import discojx.discogs.objects.models.UserIdentity;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;

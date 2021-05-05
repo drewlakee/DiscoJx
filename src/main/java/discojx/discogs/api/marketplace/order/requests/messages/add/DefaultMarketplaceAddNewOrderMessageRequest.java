@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.OrderMessage;
+import discojx.discogs.objects.models.OrderMessage;
 import discojx.requests.AbstractJsonParameterizedRequest;
 import discojx.requests.AbstractJsonParameterizedRequestBuilder;
 import discojx.utils.json.JsonUtils;

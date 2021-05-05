@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.TreeNode;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import discojx.discogs.objects.MarketplacePriceSuggestions;
-import discojx.discogs.objects.PriceSuggestion;
+import discojx.discogs.objects.requests.MarketplacePriceSuggestions;
+import discojx.discogs.objects.models.PriceSuggestion;
 import discojx.utils.json.JsonUtils;
 
 import java.io.IOException;

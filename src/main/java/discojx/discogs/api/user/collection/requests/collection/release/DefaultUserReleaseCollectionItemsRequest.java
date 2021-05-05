@@ -2,7 +2,7 @@ package discojx.discogs.api.user.collection.requests.collection.release;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.UserReleaseCollectionItems;
+import discojx.discogs.objects.models.UserReleaseCollectionItems;
 import discojx.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;

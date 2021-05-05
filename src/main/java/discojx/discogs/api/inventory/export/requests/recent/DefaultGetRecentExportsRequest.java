@@ -2,7 +2,7 @@ package discojx.discogs.api.inventory.export.requests.recent;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.GetRecentExports;
+import discojx.discogs.objects.requests.GetRecentExports;
 import discojx.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;

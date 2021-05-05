@@ -2,7 +2,7 @@ package discojx.discogs.api.database.requests.release.rating.user;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
-import discojx.discogs.objects.ReleaseRating;
+import discojx.discogs.objects.models.ReleaseRating;
 import discojx.requests.AbstractRequest;
 import discojx.requests.AbstractRequestBuilder;
 import discojx.utils.json.JsonUtils;
