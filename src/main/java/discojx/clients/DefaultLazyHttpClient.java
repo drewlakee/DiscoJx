@@ -27,14 +27,14 @@ public class DefaultLazyHttpClient extends AbstractHttpClient {
 
     public DefaultLazyHttpClient() {
         this.customRequestHeaders = List.of(
-                new BasicHeader("User-Agent", "discojx/1.0.0 An Asynchronous DiscogsAPI Client Library")
+                new BasicHeader("User-Agent", "discojx/1.0.0 An Asynchronous DiscogsAPI Java Client Library")
         );
     }
 
     public DefaultLazyHttpClient(String token) {
         this.token = token;
         this.customRequestHeaders = List.of(
-                new BasicHeader("User-Agent", "discojx/1.0.0 An Asynchronous DiscogsAPI Client Library"),
+                new BasicHeader("User-Agent", "discojx/1.0.0 An Asynchronous DiscogsAPI Java Client Library"),
                 new BasicHeader("Authorization", "Discogs token=" + token)
         );
     }
