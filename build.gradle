@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group 'drewlakee'
+group 'io.github.drewlakee'
 version '1.0.0'
 
 repositories {
