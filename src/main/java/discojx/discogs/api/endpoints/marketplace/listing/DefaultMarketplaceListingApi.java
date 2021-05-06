@@ -1,14 +1,14 @@
 package discojx.discogs.api.endpoints.marketplace.listing;
 
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.requests.impl.DefaultMarketplaceNewListingRequest;
 import discojx.discogs.api.endpoints.marketplace.listing.requests.create.MarketplaceNewListingRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultMarketplaceDeleteListingRequest;
 import discojx.discogs.api.endpoints.marketplace.listing.requests.delete.MarketplaceDeleteListingRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultMarketplaceEditListingRequest;
 import discojx.discogs.api.endpoints.marketplace.listing.requests.edit.MarketplaceEditListingRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultMarketplaceGetListingRequest;
 import discojx.discogs.api.endpoints.marketplace.listing.requests.get.MarketplaceGetListingRequestBuilder;
+import discojx.discogs.api.requests.impl.DefaultMarketplaceDeleteListingRequest;
+import discojx.discogs.api.requests.impl.DefaultMarketplaceEditListingRequest;
+import discojx.discogs.api.requests.impl.DefaultMarketplaceGetListingRequest;
+import discojx.discogs.api.requests.impl.DefaultMarketplaceNewListingRequest;
 
 import java.util.Objects;
 

@@ -1,16 +1,12 @@
 package discojx.discogs.api.endpoints.marketplace.order;
 
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.requests.impl.DefaultMarketplaceEditOrderRequest;
 import discojx.discogs.api.endpoints.marketplace.order.requests.edit.MarketplaceEditOrderRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultMarketplaceGetOrderRequest;
 import discojx.discogs.api.endpoints.marketplace.order.requests.get.MarketplaceGetOrderRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultMarketplaceListOrdersRequest;
 import discojx.discogs.api.endpoints.marketplace.order.requests.list.MarketplaceListOrdersRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultMarketplaceAddNewOrderMessageRequest;
 import discojx.discogs.api.endpoints.marketplace.order.requests.messages.add.MarketplaceAddNewOrderMessageRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultMarketplaceListOrderMessagesRequest;
 import discojx.discogs.api.endpoints.marketplace.order.requests.messages.get.MarketplaceListOrderMessagesRequestBuilder;
+import discojx.discogs.api.requests.impl.*;
 
 import java.util.Objects;
 

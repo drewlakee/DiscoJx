@@ -1,14 +1,14 @@
 package discojx.discogs.api.endpoints.inventory.export;
 
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.requests.impl.DefaultDownloadExportRequest;
 import discojx.discogs.api.endpoints.inventory.export.requests.download.DownloadExportRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultGetExportRequest;
 import discojx.discogs.api.endpoints.inventory.export.requests.get.GetExportRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultGetRecentExportsRequest;
 import discojx.discogs.api.endpoints.inventory.export.requests.recent.GetRecentExportsRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultExportYourInventoryRequest;
 import discojx.discogs.api.endpoints.inventory.export.requests.your.ExportYourInventoryRequest;
+import discojx.discogs.api.requests.impl.DefaultDownloadExportRequest;
+import discojx.discogs.api.requests.impl.DefaultExportYourInventoryRequest;
+import discojx.discogs.api.requests.impl.DefaultGetExportRequest;
+import discojx.discogs.api.requests.impl.DefaultGetRecentExportsRequest;
 
 import java.util.Objects;
 

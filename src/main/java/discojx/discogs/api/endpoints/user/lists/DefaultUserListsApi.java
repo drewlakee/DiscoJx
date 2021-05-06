@@ -1,10 +1,10 @@
 package discojx.discogs.api.endpoints.user.lists;
 
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.requests.impl.DefaultUserListsRequest;
 import discojx.discogs.api.endpoints.user.lists.requests.UserListsRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultUserListRequest;
 import discojx.discogs.api.endpoints.user.lists.requests.list.UserListRequestBuilder;
+import discojx.discogs.api.requests.impl.DefaultUserListRequest;
+import discojx.discogs.api.requests.impl.DefaultUserListsRequest;
 
 import java.util.Objects;
 

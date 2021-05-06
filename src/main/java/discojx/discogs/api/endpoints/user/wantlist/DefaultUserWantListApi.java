@@ -1,14 +1,14 @@
 package discojx.discogs.api.endpoints.user.wantlist;
 
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.requests.impl.DefaultUserWantListRequest;
 import discojx.discogs.api.endpoints.user.wantlist.requests.UserWantListRequestBuilder;
 import discojx.discogs.api.endpoints.user.wantlist.requests.add.AddUserWantListRequestBuilder;
+import discojx.discogs.api.endpoints.user.wantlist.requests.delete.DeleteUserWantListRequestBuilder;
+import discojx.discogs.api.endpoints.user.wantlist.requests.edit.EditUserWantListRequestBuilder;
 import discojx.discogs.api.requests.impl.DefaultAddUserWantListRequest;
 import discojx.discogs.api.requests.impl.DefaultDeleteUserWantListRequest;
-import discojx.discogs.api.endpoints.user.wantlist.requests.delete.DeleteUserWantListRequestBuilder;
 import discojx.discogs.api.requests.impl.DefaultEditUserWantListRequest;
-import discojx.discogs.api.endpoints.user.wantlist.requests.edit.EditUserWantListRequestBuilder;
+import discojx.discogs.api.requests.impl.DefaultUserWantListRequest;
 
 import java.util.Objects;
 

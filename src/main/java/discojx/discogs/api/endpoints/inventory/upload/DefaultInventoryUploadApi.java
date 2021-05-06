@@ -2,15 +2,11 @@ package discojx.discogs.api.endpoints.inventory.upload;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.endpoints.inventory.upload.requests.add.AddInventoryRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultAddInventoryRequest;
 import discojx.discogs.api.endpoints.inventory.upload.requests.change.ChangeInventoryRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultChangeInventoryRequest;
-import discojx.discogs.api.requests.impl.DefaultDeleteInventoryRequest;
 import discojx.discogs.api.endpoints.inventory.upload.requests.delete.DeleteInventoryRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultGetRecentUploadsRequest;
 import discojx.discogs.api.endpoints.inventory.upload.requests.recent.GetRecentUploadsRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultGetUploadRequest;
 import discojx.discogs.api.endpoints.inventory.upload.requests.recent.get.GetUploadRequestBuilder;
+import discojx.discogs.api.requests.impl.*;
 
 import java.util.Objects;
 

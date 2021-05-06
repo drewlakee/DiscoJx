@@ -1,32 +1,20 @@
 package discojx.discogs.api.endpoints.user.collection;
 
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.requests.impl.DefaultUserFoldersRequest;
 import discojx.discogs.api.endpoints.user.collection.requests.UserFoldersRequestBuilder;
 import discojx.discogs.api.endpoints.user.collection.requests.create.CreateUserFolderRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultCreateUserFolderRequest;
-import discojx.discogs.api.requests.impl.DefaultListCustomFieldsRequest;
 import discojx.discogs.api.endpoints.user.collection.requests.fields.ListCustomFieldsRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultEditFieldsInstanceRequest;
 import discojx.discogs.api.endpoints.user.collection.requests.fields.edit.EditFieldsInstanceRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultUserFolderRequest;
 import discojx.discogs.api.endpoints.user.collection.requests.folder.UserFolderRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultDeleteUserFolderRequest;
 import discojx.discogs.api.endpoints.user.collection.requests.folder.delete.DeleteUserFolderRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultEditUserFolderRequest;
 import discojx.discogs.api.endpoints.user.collection.requests.folder.edit.EditUserFolderRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultUserReleaseFolderCollectionItemsRequest;
 import discojx.discogs.api.endpoints.user.collection.requests.folder.release.UserReleaseFolderCollectionItemsRequestBuilder;
 import discojx.discogs.api.endpoints.user.collection.requests.folder.release.add.AddUserReleaseFolderCollectionItemRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultAddUserReleaseFolderCollectionItemRequest;
-import discojx.discogs.api.requests.impl.DefaultUserReleaseCollectionItemsRequest;
 import discojx.discogs.api.endpoints.user.collection.requests.release.UserReleaseCollectionItemsRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultDeleteInstanceFromFolderRequest;
 import discojx.discogs.api.endpoints.user.collection.requests.release.delete.DeleteInstanceFromFolderRequestBuilder;
 import discojx.discogs.api.endpoints.user.collection.requests.release.rating.ChangeReleaseRatingRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultChangeReleaseRatingRequest;
-import discojx.discogs.api.requests.impl.DefaultUserCollectionValueRequest;
 import discojx.discogs.api.endpoints.user.collection.requests.value.UserCollectionValueRequestBuilder;
+import discojx.discogs.api.requests.impl.*;
 
 import java.util.Objects;
 

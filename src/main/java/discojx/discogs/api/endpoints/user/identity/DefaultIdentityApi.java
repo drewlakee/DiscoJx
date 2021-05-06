@@ -1,16 +1,12 @@
 package discojx.discogs.api.endpoints.user.identity;
 
 import discojx.clients.AbstractHttpClient;
-import discojx.discogs.api.requests.impl.DefaultUserIdentityRequest;
 import discojx.discogs.api.endpoints.user.identity.requests.UserIdentityRequest;
-import discojx.discogs.api.requests.impl.DefaultUserContributionsRequest;
 import discojx.discogs.api.endpoints.user.identity.requests.contributions.UserContributionsRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultProfileRequest;
 import discojx.discogs.api.endpoints.user.identity.requests.profile.ProfileRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultProfileEditRequest;
 import discojx.discogs.api.endpoints.user.identity.requests.profile.edit.ProfileEditRequestBuilder;
-import discojx.discogs.api.requests.impl.DefaultUserSubmissionsRequest;
 import discojx.discogs.api.endpoints.user.identity.requests.submissions.UserSubmissionsRequestBuilder;
+import discojx.discogs.api.requests.impl.*;
 
 import java.util.Objects;
 
