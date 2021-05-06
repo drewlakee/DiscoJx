@@ -4,6 +4,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.inventory.export.requests.get.GetExportRequest;
 import discojx.discogs.api.endpoints.inventory.export.requests.get.GetExportRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.models.ExportItem;
 import discojx.discogs.api.requests.AbstractRequest;
 import discojx.discogs.api.requests.AbstractRequestBuilder;
@@ -70,7 +71,7 @@ public class DefaultGetExportRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<ExportItem> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<ExportItem>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
@@ -81,7 +82,7 @@ public class DefaultGetExportRequest extends AbstractRequest
                 throw new CompletionException(e);
             }
 
-            return exportItem;
+            return new EntityResponseWrapper<>(response, exportItem);
         });
     }
 }

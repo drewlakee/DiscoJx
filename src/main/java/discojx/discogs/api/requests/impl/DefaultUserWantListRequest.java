@@ -4,6 +4,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.user.wantlist.requests.UserWantListRequest;
 import discojx.discogs.api.endpoints.user.wantlist.requests.UserWantListRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.requests.UserWantList;
 import discojx.discogs.api.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.discogs.api.requests.AbstractRequest;
@@ -98,7 +99,7 @@ public class DefaultUserWantListRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<UserWantList> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<UserWantList>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
@@ -109,7 +110,7 @@ public class DefaultUserWantListRequest extends AbstractRequest
                 throw new CompletionException(e);
             }
 
-            return userWantList;
+            return new EntityResponseWrapper<>(response, userWantList);
         });
     }
 }

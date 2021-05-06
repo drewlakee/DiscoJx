@@ -4,6 +4,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.user.collection.requests.fields.ListCustomFieldsRequest;
 import discojx.discogs.api.endpoints.user.collection.requests.fields.ListCustomFieldsRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.models.ListCustomFields;
 import discojx.discogs.api.requests.AbstractRequest;
 import discojx.discogs.api.requests.AbstractRequestBuilder;
@@ -70,7 +71,7 @@ public class DefaultListCustomFieldsRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<ListCustomFields> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<ListCustomFields>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
@@ -81,7 +82,7 @@ public class DefaultListCustomFieldsRequest extends AbstractRequest
                 throw new CompletionException(e);
             }
 
-            return listCustomFields;
+            return new EntityResponseWrapper<>(response, listCustomFields);
         });
     }
 }

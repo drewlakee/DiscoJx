@@ -1,7 +1,8 @@
 package discojx.discogs.api.endpoints.database.requests.release.master;
 
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.models.MasterRelease;
 import discojx.discogs.api.requests.AsyncExecutableRequest;
 
-public interface MasterReleaseRequest extends AsyncExecutableRequest<MasterRelease> {
+public interface MasterReleaseRequest extends AsyncExecutableRequest<EntityResponseWrapper<MasterRelease>> {
 }

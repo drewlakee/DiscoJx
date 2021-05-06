@@ -4,6 +4,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.user.collection.requests.folder.release.add.AddUserReleaseFolderCollectionItemRequest;
 import discojx.discogs.api.endpoints.user.collection.requests.folder.release.add.AddUserReleaseFolderCollectionItemRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.models.UserReleaseCollectionItems;
 import discojx.discogs.api.requests.AbstractRequest;
 import discojx.discogs.api.requests.AbstractRequestBuilder;
@@ -88,7 +89,7 @@ public class DefaultAddUserReleaseFolderCollectionItemRequest extends AbstractRe
     }
 
     @Override
-    public CompletableFuture<UserReleaseCollectionItems.Release.Short> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<UserReleaseCollectionItems.Release.Short>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpPost(queryUrl));
 
@@ -99,7 +100,7 @@ public class DefaultAddUserReleaseFolderCollectionItemRequest extends AbstractRe
                 throw new CompletionException(e);
             }
 
-            return userReleaseCollectionFolderItem;
+            return new EntityResponseWrapper<>(response, userReleaseCollectionFolderItem);
         });
     }
 }

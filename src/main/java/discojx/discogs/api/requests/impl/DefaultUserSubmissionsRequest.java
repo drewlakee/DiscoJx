@@ -4,6 +4,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.user.identity.requests.submissions.UserSubmissionsRequest;
 import discojx.discogs.api.endpoints.user.identity.requests.submissions.UserSubmissionsRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.requests.Submissions;
 import discojx.discogs.api.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.discogs.api.requests.AbstractRequest;
@@ -100,7 +101,7 @@ public class DefaultUserSubmissionsRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<Submissions> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<Submissions>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
@@ -111,7 +112,7 @@ public class DefaultUserSubmissionsRequest extends AbstractRequest
                 throw new CompletionException(e);
             }
 
-            return submissions;
+            return new EntityResponseWrapper<>(response, submissions);
         });
     }
 }

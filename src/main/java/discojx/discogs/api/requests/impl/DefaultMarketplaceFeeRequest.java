@@ -1,7 +1,10 @@
-package discojx.discogs.api.endpoints.marketplace.requests.fee;
+package discojx.discogs.api.requests.impl;
 
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
+import discojx.discogs.api.endpoints.marketplace.requests.fee.MarketplaceFeeRequest;
+import discojx.discogs.api.endpoints.marketplace.requests.fee.MarketplaceFeeRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.models.Fee;
 import discojx.discogs.api.requests.AbstractRequest;
 import discojx.discogs.api.requests.AbstractRequestBuilder;
@@ -66,7 +69,7 @@ public class DefaultMarketplaceFeeRequest extends AbstractRequest implements Mar
     }
 
     @Override
-    public CompletableFuture<Fee> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<Fee>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
@@ -77,7 +80,7 @@ public class DefaultMarketplaceFeeRequest extends AbstractRequest implements Mar
                 throw new CompletionException(e);
             }
 
-            return fee;
+            return new EntityResponseWrapper<>(response, fee);
         });
     }
 }

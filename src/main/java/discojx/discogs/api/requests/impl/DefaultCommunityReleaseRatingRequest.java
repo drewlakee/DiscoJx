@@ -4,6 +4,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.database.requests.release.rating.community.CommunityReleaseRatingRequest;
 import discojx.discogs.api.endpoints.database.requests.release.rating.community.CommunityReleaseRatingRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.models.CommunityReleaseRating;
 import discojx.discogs.api.requests.AbstractRequest;
 import discojx.discogs.api.requests.AbstractRequestBuilder;
@@ -71,7 +72,7 @@ public class DefaultCommunityReleaseRatingRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<CommunityReleaseRating> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<CommunityReleaseRating>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
@@ -82,7 +83,7 @@ public class DefaultCommunityReleaseRatingRequest extends AbstractRequest
                 throw new CompletionException(e);
             }
 
-            return communityReleaseRating;
+            return new EntityResponseWrapper<>(response, communityReleaseRating);
         });
     }
 }

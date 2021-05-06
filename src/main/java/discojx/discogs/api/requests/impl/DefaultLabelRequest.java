@@ -4,6 +4,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.database.requests.label.LabelRequest;
 import discojx.discogs.api.endpoints.database.requests.label.LabelRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.models.Label;
 import discojx.discogs.api.requests.AbstractRequest;
 import discojx.discogs.api.requests.AbstractRequestBuilder;
@@ -68,7 +69,7 @@ public class DefaultLabelRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<Label> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<Label>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
@@ -79,7 +80,7 @@ public class DefaultLabelRequest extends AbstractRequest
                 throw new CompletionException(e);
             }
 
-            return label;
+            return new EntityResponseWrapper<>(response, label);
         });
     }
 }

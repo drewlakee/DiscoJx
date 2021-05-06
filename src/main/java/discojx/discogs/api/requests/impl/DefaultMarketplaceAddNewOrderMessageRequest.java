@@ -6,6 +6,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.marketplace.order.requests.messages.add.MarketplaceAddNewOrderMessageRequest;
 import discojx.discogs.api.endpoints.marketplace.order.requests.messages.add.MarketplaceAddNewOrderMessageRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.models.OrderMessage;
 import discojx.discogs.api.requests.AbstractJsonParameterizedRequest;
 import discojx.discogs.api.requests.AbstractJsonParameterizedRequestBuilder;
@@ -100,7 +101,7 @@ public class DefaultMarketplaceAddNewOrderMessageRequest extends AbstractJsonPar
     }
 
     @Override
-    public CompletableFuture<OrderMessage> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<OrderMessage>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpPost request = new HttpPost(queryUrl);
             request.addHeader("Content-Type", "application/json");
@@ -114,7 +115,7 @@ public class DefaultMarketplaceAddNewOrderMessageRequest extends AbstractJsonPar
                 throw new CompletionException(e);
             }
 
-            return orderMessage;
+            return new EntityResponseWrapper<>(response, orderMessage);
         });
     }
 }

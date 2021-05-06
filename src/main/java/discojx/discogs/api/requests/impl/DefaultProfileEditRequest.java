@@ -6,6 +6,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.user.identity.requests.profile.edit.ProfileEditRequest;
 import discojx.discogs.api.endpoints.user.identity.requests.profile.edit.ProfileEditRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.models.Profile;
 import discojx.discogs.api.requests.AbstractJsonParameterizedRequest;
 import discojx.discogs.api.requests.AbstractJsonParameterizedRequestBuilder;
@@ -129,7 +130,7 @@ public class DefaultProfileEditRequest extends AbstractJsonParameterizedRequest<
     }
 
     @Override
-    public CompletableFuture<Profile> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<Profile>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpPost request = new HttpPost(queryUrl);
             request.addHeader("Content-Type", "application/json");
@@ -143,7 +144,7 @@ public class DefaultProfileEditRequest extends AbstractJsonParameterizedRequest<
                 throw new CompletionException(e);
             }
 
-            return profile;
+            return new EntityResponseWrapper<>(response, profile);
         });
     }
 }

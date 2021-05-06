@@ -4,6 +4,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.inventory.upload.requests.recent.GetRecentUploadsRequest;
 import discojx.discogs.api.endpoints.inventory.upload.requests.recent.GetRecentUploadsRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.requests.GetRecentUploads;
 import discojx.discogs.api.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.discogs.api.requests.AbstractRequest;
@@ -91,7 +92,7 @@ public class DefaultGetRecentUploadsRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<GetRecentUploads> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<GetRecentUploads>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
@@ -102,7 +103,7 @@ public class DefaultGetRecentUploadsRequest extends AbstractRequest
                 throw new CompletionException(e);
             }
 
-            return getRecentUploads;
+            return new EntityResponseWrapper<>(response, getRecentUploads);
         });
     }
 }

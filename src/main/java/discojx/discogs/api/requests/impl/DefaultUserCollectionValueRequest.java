@@ -4,6 +4,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.user.collection.requests.value.UserCollectionValueRequest;
 import discojx.discogs.api.endpoints.user.collection.requests.value.UserCollectionValueRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.models.UserCollectionValue;
 import discojx.discogs.api.requests.AbstractRequest;
 import discojx.discogs.api.requests.AbstractRequestBuilder;
@@ -70,7 +71,7 @@ public class DefaultUserCollectionValueRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<UserCollectionValue> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<UserCollectionValue>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
@@ -81,7 +82,7 @@ public class DefaultUserCollectionValueRequest extends AbstractRequest
                 throw new CompletionException(e);
             }
 
-            return userCollectionValue;
+            return new EntityResponseWrapper<>(response, userCollectionValue);
         });
     }
 }

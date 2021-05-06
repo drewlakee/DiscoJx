@@ -4,6 +4,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.database.requests.artist.releases.ArtistReleasesRequest;
 import discojx.discogs.api.endpoints.database.requests.artist.releases.ArtistReleasesRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.requests.ArtistReleases;
 import discojx.discogs.api.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.discogs.api.requests.AbstractRequest;
@@ -118,7 +119,7 @@ public class DefaultArtistReleasesRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<ArtistReleases> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<ArtistReleases>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
@@ -129,7 +130,7 @@ public class DefaultArtistReleasesRequest extends AbstractRequest
                 throw new CompletionException(e);
             }
 
-            return artistReleases;
+            return new EntityResponseWrapper<>(response, artistReleases);
         });
     }
 }

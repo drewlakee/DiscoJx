@@ -4,6 +4,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.inventory.upload.requests.recent.get.GetUploadRequest;
 import discojx.discogs.api.endpoints.inventory.upload.requests.recent.get.GetUploadRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.models.UploadItem;
 import discojx.discogs.api.requests.AbstractRequest;
 import discojx.discogs.api.requests.AbstractRequestBuilder;
@@ -70,7 +71,7 @@ public class DefaultGetUploadRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<UploadItem> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<UploadItem>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
@@ -81,7 +82,7 @@ public class DefaultGetUploadRequest extends AbstractRequest
                 throw new CompletionException(e);
             }
 
-            return uploadItem;
+            return new EntityResponseWrapper<>(response, uploadItem);
         });
     }
 }

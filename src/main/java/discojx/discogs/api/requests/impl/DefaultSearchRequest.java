@@ -4,6 +4,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.database.requests.search.SearchRequest;
 import discojx.discogs.api.endpoints.database.requests.search.SearchRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.requests.SearchResults;
 import discojx.discogs.api.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.discogs.api.requests.AbstractRequest;
@@ -253,7 +254,7 @@ public class DefaultSearchRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<SearchResults> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<SearchResults>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
@@ -264,7 +265,7 @@ public class DefaultSearchRequest extends AbstractRequest
                 throw new CompletionException(e);
             }
 
-            return searchResults;
+            return new EntityResponseWrapper<>(response, searchResults);
         });
     }
 }

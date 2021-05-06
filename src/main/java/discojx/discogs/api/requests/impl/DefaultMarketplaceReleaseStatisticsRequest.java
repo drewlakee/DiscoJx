@@ -4,6 +4,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.marketplace.requests.release.MarketplaceReleaseStatisticsRequest;
 import discojx.discogs.api.endpoints.marketplace.requests.release.MarketplaceReleaseStatisticsRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.models.MarketplaceReleaseStatistics;
 import discojx.discogs.api.requests.AbstractRequest;
 import discojx.discogs.api.requests.AbstractRequestBuilder;
@@ -76,7 +77,7 @@ public class DefaultMarketplaceReleaseStatisticsRequest extends AbstractRequest 
     }
 
     @Override
-    public CompletableFuture<MarketplaceReleaseStatistics> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<MarketplaceReleaseStatistics>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
@@ -87,7 +88,7 @@ public class DefaultMarketplaceReleaseStatisticsRequest extends AbstractRequest 
                 throw new CompletionException(e);
             }
 
-            return marketplaceReleaseStatistics;
+            return new EntityResponseWrapper<>(response, marketplaceReleaseStatistics);
         });
     }
 }

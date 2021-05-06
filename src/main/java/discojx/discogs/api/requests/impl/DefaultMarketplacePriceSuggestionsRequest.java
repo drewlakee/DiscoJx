@@ -4,6 +4,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.marketplace.requests.price.MarketplacePriceSuggestionsRequest;
 import discojx.discogs.api.endpoints.marketplace.requests.price.MarketplacePriceSuggestionsRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.requests.MarketplacePriceSuggestions;
 import discojx.discogs.api.requests.AbstractRequest;
 import discojx.discogs.api.requests.AbstractRequestBuilder;
@@ -68,7 +69,7 @@ public class DefaultMarketplacePriceSuggestionsRequest extends AbstractRequest i
     }
 
     @Override
-    public CompletableFuture<MarketplacePriceSuggestions> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<MarketplacePriceSuggestions>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
@@ -79,7 +80,7 @@ public class DefaultMarketplacePriceSuggestionsRequest extends AbstractRequest i
                 throw new CompletionException(e);
             }
 
-            return marketplacePriceSuggestions;
+            return new EntityResponseWrapper<>(response, marketplacePriceSuggestions);
         });
     }
 }

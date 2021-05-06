@@ -7,7 +7,7 @@ import discojx.discogs.api.endpoints.marketplace.listing.DefaultMarketplaceListi
 import discojx.discogs.api.endpoints.marketplace.listing.MarketplaceListingApi;
 import discojx.discogs.api.endpoints.marketplace.order.DefaultMarketplaceOrderApi;
 import discojx.discogs.api.endpoints.marketplace.order.MarketplaceOrderApi;
-import discojx.discogs.api.endpoints.marketplace.requests.fee.DefaultMarketplaceFeeRequest;
+import discojx.discogs.api.requests.impl.DefaultMarketplaceFeeRequest;
 import discojx.discogs.api.endpoints.marketplace.requests.fee.MarketplaceFeeRequestBuilder;
 import discojx.discogs.api.requests.impl.DefaultMarketplaceFeeWithCurrencyRequest;
 import discojx.discogs.api.endpoints.marketplace.requests.fee.currency.MarketplaceFeeWithCurrencyRequestBuilder;

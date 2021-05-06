@@ -3,6 +3,7 @@ package discojx.discogs.api.requests.impl;
 import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.user.identity.requests.UserIdentityRequest;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.models.UserIdentity;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpResponse;
@@ -22,7 +23,7 @@ public class DefaultUserIdentityRequest implements UserIdentityRequest {
     }
 
     @Override
-    public CompletableFuture<UserIdentity> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<UserIdentity>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(DiscogsApiEndpoints.USER_IDENTITY.getEndpoint()));
 
@@ -33,7 +34,7 @@ public class DefaultUserIdentityRequest implements UserIdentityRequest {
                 throw new CompletionException(e);
             }
 
-            return userIdentity;
+            return new EntityResponseWrapper<>(response, userIdentity);
         });
     }
 

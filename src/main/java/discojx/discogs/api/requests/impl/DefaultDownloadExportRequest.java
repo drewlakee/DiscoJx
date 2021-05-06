@@ -6,7 +6,7 @@ import discojx.discogs.api.endpoints.inventory.export.requests.download.Download
 import discojx.discogs.api.endpoints.inventory.export.requests.download.DownloadExportRequestBuilder;
 import discojx.discogs.api.requests.AbstractRequest;
 import discojx.discogs.api.requests.AbstractRequestBuilder;
-import discojx.utils.files.FileResponseWrapper;
+import discojx.discogs.objects.lib.FileResponseWrapper;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;

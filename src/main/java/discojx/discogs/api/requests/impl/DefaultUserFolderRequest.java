@@ -4,6 +4,7 @@ import discojx.clients.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.user.collection.requests.folder.UserFolderRequest;
 import discojx.discogs.api.endpoints.user.collection.requests.folder.UserFolderRequestBuilder;
+import discojx.discogs.objects.lib.EntityResponseWrapper;
 import discojx.discogs.objects.models.UserFolders;
 import discojx.discogs.api.requests.AbstractRequest;
 import discojx.discogs.api.requests.AbstractRequestBuilder;
@@ -81,7 +82,7 @@ public class DefaultUserFolderRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<UserFolders.UserFolder> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<UserFolders.UserFolder>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
@@ -92,7 +93,7 @@ public class DefaultUserFolderRequest extends AbstractRequest
                 throw new CompletionException(e);
             }
 
-            return userFolder;
+            return new EntityResponseWrapper<>(response, userFolder);
         });
     }
 }

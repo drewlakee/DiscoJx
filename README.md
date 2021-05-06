@@ -11,10 +11,10 @@ DiscogsApi api = new DefaultDiscogsApi.Builder()
         .build(); 
 
 // try to make request and identify yourself
-UserIdentity identity = api.user().identity().identifyYourself().executeAsync().join();
+UserIdentity entity = api.user().identity().identifyYourself().executeAsync().join().entity();
 
 // query database for some useful data
-SearchResults searchResults = api.database().search().query("Tiny Moving Parts").build().executeAsync().join();
+SearchResults searchResults = api.database().search().query("Tiny Moving Parts").build().executeAsync().join().entity();
 searchResults.getResults().forEach(System.out::println);
 
 // ...
