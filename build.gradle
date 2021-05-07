@@ -1,19 +1,99 @@
 plugins {
     id 'java'
+    id 'maven'
+    id 'signing'
 }
 
-group 'drewlakee'
+group 'io.github.drewlakee'
 version '1.0.0'
 
 repositories {
     mavenCentral()
 }
 
+ext {
+    jacksonVersion = "2.12.3"
+    apacheHttpClientVersion = "4.5.13"
+}
+
 dependencies {
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "$jacksonVersion"
+
+    implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: "$apacheHttpClientVersion"
+    implementation group: 'org.apache.httpcomponents', name: 'httpmime', version: "$apacheHttpClientVersion"
+
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
 }
 
 test {
     useJUnitPlatform()
+    maxParallelForks(Runtime.getRuntime().availableProcessors())
+}
+
+task javadocJar(type: Jar) {
+    classifier('javadoc')
+    from javadoc
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier('sources')
+    from sourceSets.main.allSource
+}
+
+jar {
+    from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+}
+
+artifacts {
+    archives javadocJar, sourcesJar, jar
+}
+
+signing {
+    sign configurations.archives
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+            repository(url: "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            snapshotRepository(url: "https://s01.oss.sonatype.org/content/repositories/snapshots/") {
+                authentication(userName: ossrhUsername, password: ossrhPassword)
+            }
+
+            pom.project {
+                name 'discojx'
+                packaging 'jar'
+
+                description 'An Asynchronous DiscogsAPI Java Client Library.'
+                url 'https://github.com/drewlakee/DiscoJx'
+
+                scm {
+                    connection 'scm:git:git://github.com/drewlakee/DiscoJx.git'
+                    developerConnection 'scm:git:git@github.com:drewlakee/DiscoJx.git'
+                    url 'https://github.com/drewlakee/DiscoJx'
+                }
+
+                licenses {
+                    license {
+                        name 'MIT License'
+                        url 'http://www.opensource.org/licenses/mit-license.php'
+                    }
+                }
+
+                developers {
+                    developer {
+                        id 'drewlakee'
+                        name 'Andrew Aleynikov'
+                        email 'drew.lake@yandex.ru'
+                    }
+                }
+            }
+        }
+    }
 }
