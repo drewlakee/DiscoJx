@@ -21,3 +21,25 @@ searchResults.getResults().forEach(System.out::println);
 ```
 
 Watch out releases to see some implemented API versions and features.
+
+## Installation
+
+The artifact is available through
+[Maven Central Repository Search](https://search.maven.org/artifact/io.github.drewlakee/discojx) via
+[Sonatype](https://s01.oss.sonatype.org/#nexus-search;quick~discojx).
+
+### Maven
+
+```XML
+<dependency>
+  <groupId>io.github.drewlakee</groupId>
+  <artifactId>discojx</artifactId>
+  <version>1.0.0</version>
+</dependency>
+```
+
+### Gradle
+
+```Gradle
+implementation 'io.github.drewlakee:discojx:1.0.0'
+```
