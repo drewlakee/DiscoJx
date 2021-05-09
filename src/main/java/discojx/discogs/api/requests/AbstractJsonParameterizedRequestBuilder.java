@@ -1,7 +1,7 @@
 package discojx.discogs.api.requests;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 
 import java.util.Objects;
 

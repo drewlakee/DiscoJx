@@ -1,8 +1,8 @@
 package discojx.discogs.api.endpoints.user.collection.requests.fields;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import discojx.discogs.api.requests.AsyncExecutableRequest;
-import discojx.discogs.objects.lib.EntityResponseWrapper;
-import discojx.discogs.objects.models.ListCustomFields;
+import discojx.discogs.lib.EntityResponseWrapper;
 
-public interface ListCustomFieldsRequest extends AsyncExecutableRequest<EntityResponseWrapper<ListCustomFields>> {
+public interface ListCustomFieldsRequest extends AsyncExecutableRequest<EntityResponseWrapper<JsonNode>> {
 }

@@ -1,6 +1,6 @@
 package discojx.discogs.api.requests.impl;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.inventory.upload.requests.add.AddInventoryRequest;
 import discojx.discogs.api.endpoints.inventory.upload.requests.add.AddInventoryRequestBuilder;

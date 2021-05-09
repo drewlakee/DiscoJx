@@ -1,6 +1,6 @@
 package discojx.discogs.api.requests.impl;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.database.requests.release.rating.user.delete.ReleaseRatingDeleteByUserRequest;
 import discojx.discogs.api.endpoints.database.requests.release.rating.user.delete.ReleaseRatingDeleteByUserRequestBuilder;

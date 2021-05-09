@@ -2,7 +2,7 @@ package discojx.discogs.api.requests.impl;
 
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.user.collection.requests.release.rating.ChangeReleaseRatingRequest;
 import discojx.discogs.api.endpoints.user.collection.requests.release.rating.ChangeReleaseRatingRequestBuilder;

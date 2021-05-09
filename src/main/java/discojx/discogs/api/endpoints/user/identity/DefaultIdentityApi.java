@@ -1,6 +1,6 @@
 package discojx.discogs.api.endpoints.user.identity;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.endpoints.user.identity.requests.UserIdentityRequest;
 import discojx.discogs.api.endpoints.user.identity.requests.contributions.UserContributionsRequestBuilder;
 import discojx.discogs.api.endpoints.user.identity.requests.profile.ProfileRequestBuilder;

@@ -1,6 +1,6 @@
 package discojx.discogs.api.endpoints.marketplace.order;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.endpoints.marketplace.order.requests.edit.MarketplaceEditOrderRequestBuilder;
 import discojx.discogs.api.endpoints.marketplace.order.requests.get.MarketplaceGetOrderRequestBuilder;
 import discojx.discogs.api.endpoints.marketplace.order.requests.list.MarketplaceListOrdersRequestBuilder;

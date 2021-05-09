@@ -1,6 +1,6 @@
 package discojx.discogs.api.endpoints.marketplace;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.endpoints.marketplace.inventory.DefaultMarketplaceInventoryApi;
 import discojx.discogs.api.endpoints.marketplace.inventory.MarketplaceInventoryApi;
 import discojx.discogs.api.endpoints.marketplace.listing.DefaultMarketplaceListingApi;

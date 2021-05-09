@@ -1,6 +1,6 @@
 package discojx.discogs.api.requests;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 
 import java.util.Objects;
 

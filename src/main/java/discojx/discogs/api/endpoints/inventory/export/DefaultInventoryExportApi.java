@@ -1,6 +1,6 @@
 package discojx.discogs.api.endpoints.inventory.export;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.endpoints.inventory.export.requests.download.DownloadExportRequestBuilder;
 import discojx.discogs.api.endpoints.inventory.export.requests.get.GetExportRequestBuilder;
 import discojx.discogs.api.endpoints.inventory.export.requests.recent.GetRecentExportsRequestBuilder;

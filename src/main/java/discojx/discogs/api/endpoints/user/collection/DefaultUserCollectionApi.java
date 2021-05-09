@@ -1,6 +1,6 @@
 package discojx.discogs.api.endpoints.user.collection;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.endpoints.user.collection.requests.UserFoldersRequestBuilder;
 import discojx.discogs.api.endpoints.user.collection.requests.create.CreateUserFolderRequestBuilder;
 import discojx.discogs.api.endpoints.user.collection.requests.fields.ListCustomFieldsRequestBuilder;

@@ -1,8 +1,8 @@
 package discojx.discogs.api.endpoints.database.requests.release.rating.community;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import discojx.discogs.api.requests.AsyncExecutableRequest;
-import discojx.discogs.objects.lib.EntityResponseWrapper;
-import discojx.discogs.objects.models.CommunityReleaseRating;
+import discojx.discogs.lib.EntityResponseWrapper;
 
-public interface CommunityReleaseRatingRequest extends AsyncExecutableRequest<EntityResponseWrapper<CommunityReleaseRating>> {
+public interface CommunityReleaseRatingRequest extends AsyncExecutableRequest<EntityResponseWrapper<JsonNode>> {
 }

@@ -1,13 +1,13 @@
 package discojx.discogs.api.requests.impl;
 
-import discojx.clients.AbstractHttpClient;
+import com.fasterxml.jackson.databind.JsonNode;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.marketplace.requests.price.MarketplacePriceSuggestionsRequest;
 import discojx.discogs.api.endpoints.marketplace.requests.price.MarketplacePriceSuggestionsRequestBuilder;
 import discojx.discogs.api.requests.AbstractRequest;
 import discojx.discogs.api.requests.AbstractRequestBuilder;
-import discojx.discogs.objects.lib.EntityResponseWrapper;
-import discojx.discogs.objects.requests.MarketplacePriceSuggestions;
+import discojx.discogs.lib.EntityResponseWrapper;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -69,13 +69,13 @@ public class DefaultMarketplacePriceSuggestionsRequest extends AbstractRequest i
     }
 
     @Override
-    public CompletableFuture<EntityResponseWrapper<MarketplacePriceSuggestions>> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<JsonNode>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
-            MarketplacePriceSuggestions marketplacePriceSuggestions;
+            JsonNode marketplacePriceSuggestions;
             try {
-                marketplacePriceSuggestions = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), MarketplacePriceSuggestions.class);
+                marketplacePriceSuggestions = JsonUtils.DefaultObjectMapperHolder.mapper.readTree(response.getEntity().getContent());
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

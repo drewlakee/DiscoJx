@@ -1,4 +1,4 @@
-package discojx.discogs.objects.lib;
+package discojx.discogs.lib;
 
 import org.apache.http.HttpResponse;
 
