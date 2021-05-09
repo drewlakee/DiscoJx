@@ -1,4 +1,4 @@
-package discojx.clients;
+package discojx.http;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpUriRequest;

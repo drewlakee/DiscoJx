@@ -1,6 +1,6 @@
 package discojx.discogs.api.requests.impl;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.user.collection.requests.release.delete.DeleteInstanceFromFolderRequest;
 import discojx.discogs.api.endpoints.user.collection.requests.release.delete.DeleteInstanceFromFolderRequestBuilder;

@@ -1,12 +1,12 @@
 package discojx.discogs.api.requests.impl;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.inventory.export.requests.download.DownloadExportRequest;
 import discojx.discogs.api.endpoints.inventory.export.requests.download.DownloadExportRequestBuilder;
 import discojx.discogs.api.requests.AbstractRequest;
 import discojx.discogs.api.requests.AbstractRequestBuilder;
-import discojx.discogs.objects.lib.FileResponseWrapper;
+import discojx.discogs.lib.FileResponseWrapper;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;

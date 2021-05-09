@@ -1,6 +1,6 @@
 package discojx.discogs.api.requests;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.utils.requests.RequestPathParametersConstructor;
 
 public abstract class AbstractPathParameterizedRequestBuilder<P extends RequestPathParametersConstructor> extends AbstractRequestBuilder {

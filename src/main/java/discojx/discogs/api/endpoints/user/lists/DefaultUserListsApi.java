@@ -1,6 +1,6 @@
 package discojx.discogs.api.endpoints.user.lists;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.endpoints.user.lists.requests.UserListsRequestBuilder;
 import discojx.discogs.api.endpoints.user.lists.requests.list.UserListRequestBuilder;
 import discojx.discogs.api.requests.impl.DefaultUserListRequest;

@@ -1,8 +1,8 @@
 package discojx.discogs.api.endpoints.marketplace.requests.fee;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import discojx.discogs.api.requests.AsyncExecutableRequest;
-import discojx.discogs.objects.lib.EntityResponseWrapper;
-import discojx.discogs.objects.models.Fee;
+import discojx.discogs.lib.EntityResponseWrapper;
 
-public interface MarketplaceFeeRequest extends AsyncExecutableRequest<EntityResponseWrapper<Fee>> {
+public interface MarketplaceFeeRequest extends AsyncExecutableRequest<EntityResponseWrapper<JsonNode>> {
 }

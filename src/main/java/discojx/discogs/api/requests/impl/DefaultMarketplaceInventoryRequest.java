@@ -1,14 +1,14 @@
 package discojx.discogs.api.requests.impl;
 
-import discojx.clients.AbstractHttpClient;
+import com.fasterxml.jackson.databind.JsonNode;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.marketplace.inventory.requests.MarketplaceInventoryRequest;
 import discojx.discogs.api.endpoints.marketplace.inventory.requests.MarketplaceInventoryRequestBuilder;
 import discojx.discogs.api.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.discogs.api.requests.AbstractRequest;
 import discojx.discogs.api.requests.AbstractRequestBuilder;
-import discojx.discogs.objects.lib.EntityResponseWrapper;
-import discojx.discogs.objects.requests.MarketplaceInventory;
+import discojx.discogs.lib.EntityResponseWrapper;
 import discojx.utils.json.JsonUtils;
 import discojx.utils.requests.RequestPathParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestPathParametersConstructor;
@@ -128,13 +128,13 @@ public class DefaultMarketplaceInventoryRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<EntityResponseWrapper<MarketplaceInventory>> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<JsonNode>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
-            MarketplaceInventory marketplaceInventory;
+            JsonNode marketplaceInventory;
             try {
-                marketplaceInventory = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), MarketplaceInventory.class);
+                marketplaceInventory = JsonUtils.DefaultObjectMapperHolder.mapper.readTree(response.getEntity().getContent());
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

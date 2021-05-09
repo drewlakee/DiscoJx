@@ -1,15 +1,15 @@
 package discojx.discogs.api.requests.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.user.identity.requests.profile.edit.ProfileEditRequest;
 import discojx.discogs.api.endpoints.user.identity.requests.profile.edit.ProfileEditRequestBuilder;
 import discojx.discogs.api.requests.AbstractJsonParameterizedRequest;
 import discojx.discogs.api.requests.AbstractJsonParameterizedRequestBuilder;
-import discojx.discogs.objects.lib.EntityResponseWrapper;
-import discojx.discogs.objects.models.Profile;
+import discojx.discogs.lib.EntityResponseWrapper;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -130,16 +130,16 @@ public class DefaultProfileEditRequest extends AbstractJsonParameterizedRequest<
     }
 
     @Override
-    public CompletableFuture<EntityResponseWrapper<Profile>> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<JsonNode>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpPost request = new HttpPost(queryUrl);
             request.addHeader("Content-Type", "application/json");
             request.setEntity(new StringEntity(jsonObject.toString(), "UTF-8"));
             HttpResponse response = client.execute(request);
 
-            Profile profile;
+            JsonNode profile;
             try {
-                profile = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), Profile.class);
+                profile = JsonUtils.DefaultObjectMapperHolder.mapper.readTree(response.getEntity().getContent());
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

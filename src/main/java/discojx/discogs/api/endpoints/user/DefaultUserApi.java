@@ -1,6 +1,6 @@
 package discojx.discogs.api.endpoints.user;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.endpoints.user.collection.DefaultUserCollectionApi;
 import discojx.discogs.api.endpoints.user.collection.UserCollectionApi;
 import discojx.discogs.api.endpoints.user.identity.DefaultIdentityApi;

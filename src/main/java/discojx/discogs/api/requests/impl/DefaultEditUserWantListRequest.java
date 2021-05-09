@@ -1,15 +1,15 @@
 package discojx.discogs.api.requests.impl;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.user.wantlist.requests.edit.EditUserWantListRequest;
 import discojx.discogs.api.endpoints.user.wantlist.requests.edit.EditUserWantListRequestBuilder;
 import discojx.discogs.api.requests.AbstractJsonParameterizedRequest;
 import discojx.discogs.api.requests.AbstractJsonParameterizedRequestBuilder;
-import discojx.discogs.objects.lib.EntityResponseWrapper;
-import discojx.discogs.objects.models.UserWant;
+import discojx.discogs.lib.EntityResponseWrapper;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpPost;
@@ -112,16 +112,16 @@ public class DefaultEditUserWantListRequest extends AbstractJsonParameterizedReq
     }
 
     @Override
-    public CompletableFuture<EntityResponseWrapper<UserWant>> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<JsonNode>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpPost request = new HttpPost(queryUrl);
             request.setHeader("Content-Type", "application/json");
             request.setEntity(new StringEntity(jsonObject.toString(), "UTF-8"));
             HttpResponse response = client.execute(request);
 
-            UserWant userWant;
+            JsonNode userWant;
             try {
-                userWant = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), UserWant.class);
+                userWant = JsonUtils.DefaultObjectMapperHolder.mapper.readTree(response.getEntity().getContent());
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

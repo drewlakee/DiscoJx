@@ -1,6 +1,6 @@
 package discojx.discogs.api.endpoints.user.wantlist;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.endpoints.user.wantlist.requests.UserWantListRequestBuilder;
 import discojx.discogs.api.endpoints.user.wantlist.requests.add.AddUserWantListRequestBuilder;
 import discojx.discogs.api.endpoints.user.wantlist.requests.delete.DeleteUserWantListRequestBuilder;

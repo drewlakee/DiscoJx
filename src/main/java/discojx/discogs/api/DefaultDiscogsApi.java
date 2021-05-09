@@ -1,7 +1,7 @@
 package discojx.discogs.api;
 
-import discojx.clients.AbstractHttpClient;
-import discojx.clients.DefaultLazyHttpClient;
+import discojx.http.AbstractHttpClient;
+import discojx.http.DefaultLazyHttpClient;
 import discojx.discogs.api.endpoints.database.DatabaseApi;
 import discojx.discogs.api.endpoints.database.DefaultDatabaseApi;
 import discojx.discogs.api.endpoints.inventory.DefaultInventoryApi;

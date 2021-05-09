@@ -1,10 +1,10 @@
 package discojx.discogs.api.requests.impl;
 
-import discojx.clients.AbstractHttpClient;
+import com.fasterxml.jackson.databind.JsonNode;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.user.identity.requests.UserIdentityRequest;
-import discojx.discogs.objects.lib.EntityResponseWrapper;
-import discojx.discogs.objects.models.UserIdentity;
+import discojx.discogs.lib.EntityResponseWrapper;
 import discojx.utils.json.JsonUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -23,13 +23,13 @@ public class DefaultUserIdentityRequest implements UserIdentityRequest {
     }
 
     @Override
-    public CompletableFuture<EntityResponseWrapper<UserIdentity>> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<JsonNode>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(DiscogsApiEndpoints.USER_IDENTITY.getEndpoint()));
 
-            UserIdentity userIdentity;
+            JsonNode userIdentity;
             try {
-                userIdentity = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), UserIdentity.class);
+                userIdentity = JsonUtils.DefaultObjectMapperHolder.mapper.readTree(response.getEntity().getContent());
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

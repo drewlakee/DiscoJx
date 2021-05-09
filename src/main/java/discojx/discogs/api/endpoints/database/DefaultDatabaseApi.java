@@ -1,6 +1,6 @@
 package discojx.discogs.api.endpoints.database;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.endpoints.database.requests.artist.ArtistRequestBuilder;
 import discojx.discogs.api.endpoints.database.requests.artist.releases.ArtistReleasesRequestBuilder;
 import discojx.discogs.api.endpoints.database.requests.label.LabelRequestBuilder;

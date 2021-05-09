@@ -1,6 +1,6 @@
 package discojx.discogs.api.endpoints.inventory;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.endpoints.inventory.export.DefaultInventoryExportApi;
 import discojx.discogs.api.endpoints.inventory.export.InventoryExportApi;
 import discojx.discogs.api.endpoints.inventory.upload.DefaultInventoryUploadApi;

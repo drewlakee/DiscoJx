@@ -1,13 +1,13 @@
 package discojx.discogs.api.requests.impl;
 
-import discojx.clients.AbstractHttpClient;
+import com.fasterxml.jackson.databind.JsonNode;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.user.wantlist.requests.UserWantListRequest;
 import discojx.discogs.api.endpoints.user.wantlist.requests.UserWantListRequestBuilder;
 import discojx.discogs.api.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.discogs.api.requests.AbstractRequest;
-import discojx.discogs.objects.lib.EntityResponseWrapper;
-import discojx.discogs.objects.requests.UserWantList;
+import discojx.discogs.lib.EntityResponseWrapper;
 import discojx.utils.json.JsonUtils;
 import discojx.utils.requests.RequestPathParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestPathParametersConstructor;
@@ -99,13 +99,13 @@ public class DefaultUserWantListRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<EntityResponseWrapper<UserWantList>> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<JsonNode>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
-            UserWantList userWantList;
+            JsonNode userWantList;
             try {
-                userWantList = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), UserWantList.class);
+                userWantList = JsonUtils.DefaultObjectMapperHolder.mapper.readTree(response.getEntity().getContent());
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

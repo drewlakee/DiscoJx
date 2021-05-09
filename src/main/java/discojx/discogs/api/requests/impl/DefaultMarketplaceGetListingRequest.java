@@ -1,14 +1,14 @@
 package discojx.discogs.api.requests.impl;
 
-import discojx.clients.AbstractHttpClient;
+import com.fasterxml.jackson.databind.JsonNode;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.marketplace.listing.requests.get.MarketplaceGetListingRequest;
 import discojx.discogs.api.endpoints.marketplace.listing.requests.get.MarketplaceGetListingRequestBuilder;
 import discojx.discogs.api.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.discogs.api.requests.AbstractRequest;
 import discojx.discogs.api.requests.AbstractRequestBuilder;
-import discojx.discogs.objects.lib.EntityResponseWrapper;
-import discojx.discogs.objects.models.Listing;
+import discojx.discogs.lib.EntityResponseWrapper;
 import discojx.utils.json.JsonUtils;
 import discojx.utils.requests.RequestPathParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestPathParametersConstructor;
@@ -92,13 +92,13 @@ public class DefaultMarketplaceGetListingRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<EntityResponseWrapper<Listing>> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<JsonNode>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
-            Listing listing;
+            JsonNode listing;
             try {
-                listing = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), Listing.class);
+                listing = JsonUtils.DefaultObjectMapperHolder.mapper.readTree(response.getEntity().getContent());
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

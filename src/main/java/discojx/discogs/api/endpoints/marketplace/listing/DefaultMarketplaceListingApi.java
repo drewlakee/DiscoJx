@@ -1,6 +1,6 @@
 package discojx.discogs.api.endpoints.marketplace.listing;
 
-import discojx.clients.AbstractHttpClient;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.endpoints.marketplace.listing.requests.create.MarketplaceNewListingRequestBuilder;
 import discojx.discogs.api.endpoints.marketplace.listing.requests.delete.MarketplaceDeleteListingRequestBuilder;
 import discojx.discogs.api.endpoints.marketplace.listing.requests.edit.MarketplaceEditListingRequestBuilder;

@@ -1,13 +1,13 @@
 package discojx.discogs.api.requests.impl;
 
-import discojx.clients.AbstractHttpClient;
+import com.fasterxml.jackson.databind.JsonNode;
+import discojx.http.AbstractHttpClient;
 import discojx.discogs.api.DiscogsApiEndpoints;
 import discojx.discogs.api.endpoints.database.requests.release.master.versions.MasterReleaseVersionsRequest;
 import discojx.discogs.api.endpoints.database.requests.release.master.versions.MasterReleaseVersionsRequestBuilder;
 import discojx.discogs.api.requests.AbstractPathParameterizedRequestBuilder;
 import discojx.discogs.api.requests.AbstractRequest;
-import discojx.discogs.objects.lib.EntityResponseWrapper;
-import discojx.discogs.objects.models.MasterReleaseVersions;
+import discojx.discogs.lib.EntityResponseWrapper;
 import discojx.utils.json.JsonUtils;
 import discojx.utils.requests.RequestPathParametersConstructor;
 import discojx.utils.requests.StringBuilderSequentialRequestPathParametersConstructor;
@@ -161,13 +161,13 @@ public class DefaultMasterReleaseVersionsRequest extends AbstractRequest
     }
 
     @Override
-    public CompletableFuture<EntityResponseWrapper<MasterReleaseVersions>> executeAsync() {
+    public CompletableFuture<EntityResponseWrapper<JsonNode>> executeAsync() {
         return CompletableFuture.supplyAsync(() -> {
             HttpResponse response = client.execute(new HttpGet(queryUrl));
 
-            MasterReleaseVersions masterReleaseVersions;
+            JsonNode masterReleaseVersions;
             try {
-                masterReleaseVersions = JsonUtils.DefaultObjectMapperHolder.mapper.readValue(response.getEntity().getContent(), MasterReleaseVersions.class);
+                masterReleaseVersions = JsonUtils.DefaultObjectMapperHolder.mapper.readTree(response.getEntity().getContent());
             } catch (IOException e) {
                 throw new CompletionException(e);
             }

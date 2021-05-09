@@ -1,8 +1,8 @@
 package discojx.discogs.api.endpoints.database.requests.artist.releases;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import discojx.discogs.api.requests.AsyncExecutableRequest;
-import discojx.discogs.objects.lib.EntityResponseWrapper;
-import discojx.discogs.objects.requests.ArtistReleases;
+import discojx.discogs.lib.EntityResponseWrapper;
 
-public interface ArtistReleasesRequest extends AsyncExecutableRequest<EntityResponseWrapper<ArtistReleases>> {
+public interface ArtistReleasesRequest extends AsyncExecutableRequest<EntityResponseWrapper<JsonNode>> {
 }

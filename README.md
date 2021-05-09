@@ -11,11 +11,11 @@ DiscogsApi api = new DefaultDiscogsApi.Builder()
         .build(); 
 
 // try to make request and identify yourself
-UserIdentity identity = api.user().identity().identifyYourself().executeAsync().join().entity();
+JsonNode identity = api.user().identity().identifyYourself().executeAsync().join().entity();
 
 // query database for some useful data
-SearchResults searchResults = api.database().search().query("Tiny Moving Parts").build().executeAsync().join().entity();
-searchResults.getResults().forEach(System.out::println);
+JsonNode searchResults = api.database().search().query("Tiny Moving Parts").build().executeAsync().join().entity();
+searchResults.withArray("results").forEach(json -> System.out.println(json.get("title")));
 
 // ...
 ```
@@ -34,12 +34,12 @@ The artifact is available through
 <dependency>
   <groupId>io.github.drewlakee</groupId>
   <artifactId>discojx</artifactId>
-  <version>1.0.0</version>
+  <version>1.0.1</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```Gradle
-implementation 'io.github.drewlakee:discojx:1.0.0'
+implementation 'io.github.drewlakee:discojx:1.0.1'
 ```
