@@ -5,7 +5,12 @@ plugins {
 }
 
 group 'io.github.drewlakee'
-version '1.0.1'
+version '1.0.2'
+
+java {
+    sourceCompatibility(JavaVersion.VERSION_11)
+    targetCompatibility(JavaVersion.VERSION_11)
+}
 
 repositories {
     mavenCentral()
@@ -18,7 +23,6 @@ ext {
 
 dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: "$jacksonVersion"
-
     implementation group: 'org.apache.httpcomponents', name: 'httpclient', version: "$apacheHttpClientVersion"
     implementation group: 'org.apache.httpcomponents', name: 'httpmime', version: "$apacheHttpClientVersion"
 
@@ -42,6 +46,12 @@ task sourcesJar(type: Jar, dependsOn: classes) {
 }
 
 jar {
+    manifest {
+        attributes(
+                "Created-By" : "$java.targetCompatibility ($JvmVendorSpec.ADOPTOPENJDK)"
+        )
+    }
+
     from configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
 }
 
