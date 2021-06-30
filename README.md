@@ -34,12 +34,12 @@ The artifact is available through
 <dependency>
   <groupId>io.github.drewlakee</groupId>
   <artifactId>discojx</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.2</version>
 </dependency>
 ```
 
 ### Gradle
 
 ```Gradle
-implementation 'io.github.drewlakee:discojx:1.0.1'
+implementation 'io.github.drewlakee:discojx:1.0.2'
 ```
